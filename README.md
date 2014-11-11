@@ -16,11 +16,12 @@ Parse data is here: https://www.parse.com/apps/besterday/collections
 #### MVP functionality
 - [ ] Splash screen/app icon (Michael?)
 - [x] log in with facebook (Wes)
+- [x] create new text-only bestie (Wes)
+- [ ] bestie needs to be tied to a user (Wes)
 - [ ] sign up/log in without facebook
 - [ ] main view header - completion rate, total besties, current streak, best streak
 - [ ] grid view of besties sorted by date
 - [ ] profile header: image, name, user creation date
-- [x] create new text-only bestie
 - [ ] bestie view: edit, toggle public/private
 - [ ] edit account: display name, email, password
 - [ ] get a provisioning profile so we can install this on a phone for the demo
