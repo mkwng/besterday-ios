@@ -34,12 +34,18 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
+	<key>FacebookAppID</key>
+	<string>1720447911514593</string>
+	<key>FacebookDisplayName</key>
+	<string>Besterday</string>
+	<key> URL types</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
+		<dict>
+			<key>URL Schemes</key>
+			<array>
+				<string>fb1720447911514593</string>
+			</array>
+		</dict>
 	</array>
 </dict>
 </plist>

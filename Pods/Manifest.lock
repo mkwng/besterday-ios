@@ -20,11 +20,32 @@ PODS:
   - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Bolts (1.1.3)
+  - DateTools (1.4.3)
+  - Facebook-iOS-SDK (3.20.0):
+    - Bolts (~> 1.0)
+  - Parse (1.5.0):
+    - Bolts (~> 1.1.3)
+  - ParseFacebookUtils (1.5.0.1):
+    - Facebook-iOS-SDK (~> 3.20)
+    - Parse (~> 1.5.0)
+  - TTTAttributedLabel (1.10.1)
 
 DEPENDENCIES:
   - AFNetworking
+  - DateTools
+  - Facebook-iOS-SDK
+  - Parse
+  - ParseFacebookUtils
+  - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
+  Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
+  DateTools: 7c2d233ea2d4bda3a717d0cd5f58da926a5998d0
+  Facebook-iOS-SDK: 5854404b4b651f612a8ef79ca06d766858f4cb8e
+  Parse: 7de25b6f70f0b233e5d25835f62eabfa91e4f9d7
+  ParseFacebookUtils: df2c8634a66883326629099af3690f1862fe126d
+  TTTAttributedLabel: 94bb04f1e005616002dd2cee0262a0082e533627
 
 COCOAPODS: 0.34.4
