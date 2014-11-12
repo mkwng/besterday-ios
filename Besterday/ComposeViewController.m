@@ -7,6 +7,7 @@
 //
 
 #import "ComposeViewController.h"
+#import "MenuViewController.h"
 #import "Parse.h"
 
 @interface ComposeViewController ()
@@ -15,34 +16,27 @@
 @end
 
 @implementation ComposeViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setupNavigationBar];
+}
+
+- (void)setupNavigationBar {
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu)];
+}
+
+- (void)onMenu {
+    [self presentViewController:[[MenuViewController alloc] init] animated:YES completion:nil];
+}
+
 - (IBAction)onPost:(id)sender {
     
     PFObject *bestie = [PFObject objectWithClassName:@"Bestie"];
     bestie[@"text"] = self.bestieTextView.text;
-
     
     [bestie saveInBackground];
+    
     //TODO: go back to main view controller
 }
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

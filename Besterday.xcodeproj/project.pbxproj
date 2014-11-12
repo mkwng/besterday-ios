@@ -17,6 +17,10 @@
 		2CDC7C3D1A11E8380086B747 /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CDC7C3B1A11E8380086B747 /* ComposeViewController.xib */; };
 		2CDC7C411A11E8420086B747 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC7C3F1A11E8420086B747 /* LoginViewController.m */; };
 		2CDC7C421A11E8420086B747 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CDC7C401A11E8420086B747 /* LoginViewController.xib */; };
+		AF11FADA1A141C41006BCFBF /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF11FAD71A141C41006BCFBF /* MenuViewController.xib */; };
+		AF11FADB1A141C41006BCFBF /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF11FAD81A141C41006BCFBF /* MenuViewController.m */; };
+		AFB074051A14176F00E6254E /* MenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB074031A14176F00E6254E /* MenuItemCell.m */; };
+		AFB074061A14176F00E6254E /* MenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFB074041A14176F00E6254E /* MenuItemCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +52,12 @@
 		2CDC7C401A11E8420086B747 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Besterday/LoginViewController.xib; sourceTree = "<group>"; };
 		392891B812D5CFD7D1161C94 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9785072D89B3CE1D530B21D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF11FAD71A141C41006BCFBF /* MenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MenuViewController.xib; path = Besterday/MenuViewController.xib; sourceTree = "<group>"; };
+		AF11FAD81A141C41006BCFBF /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuViewController.m; path = Besterday/MenuViewController.m; sourceTree = "<group>"; };
+		AF11FAD91A141C41006BCFBF /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuViewController.h; path = Besterday/MenuViewController.h; sourceTree = "<group>"; };
+		AFB074021A14176F00E6254E /* MenuItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItemCell.h; sourceTree = "<group>"; };
+		AFB074031A14176F00E6254E /* MenuItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItemCell.m; sourceTree = "<group>"; };
+		AFB074041A14176F00E6254E /* MenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItemCell.xib; sourceTree = "<group>"; };
 		C6BD01C113073E870FCE74DD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,7 +83,6 @@
 		2CBCF8491A11CC8C00DD207E = {
 			isa = PBXGroup;
 			children = (
-				2CDC7C381A11E8290086B747 /* View Controllers */,
 				2CBCF8541A11CC8C00DD207E /* Besterday */,
 				2CBCF8711A11CC8C00DD207E /* BesterdayTests */,
 				2CBCF8531A11CC8C00DD207E /* Products */,
@@ -94,6 +103,8 @@
 		2CBCF8541A11CC8C00DD207E /* Besterday */ = {
 			isa = PBXGroup;
 			children = (
+				2CDC7C381A11E8290086B747 /* View Controllers */,
+				AFB074011A14174C00E6254E /* Views */,
 				2CBCF8591A11CC8C00DD207E /* AppDelegate.h */,
 				2CBCF85A1A11CC8C00DD207E /* AppDelegate.m */,
 				2CBCF8651A11CC8C00DD207E /* Images.xcassets */,
@@ -138,8 +149,12 @@
 				2CDC7C391A11E8380086B747 /* ComposeViewController.h */,
 				2CDC7C3A1A11E8380086B747 /* ComposeViewController.m */,
 				2CDC7C3B1A11E8380086B747 /* ComposeViewController.xib */,
+				AF11FAD71A141C41006BCFBF /* MenuViewController.xib */,
+				AF11FAD81A141C41006BCFBF /* MenuViewController.m */,
+				AF11FAD91A141C41006BCFBF /* MenuViewController.h */,
 			);
 			name = "View Controllers";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		379075023CD5D130FC595FC5 /* Frameworks */ = {
@@ -157,6 +172,16 @@
 				392891B812D5CFD7D1161C94 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		AFB074011A14174C00E6254E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AFB074021A14176F00E6254E /* MenuItemCell.h */,
+				AFB074031A14176F00E6254E /* MenuItemCell.m */,
+				AFB074041A14176F00E6254E /* MenuItemCell.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,8 +267,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CDC7C421A11E8420086B747 /* LoginViewController.xib in Resources */,
+				AFB074061A14176F00E6254E /* MenuItemCell.xib in Resources */,
 				2CBCF8691A11CC8C00DD207E /* LaunchScreen.xib in Resources */,
 				2CDC7C3D1A11E8380086B747 /* ComposeViewController.xib in Resources */,
+				AF11FADA1A141C41006BCFBF /* MenuViewController.xib in Resources */,
 				2CBCF8661A11CC8C00DD207E /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +324,8 @@
 			files = (
 				2CBCF85B1A11CC8C00DD207E /* AppDelegate.m in Sources */,
 				2CBCF8581A11CC8C00DD207E /* main.m in Sources */,
+				AF11FADB1A141C41006BCFBF /* MenuViewController.m in Sources */,
+				AFB074051A14176F00E6254E /* MenuItemCell.m in Sources */,
 				2CBCF85E1A11CC8C00DD207E /* Besterday.xcdatamodeld in Sources */,
 				2CDC7C3C1A11E8380086B747 /* ComposeViewController.m in Sources */,
 				2CDC7C411A11E8420086B747 /* LoginViewController.m in Sources */,

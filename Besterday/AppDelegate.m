@@ -10,6 +10,7 @@
 #import "Parse.h"
 #import "LoginViewController.h"
 #import "ComposeViewController.h"
+#import "MenuViewController.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 @interface AppDelegate ()
@@ -30,7 +31,7 @@
     
     UIViewController * vc;
     if ([PFUser currentUser] != nil) {
-        vc = [[ComposeViewController alloc] init];
+        vc = [[MenuViewController alloc] init];
     }
     else {
         vc = [[LoginViewController alloc] init];
