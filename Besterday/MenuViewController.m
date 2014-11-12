@@ -9,11 +9,13 @@
 #import "MenuViewController.h"
 #import "MenuItemCell.h"
 #import "ComposeViewController.h"
+#import "FeedViewController.h"
 
 int const kProfileItemIndex = 0;
 int const kTodayItemIndex = 1;
 int const kCalendarItemIndex = 2;
 int const kComposeItemIndex = 3;
+int const kFeedItemIndex = 4;
 
 @interface MenuViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -48,6 +50,7 @@ int const kComposeItemIndex = 3;
       @{@"name" : @"Today", @"img": @"home"},
       @{@"name" : @"Calendar", @"img": @"home"},
       @{@"name" : @"Compose", @"img": @"home"},
+      @{@"name" : @"Feed", @"img": @"home"},
       ];
 }
 
@@ -91,6 +94,8 @@ int const kComposeItemIndex = 3;
         return;
     } else if (indexPath.row == kComposeItemIndex) {
         vc = [[ComposeViewController alloc] init];
+    } else if (indexPath.row == kFeedItemIndex) {
+        vc = [[FeedViewController alloc] init];
     }
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
 }
