@@ -61,6 +61,7 @@
 // fetches all the besties for the current user, and then calls selector, passing an array of besties.
 + (void) bestiesForUserWithTarget: (PFUser*) user completion:(void (^)(NSArray *besties, NSError *error))completion
 {
+    NSLog(@"Finding all besties with user");
     PFQuery *query = [PFQuery queryWithClassName:@"Bestie"];
     [query includeKey:@"user"];
     [query whereKey:@"user" equalTo:user];

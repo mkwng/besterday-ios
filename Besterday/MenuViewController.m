@@ -88,6 +88,7 @@ int const kFeedItemIndex = 4;
     UIViewController *vc;
     // TODO: add the rest of these
     if (indexPath.row == kProfileItemIndex) {
+        NSLog(@"***creating profile view***");
         vc = [[UserProfileViewController alloc] init];
         //return;
     } else if (indexPath.row == kTodayItemIndex) {

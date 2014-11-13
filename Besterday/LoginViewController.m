@@ -33,7 +33,7 @@
 - (IBAction)onLogin:(id)sender {
     
     // Set permissions required from the facebook user account
-    NSArray *permissionsArray = @[ @"user_about_me"];
+    NSArray *permissionsArray = @[@"user_about_me"];
     
     // Login PFUser using Facebook
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
