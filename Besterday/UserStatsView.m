@@ -10,9 +10,6 @@
 #import "MockUser.h"
 
 @interface UserStatsView()
-@property (strong, nonatomic) IBOutlet UIView *contentView;
-
-
 @end
 @implementation UserStatsView
 
@@ -24,7 +21,7 @@
 
 -(void)layoutSubviews {
     [super layoutSubviews];
-    [self.contentView setFrame:self.frame];
+    [self.containerView setFrame:self.frame];
 }
 
 - (void) loadViews {
@@ -35,12 +32,12 @@
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    NSLog(@"Init header view!");
+    NSLog(@"===Init Stats view!===");
     if (self) {
         
         UINib *nib = [UINib nibWithNibName:@"UserStatsView" bundle:nil];
         [nib instantiateWithOwner:self options:nil];
-        [self addSubview:self.contentView];
+        [self addSubview:self.containerView];
         
     }
     

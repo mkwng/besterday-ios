@@ -11,6 +11,10 @@
 
 @interface UserStatsView : UIView
 @property (nonatomic, strong) MockUser *user;
+@property (weak, nonatomic) IBOutlet UIImageView *imageAsset;
+@property (weak, nonatomic) IBOutlet UILabel *value;
+@property (strong, nonatomic) IBOutlet UIView *containerView;
+
 
 - (void)loadUser:(MockUser *)user;
 

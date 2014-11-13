@@ -9,6 +9,7 @@
 #import "UserHeaderView.h"
 #import "Bestie.h"
 #import <Parse/Parse.h>
+#import "UserStatsView.h"
 
 @interface UserHeaderView()
 
@@ -22,6 +23,10 @@
 @property (nonatomic, strong) PFUser *PFuser;
 
 @property (nonatomic, strong) NSMutableArray *besties;
+@property (weak, nonatomic) IBOutlet UIView *stat1;
+@property (weak, nonatomic) IBOutlet UIView *stat2;
+@property (weak, nonatomic) IBOutlet UIView *stat3;
+
 
 
 @end
@@ -41,14 +46,36 @@
         for (Bestie *b in self.besties) {
             NSLog(@"Bestie text %ld: %@", ++count, b.text);
         }
+        [self setUpStats];
+        [self loadViews];
     }];
-    
-    [self loadViews];
 }
 
 -(void)layoutSubviews {
     [super layoutSubviews];
     [self.contentView setFrame:self.frame];
+}
+
+
+- (void) addStat:(UIView *)view container:(UIView*)container{
+    [container addSubview:view];
+    [self.statsContainerView setNeedsLayout];
+    view.translatesAutoresizingMaskIntoConstraints = YES;
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+}
+
+
+- (void)setUpStats {
+    UserStatsView *stat1 = [[UserStatsView alloc] initWithFrame:self.stat1.bounds];
+    stat1.value.text = @"42%";
+    UserStatsView *stat2 = [[UserStatsView alloc] initWithFrame:self.stat2.bounds];
+    stat2.value.text = [NSString stringWithFormat:@"%ld", self.besties.count];
+    UserStatsView *stat3 = [[UserStatsView alloc] initWithFrame:self.stat3.bounds];
+    stat3.value.text = [NSString stringWithFormat:@"%ld", self.besties.count-1];
+    [self addStat: stat1 container:self.stat1];
+    [self addStat: stat2 container:self.stat2];
+    [self addStat: stat3 container:self.stat3];
+
 }
 
 - (void) loadViews {
@@ -58,9 +85,8 @@
         self.userTagline.text = self.user.getTagline;
         self.userImageView.layer.cornerRadius = self.userImageView.frame.size.width/2;
         self.userImageView.clipsToBounds = YES;
-        [self.userImageView.layer setBorderColor: [[UIColor orangeColor] CGColor]];
-        [self.userImageView.layer setBorderWidth: 0.6];
-        
+        [self.userImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
+        [self.userImageView.layer setBorderWidth: 0.5];
         
     }
 }
@@ -80,12 +106,12 @@
 }
 
 
-/*- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
     }
     return self;
-}*/
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
