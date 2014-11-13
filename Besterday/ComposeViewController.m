@@ -11,7 +11,7 @@
 #import <Parse/Parse.h>
 #import "Bestie.h"
 
-@interface ComposeViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface ComposeViewController ()<UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *bestieTextView;
 
 // TODO: remove these, they're just for testing
@@ -21,6 +21,8 @@
 @end
 
 @implementation ComposeViewController
+
+const NSString * kInitialText = @"What was the best thing that happened to you yesterday?";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,6 +35,8 @@
     
     if (self.bestie)
         self.bestieTextView.text = self.bestie.text;
+    
+    self.bestieTextView.delegate = self;
     
     // TODO: remove; for testing only
     self.testTableView.dataSource = self;
@@ -50,6 +54,7 @@
     
 }
 
+// center the text vertically as you type
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     UITextView *txtview = object;
     CGFloat topoffset = ([txtview bounds].size.height - [txtview contentSize].height * [txtview zoomScale])/2.0;
@@ -57,16 +62,38 @@
     txtview.contentOffset = (CGPoint){.x = 0, .y = -topoffset};
 }
 
+- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    // if we're composing, remove the help text
+    if (!self.bestie && [self.bestieTextView.text isEqualToString: kInitialText])
+        self.bestieTextView.text = @"";
+    
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView;
+{
+    // if we're composing a new bestie and the text is empty, place the help text
+    if (!self.bestie && [self.bestieTextView.text isEqualToString: @""])
+        self.bestieTextView.text = kInitialText;
+}
+
+
 - (void)onMenu {
     [self presentViewController:[[MenuViewController alloc] init] animated:YES completion:nil];
 }
 
 - (IBAction)onPost:(id)sender {
-    
-    //TODO: distinguish between compose new and edit
-    [Bestie bestie:self.bestieTextView.text];
-    
-    //TODO: go back to main view controller
+    // distinguish between compose new and edit
+    if (self.bestie)
+    {
+        self.bestie.text = self.bestieTextView.text;
+    }
+    else
+    {
+        [Bestie bestie:self.bestieTextView.text];
+    }
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

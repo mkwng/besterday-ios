@@ -15,7 +15,10 @@
     return @"Bestie";
 }
 
-@synthesize text;
+- (void) setText:(NSString *)text {
+    self[@"text"] = text;
+    [self saveInBackground];    
+}
 - (NSString*) text
 {
     return self[@"text"];
