@@ -26,6 +26,13 @@
 		AF11FAE51A14270A006BCFBF /* BestieCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF11FAE31A14270A006BCFBF /* BestieCell.xib */; };
 		AFB074051A14176F00E6254E /* MenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB074031A14176F00E6254E /* MenuItemCell.m */; };
 		AFB074061A14176F00E6254E /* MenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFB074041A14176F00E6254E /* MenuItemCell.xib */; };
+		DDD656C51A147CA100D62FD2 /* UserHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD656C41A147CA100D62FD2 /* UserHeaderView.m */; };
+		DDD656C91A147ED300D62FD2 /* UserHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD656C81A147ED300D62FD2 /* UserHeaderView.xib */; };
+		DDD656CE1A1484DB00D62FD2 /* MockUser.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD656CD1A1484DB00D62FD2 /* MockUser.m */; };
+		DDD656EB1A1493E300D62FD2 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD656E91A1493E300D62FD2 /* UserProfileViewController.m */; };
+		DDD656EC1A1493E300D62FD2 /* UserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD656EA1A1493E300D62FD2 /* UserProfileViewController.xib */; };
+		DDD656EF1A14ACCF00D62FD2 /* UserStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD656EE1A14ACCF00D62FD2 /* UserStatsView.m */; };
+		DDD656F51A14AE3D00D62FD2 /* UserStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD656F41A14AE3D00D62FD2 /* UserStatsView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +79,17 @@
 		AFB074031A14176F00E6254E /* MenuItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItemCell.m; sourceTree = "<group>"; };
 		AFB074041A14176F00E6254E /* MenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItemCell.xib; sourceTree = "<group>"; };
 		C6BD01C113073E870FCE74DD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		DDD656C31A147CA100D62FD2 /* UserHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHeaderView.h; sourceTree = "<group>"; };
+		DDD656C41A147CA100D62FD2 /* UserHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHeaderView.m; sourceTree = "<group>"; };
+		DDD656C81A147ED300D62FD2 /* UserHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserHeaderView.xib; sourceTree = "<group>"; };
+		DDD656CC1A1484DB00D62FD2 /* MockUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MockUser.h; path = Besterday/MockUser.h; sourceTree = "<group>"; };
+		DDD656CD1A1484DB00D62FD2 /* MockUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MockUser.m; path = Besterday/MockUser.m; sourceTree = "<group>"; };
+		DDD656E81A1493E300D62FD2 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
+		DDD656E91A1493E300D62FD2 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
+		DDD656EA1A1493E300D62FD2 /* UserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileViewController.xib; sourceTree = "<group>"; };
+		DDD656ED1A14ACCF00D62FD2 /* UserStatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserStatsView.h; sourceTree = "<group>"; };
+		DDD656EE1A14ACCF00D62FD2 /* UserStatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserStatsView.m; sourceTree = "<group>"; };
+		DDD656F41A14AE3D00D62FD2 /* UserStatsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserStatsView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +116,8 @@
 			children = (
 				2C9046661A1438AF002A9B0B /* Bestie.h */,
 				2C9046671A1438AF002A9B0B /* Bestie.m */,
+				DDD656CC1A1484DB00D62FD2 /* MockUser.h */,
+				DDD656CD1A1484DB00D62FD2 /* MockUser.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -178,6 +198,9 @@
 				AF11FADC1A141D7E006BCFBF /* FeedViewController.h */,
 				AF11FADD1A141D7E006BCFBF /* FeedViewController.m */,
 				AF11FADE1A141D7E006BCFBF /* FeedViewController.xib */,
+				DDD656E81A1493E300D62FD2 /* UserProfileViewController.h */,
+				DDD656E91A1493E300D62FD2 /* UserProfileViewController.m */,
+				DDD656EA1A1493E300D62FD2 /* UserProfileViewController.xib */,
 			);
 			name = "View Controllers";
 			path = ..;
@@ -203,6 +226,12 @@
 		AFB074011A14174C00E6254E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DDD656C81A147ED300D62FD2 /* UserHeaderView.xib */,
+				DDD656C41A147CA100D62FD2 /* UserHeaderView.m */,
+				DDD656C31A147CA100D62FD2 /* UserHeaderView.h */,
+				DDD656F41A14AE3D00D62FD2 /* UserStatsView.xib */,
+				DDD656ED1A14ACCF00D62FD2 /* UserStatsView.h */,
+				DDD656EE1A14ACCF00D62FD2 /* UserStatsView.m */,
 				AF11FAE11A14270A006BCFBF /* BestieCell.h */,
 				AF11FAE21A14270A006BCFBF /* BestieCell.m */,
 				AF11FAE31A14270A006BCFBF /* BestieCell.xib */,
@@ -295,10 +324,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDD656C91A147ED300D62FD2 /* UserHeaderView.xib in Resources */,
 				2CDC7C421A11E8420086B747 /* LoginViewController.xib in Resources */,
 				AFB074061A14176F00E6254E /* MenuItemCell.xib in Resources */,
 				AF11FAE01A141D7E006BCFBF /* FeedViewController.xib in Resources */,
 				AF11FAE51A14270A006BCFBF /* BestieCell.xib in Resources */,
+				DDD656F51A14AE3D00D62FD2 /* UserStatsView.xib in Resources */,
+				DDD656EC1A1493E300D62FD2 /* UserProfileViewController.xib in Resources */,
 				2CBCF8691A11CC8C00DD207E /* LaunchScreen.xib in Resources */,
 				2CDC7C3D1A11E8380086B747 /* ComposeViewController.xib in Resources */,
 				AF11FADA1A141C41006BCFBF /* MenuViewController.xib in Resources */,
@@ -353,8 +385,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDD656C51A147CA100D62FD2 /* UserHeaderView.m in Sources */,
 				2CBCF85B1A11CC8C00DD207E /* AppDelegate.m in Sources */,
 				2CBCF8581A11CC8C00DD207E /* main.m in Sources */,
+				DDD656EF1A14ACCF00D62FD2 /* UserStatsView.m in Sources */,
 				AF11FADF1A141D7E006BCFBF /* FeedViewController.m in Sources */,
 				AF11FADB1A141C41006BCFBF /* MenuViewController.m in Sources */,
 				AFB074051A14176F00E6254E /* MenuItemCell.m in Sources */,
@@ -362,6 +396,8 @@
 				AF11FAE41A14270A006BCFBF /* BestieCell.m in Sources */,
 				2CDC7C3C1A11E8380086B747 /* ComposeViewController.m in Sources */,
 				2CDC7C411A11E8420086B747 /* LoginViewController.m in Sources */,
+				DDD656EB1A1493E300D62FD2 /* UserProfileViewController.m in Sources */,
+				DDD656CE1A1484DB00D62FD2 /* MockUser.m in Sources */,
 				2C9046681A1438AF002A9B0B /* Bestie.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

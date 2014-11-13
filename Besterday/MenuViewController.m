@@ -10,6 +10,7 @@
 #import "MenuItemCell.h"
 #import "ComposeViewController.h"
 #import "FeedViewController.h"
+#import "UserProfileViewController.h"
 
 int const kProfileItemIndex = 0;
 int const kTodayItemIndex = 1;
@@ -87,7 +88,8 @@ int const kFeedItemIndex = 4;
     UIViewController *vc;
     // TODO: add the rest of these
     if (indexPath.row == kProfileItemIndex) {
-        return;
+        vc = [[UserProfileViewController alloc] init];
+        //return;
     } else if (indexPath.row == kTodayItemIndex) {
         return;
     } else if (indexPath.row == kCalendarItemIndex) {
@@ -97,6 +99,7 @@ int const kFeedItemIndex = 4;
     } else if (indexPath.row == kFeedItemIndex) {
         vc = [[FeedViewController alloc] init];
     }
+    
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
 }
 
