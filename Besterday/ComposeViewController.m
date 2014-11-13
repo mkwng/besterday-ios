@@ -8,7 +8,7 @@
 
 #import "ComposeViewController.h"
 #import "MenuViewController.h"
-#import "Parse.h"
+#import <Parse/Parse.h>
 #import "Bestie.h"
 
 @interface ComposeViewController ()<UITableViewDataSource>
@@ -27,7 +27,7 @@
     [self setupNavigationBar];
     
     self.testTableView.dataSource = self;
-    [self refreshData];
+    [Bestie bestiesWithTarget:self selector:@selector(refreshData:)];
 }
 
 - (void)setupNavigationBar {
@@ -51,27 +51,19 @@
 
 
 // TODO: remove these, they're just for testing
-- (void) refreshData
+     - (void) refreshData: (NSArray*) besties
 {
-    PFQuery *query = [PFQuery queryWithClassName:@"Bestie"];
-    [query includeKey:@"user"];
-    [query whereKey:@"user" equalTo:[PFUser currentUser]];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            // The find succeeded.
-            NSLog(@"Successfully retrieved %ld messages.", objects.count);
-            
-            self.besties = objects;
-            [self.testTableView reloadData];
-        } else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];
+    self.besties = besties;
     
     [self.testTableView reloadData];
 }
 
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+   return @"DEBUG - for testing only";
+}
     
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.besties.count;

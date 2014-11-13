@@ -13,4 +13,6 @@
 @property (nonatomic) NSString* text;
 @property (nonatomic) PFUser* user;
 
++ (void) bestiesWithTarget: (id) target selector:(SEL)selector;
+
 @end
