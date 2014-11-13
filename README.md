@@ -6,6 +6,8 @@ The best thing you did yesterday.
 
 Wes: 6h12m
 
+LW: 3h30m
+
 ### Notes
 
 Everything is on [Quip](https://quip.com/8WIxAZrbzGQE) now. Use that instead.
