@@ -79,13 +79,16 @@
             //TODO: put this somewhere common so it's not duplicated here and in the AppDelegate
             // if the user hasn't posted a bestie for yesterday, show the compose view
             [Bestie mostRecentBestieForUser:[PFUser currentUser] completion:^(Bestie *bestie) {
-                NSString * yesterdayString = [[[NSDate dateWithTimeIntervalSinceNow:-86400] description] substringToIndex:10];
-                NSString * bestieDateString = [[bestie.createDate description] substringToIndex:10];
                 
-                NSLog(@"%@ %@", yesterdayString, bestieDateString);
+                // get a string representing yesterday
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"MMM d"];
+                NSString* yesterdayString = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:-86400]];
                 
                 UIViewController * vc;
-                if ([yesterdayString isEqualToString:bestieDateString])
+                NSLog(@"%@ %@", yesterdayString, bestie.createDate);
+                
+                if ([yesterdayString isEqualToString:bestie.createDate])
                 {
                     NSLog(@"Most recent bestie is yesterday -- showing main view");
                     vc = [[MenuViewController alloc] init];

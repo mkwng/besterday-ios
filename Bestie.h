@@ -13,8 +13,8 @@
 @property (nonatomic) NSString* text;
 @property (nonatomic) PFUser* user;
 
-// this is a hack so that we can backfill some past data
-@property (nonatomic) NSDate* createDate;
+// returns a date in the format "Nov 9"
+@property (readonly, nonatomic) NSString* createDate;
 
 // Bestie creation
 + (void) bestie: (NSString *)text;

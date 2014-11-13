@@ -16,28 +16,75 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcG-cE-NLw">
-                    <rect key="frame" x="144" y="162" width="32" height="30"/>
-                    <state key="normal" title="Post">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcG-cE-NLw">
+                    <rect key="frame" x="142" y="388" width="37" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="Dzk-9e-OWO"/>
+                    </constraints>
+                    <state key="normal" title="Done">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="onPost:" destination="-1" eventType="touchUpInside" id="z2Z-rL-832"/>
                     </connections>
                 </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LJH-0L-NGZ">
-                    <rect key="frame" x="8" y="227" width="304" height="240"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LJH-0L-NGZ">
+                    <rect key="frame" x="0.0" y="347" width="320" height="133"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="133" id="8Se-NT-kST"/>
+                    </constraints>
                 </tableView>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Your post goes here" translatesAutoresizingMaskIntoConstraints="NO" id="7ST-gb-HQJ">
-                    <rect key="frame" x="40" y="72" width="240" height="82"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DateBackground" translatesAutoresizingMaskIntoConstraints="NO" id="hOB-iB-BJr">
+                    <rect key="frame" x="135" y="44" width="50" height="50"/>
+                </imageView>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Your post goes here" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7ST-gb-HQJ">
+                    <rect key="frame" x="20" y="124" width="280" height="231"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="240" id="9Kd-0P-oFL"/>
+                        <constraint firstAttribute="height" constant="231" id="opq-b8-vMR"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="9Kd-0P-oFL"/>
+                        </mask>
+                    </variation>
                 </textView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="hOB-iB-BJr" secondAttribute="centerX" id="1tO-mV-NMv"/>
+                <constraint firstAttribute="trailing" secondItem="7ST-gb-HQJ" secondAttribute="trailing" constant="40" id="DHf-5K-V6P"/>
+                <constraint firstAttribute="trailing" secondItem="7ST-gb-HQJ" secondAttribute="trailing" constant="20" id="Dqt-cW-4CE"/>
+                <constraint firstItem="7ST-gb-HQJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="F8Z-oQ-yB0"/>
+                <constraint firstItem="hOB-iB-BJr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="GNa-aX-AoH"/>
+                <constraint firstItem="7ST-gb-HQJ" firstAttribute="top" secondItem="hOB-iB-BJr" secondAttribute="bottom" constant="17" id="HW5-UK-cdU"/>
+                <constraint firstAttribute="centerX" secondItem="7ST-gb-HQJ" secondAttribute="centerX" id="OUv-q6-hO6"/>
+                <constraint firstAttribute="centerX" secondItem="wcG-cE-NLw" secondAttribute="centerX" id="YQh-2R-pdF"/>
+                <constraint firstAttribute="centerY" secondItem="7ST-gb-HQJ" secondAttribute="centerY" id="b9K-Zc-2HV"/>
+                <constraint firstItem="LJH-0L-NGZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bTB-Gc-xOa"/>
+                <constraint firstItem="7ST-gb-HQJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="rPi-yd-wGI"/>
+                <constraint firstItem="wcG-cE-NLw" firstAttribute="top" secondItem="7ST-gb-HQJ" secondAttribute="bottom" constant="33" id="vUp-Ws-T2c"/>
+                <constraint firstItem="wcG-cE-NLw" firstAttribute="top" secondItem="7ST-gb-HQJ" secondAttribute="bottom" constant="8" id="yBH-3X-LYF"/>
+                <constraint firstAttribute="bottom" secondItem="LJH-0L-NGZ" secondAttribute="bottom" id="zK0-E5-fhk"/>
+                <constraint firstAttribute="trailing" secondItem="LJH-0L-NGZ" secondAttribute="trailing" id="zvf-E5-KNx"/>
+            </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="DHf-5K-V6P"/>
+                    <exclude reference="F8Z-oQ-yB0"/>
+                    <exclude reference="HW5-UK-cdU"/>
+                    <exclude reference="OUv-q6-hO6"/>
+                    <exclude reference="yBH-3X-LYF"/>
+                </mask>
+            </variation>
         </view>
     </objects>
+    <resources>
+        <image name="DateBackground" width="50" height="50"/>
+    </resources>
 </document>

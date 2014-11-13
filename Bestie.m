@@ -27,10 +27,13 @@
     return self[@"user"];
 }
 
-@synthesize createDate;
-- (PFUser*) createDate
+- (NSString*) createDate
 {
-    return (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
+    NSDate * date = (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d"];
+    
+    return [formatter stringFromDate:date];
 }
 
 #pragma mark Bestie creation methods
@@ -48,7 +51,9 @@
     PFObject *bestie = [PFObject objectWithClassName:@"Bestie"];
     bestie[@"text"] = text;
     bestie[@"user"] = [PFUser currentUser];
-    bestie[@"createDate"] = date;
+    
+    // Hack for backfilling data
+    bestie[@"createDate"] = [date dateByAddingTimeInterval:-86400];
     
     [bestie saveInBackgroundWithBlock:completion];
 }

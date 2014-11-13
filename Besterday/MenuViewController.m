@@ -96,6 +96,9 @@ int const kFeedItemIndex = 4;
         return;
     } else if (indexPath.row == kComposeItemIndex) {
         vc = [[ComposeViewController alloc] init];
+        [self presentViewController:vc animated:YES completion:nil];
+        return;
+
     } else if (indexPath.row == kFeedItemIndex) {
         vc = [[FeedViewController alloc] init];
     }

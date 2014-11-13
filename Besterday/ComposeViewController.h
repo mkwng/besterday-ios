@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Bestie.h"
 
 @interface ComposeViewController : UIViewController
+@property Bestie * bestie;
 
 @end

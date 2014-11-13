@@ -35,16 +35,27 @@
 
     UIViewController * vc;
     if ([PFUser currentUser] != nil) {
+        
         // if the user hasn't posted a bestie for yesterday, show the compose view
+        //TODO: put this somewhere common so it's not duplicated here and in the LoginViewController
         [Bestie mostRecentBestieForUser:[PFUser currentUser] completion:^(Bestie *bestie) {
-            NSString * yesterdayString = [[[NSDate dateWithTimeIntervalSinceNow:-86400] description] substringToIndex:10];
-            NSString * bestieDateString = [[bestie.createDate description] substringToIndex:10];
-            
+
+            // get a string representing yesterday
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"MMM d"];
+            NSString* yesterdayString = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:-86400]];
+
             UIViewController * vc;
-            if ([yesterdayString isEqualToString:bestieDateString])
+            NSLog(@"%@ %@", yesterdayString, bestie.createDate);
+            
+            if ([yesterdayString isEqualToString:bestie.createDate])
             {
                 NSLog(@"AD: Most recent bestie is yesterday -- showing main view");
                 vc = [[MenuViewController alloc] init];
+                vc = [[UINavigationController alloc] initWithRootViewController:vc];
+
+                // Raylene -- for testing
+                // vc = [[FeedViewController alloc] init];
             }
             else
             {
@@ -52,11 +63,13 @@
                 vc = [[ComposeViewController alloc] init];
             }
             
-            // Raylene -- for testing
-            // vc = [[FeedViewController alloc] init];
             
-            UINavigationController * nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-            self.window.rootViewController = nvc;
+            // this gets called twice because mostRecentBestie uses a cache policy that calls the completion block twice,
+            // and will crash if we don't have the if check.
+            if (!self.window.rootViewController)
+            {
+                self.window.rootViewController = vc;
+            }
             [self.window makeKeyAndVisible];
             
         }];

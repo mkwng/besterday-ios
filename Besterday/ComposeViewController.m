@@ -11,10 +11,8 @@
 #import <Parse/Parse.h>
 #import "Bestie.h"
 
-@interface ComposeViewController ()<UITableViewDataSource>
+@interface ComposeViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *bestieTextView;
-
-- (void)setupNavigationBar;
 
 // TODO: remove these, they're just for testing
 @property (weak, nonatomic) IBOutlet UITableView *testTableView;
@@ -26,10 +24,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupNavigationBar];
+
+    // center the text vertically as you type
+    [self.bestieTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
+    
+    self.view.backgroundColor = [UIColor colorWithRed:237/255.0f green:196/255.0f blue:86/255.0f alpha:1.0f];
+    self.bestieTextView.textColor = [UIColor whiteColor];
+    
+    if (self.bestie)
+        self.bestieTextView.text = self.bestie.text;
     
     // TODO: remove; for testing only
     self.testTableView.dataSource = self;
+    self.testTableView.delegate = self;
     [Bestie bestiesForUserWithTarget:[PFUser currentUser] completion:^(NSArray *besties, NSError *error) {
         if (!error) {
             self.besties = besties;
@@ -40,11 +47,14 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+    
 }
 
-
-- (void)setupNavigationBar {
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu)];
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    UITextView *txtview = object;
+    CGFloat topoffset = ([txtview bounds].size.height - [txtview contentSize].height * [txtview zoomScale])/2.0;
+    topoffset = ( topoffset < 0.0 ? 0.0 : topoffset );
+    txtview.contentOffset = (CGPoint){.x = 0, .y = -topoffset};
 }
 
 - (void)onMenu {
@@ -52,6 +62,8 @@
 }
 
 - (IBAction)onPost:(id)sender {
+    
+    //TODO: distinguish between compose new and edit
     [Bestie bestie:self.bestieTextView.text];
     
     //TODO: go back to main view controller
@@ -73,13 +85,20 @@
     
     Bestie *bestie = self.besties[indexPath.row];
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MMM d"];
-
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", bestie.text, [formatter stringFromDate:bestie.createDate]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", bestie.text, bestie.createDate];
     
     return cell;
 }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ComposeViewController *vc = [[ComposeViewController alloc] init];
+    
+    vc.bestie = self.besties[indexPath.row];
+    [self presentViewController:vc animated:YES completion:nil];
+
+}
+
+
 @end
