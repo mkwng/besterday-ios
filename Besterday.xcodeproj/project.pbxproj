@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		275ED73418D26B52B680988B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9785072D89B3CE1D530B21D7 /* libPods.a */; };
+		2C9046681A1438AF002A9B0B /* Bestie.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9046671A1438AF002A9B0B /* Bestie.m */; };
 		2CBCF8581A11CC8C00DD207E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBCF8571A11CC8C00DD207E /* main.m */; };
 		2CBCF85B1A11CC8C00DD207E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBCF85A1A11CC8C00DD207E /* AppDelegate.m */; };
 		2CBCF85E1A11CC8C00DD207E /* Besterday.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2CBCF85C1A11CC8C00DD207E /* Besterday.xcdatamodeld */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C9046661A1438AF002A9B0B /* Bestie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bestie.h; sourceTree = "<group>"; };
+		2C9046671A1438AF002A9B0B /* Bestie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bestie.m; sourceTree = "<group>"; };
 		2CBCF8521A11CC8C00DD207E /* Besterday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Besterday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBCF8561A11CC8C00DD207E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CBCF8571A11CC8C00DD207E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -90,9 +93,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C9046651A143895002A9B0B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2C9046661A1438AF002A9B0B /* Bestie.h */,
+				2C9046671A1438AF002A9B0B /* Bestie.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		2CBCF8491A11CC8C00DD207E = {
 			isa = PBXGroup;
 			children = (
+				2C9046651A143895002A9B0B /* Models */,
 				2CBCF8541A11CC8C00DD207E /* Besterday */,
 				2CBCF8711A11CC8C00DD207E /* BesterdayTests */,
 				2CBCF8531A11CC8C00DD207E /* Products */,
@@ -349,6 +362,7 @@
 				AF11FAE41A14270A006BCFBF /* BestieCell.m in Sources */,
 				2CDC7C3C1A11E8380086B747 /* ComposeViewController.m in Sources */,
 				2CDC7C411A11E8420086B747 /* LoginViewController.m in Sources */,
+				2C9046681A1438AF002A9B0B /* Bestie.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

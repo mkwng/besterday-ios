@@ -12,6 +12,7 @@
 #import "ComposeViewController.h"
 #import "MenuViewController.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "Bestie.h"
 
 @interface AppDelegate ()
 
@@ -37,6 +38,8 @@
         vc = [[LoginViewController alloc] init];
         
     }
+    
+    [Bestie registerSubclass];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UINavigationController * nvc = [[UINavigationController alloc] initWithRootViewController:vc];
