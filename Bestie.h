@@ -16,7 +16,12 @@
 // this is a hack so that we can backfill some past data
 @property (nonatomic) NSDate* createDate;
 
-+ (void) bestiesForUserWithTarget: (PFUser*) user completion:(void (^)(NSArray *besties, NSError *error))completion;
+// Bestie creation
 + (void) bestie: (NSString *)text;
++ (void) bestie: (NSString *)text date:(NSDate *)date;
+
+// Bestie fetching
++ (void) bestiesForUserWithTarget: (PFUser*) user completion:(void (^)(NSArray *besties, NSError *error))completion;
+
 + (void) mostRecentBestieForUser: (PFUser*) user completion:(void (^)(Bestie *bestie))completion;
 @end

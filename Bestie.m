@@ -15,35 +15,43 @@
     return @"Bestie";
 }
 
+@synthesize text;
 - (NSString*) text
 {
     return self[@"text"];
 }
 
+@synthesize user;
 - (PFUser*) user
 {
     return self[@"user"];
 }
 
+@synthesize createDate;
 - (PFUser*) createDate
 {
     return (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
 }
 
+#pragma mark Bestie creation methods
+
 + (void) bestie: (NSString *)text
 {
-    [Bestie bestie:text completion:nil];
+    [Bestie bestie:text date:[NSDate date] completion:nil];
 }
 
-+ (void) bestie: (NSString *)text completion:(void (^)(BOOL succeeded, NSError *error)) completion {
++ (void) bestie: (NSString *)text date:(NSDate *)date {
+    [Bestie bestie:text date:date completion:nil];
+}
+
++ (void) bestie: (NSString *)text date:(NSDate *)date completion:(void (^)(BOOL succeeded, NSError *error)) completion {
     PFObject *bestie = [PFObject objectWithClassName:@"Bestie"];
     bestie[@"text"] = text;
     bestie[@"user"] = [PFUser currentUser];
-    bestie[@"createDate"] = [NSDate date];
+    bestie[@"createDate"] = date;
     
     [bestie saveInBackgroundWithBlock:completion];
 }
-
 
 // fetches all the besties for the current user, and then calls selector, passing an array of besties.
 + (void) bestiesForUserWithTarget: (PFUser*) user completion:(void (^)(NSArray *besties, NSError *error))completion

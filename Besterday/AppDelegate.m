@@ -13,6 +13,7 @@
 #import "MenuViewController.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "Bestie.h"
+#import "FeedViewController.h" // for testing
 
 @interface AppDelegate ()
 
@@ -50,6 +51,9 @@
                 NSLog(@"Most recent bestie is older than yesterday -- showing compose view");
                 vc = [[ComposeViewController alloc] init];
             }
+            
+            // Raylene -- for testing
+            // vc = [[FeedViewController alloc] init];
             
             UINavigationController * nvc = [[UINavigationController alloc] initWithRootViewController:vc];
             self.window.rootViewController = nvc;

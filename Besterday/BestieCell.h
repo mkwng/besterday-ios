@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Bestie.h"
 
 @interface BestieCell : UICollectionViewCell
+
+@property (nonatomic, strong) Bestie *bestie;
 
 @end
