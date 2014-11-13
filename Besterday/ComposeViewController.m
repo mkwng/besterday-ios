@@ -14,6 +14,8 @@
 @interface ComposeViewController ()<UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextView *bestieTextView;
 
+- (void)setupNavigationBar;
+
 // TODO: remove these, they're just for testing
 @property (weak, nonatomic) IBOutlet UITableView *testTableView;
 @property NSArray* besties;
@@ -26,9 +28,20 @@
     [super viewDidLoad];
     [self setupNavigationBar];
     
+    // TODO: remove; for testing only
     self.testTableView.dataSource = self;
-    [Bestie bestiesWithTarget:self selector:@selector(refreshData:)];
+    [Bestie bestiesForUserWithTarget:[PFUser currentUser] completion:^(NSArray *besties, NSError *error) {
+        if (!error) {
+            self.besties = besties;
+            [self.testTableView reloadData];
+            
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
 }
+
 
 - (void)setupNavigationBar {
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu)];
@@ -39,27 +52,13 @@
 }
 
 - (IBAction)onPost:(id)sender {
-    
-    PFObject *bestie = [PFObject objectWithClassName:@"Bestie"];
-    bestie[@"text"] = self.bestieTextView.text;
-    bestie[@"user"] = [PFUser currentUser];
-
-    [bestie saveInBackground];
+    [Bestie bestie:self.bestieTextView.text];
     
     //TODO: go back to main view controller
 }
 
 
 // TODO: remove these, they're just for testing
-     - (void) refreshData: (NSArray*) besties
-{
-    self.besties = besties;
-    
-    [self.testTableView reloadData];
-}
-
-
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
    return @"DEBUG - for testing only";
@@ -73,7 +72,13 @@
     UITableViewCell * cell = [[UITableViewCell alloc] init];
     
     Bestie *bestie = self.besties[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", bestie.text, bestie.createdAt];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d"];
+
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", bestie.text, [formatter stringFromDate:bestie.createDate]];
     
     return cell;
 }

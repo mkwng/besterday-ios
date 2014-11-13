@@ -28,23 +28,42 @@
                   clientKey:@"jNSDqTl5g1anFNNvfGlgxvW2IcybIyL3HnMZFgs0"];
     [PFFacebookUtils initializeFacebook];
     
-    // see if someone is logged in already
-    
+    [Bestie registerSubclass];
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
     UIViewController * vc;
     if ([PFUser currentUser] != nil) {
-        vc = [[MenuViewController alloc] init];
+        // if the user hasn't posted a bestie for yesterday, show the compose view
+        [Bestie mostRecentBestieForUser:[PFUser currentUser] completion:^(Bestie *bestie) {
+            NSString * yesterdayString = [[[NSDate dateWithTimeIntervalSinceNow:-86400] description] substringToIndex:10];
+            NSString * bestieDateString = [[bestie.createDate description] substringToIndex:10];
+            
+            UIViewController * vc;
+            if ([yesterdayString isEqualToString:bestieDateString])
+            {
+                NSLog(@"AD: Most recent bestie is yesterday -- showing main view");
+                vc = [[MenuViewController alloc] init];
+            }
+            else
+            {
+                NSLog(@"Most recent bestie is older than yesterday -- showing compose view");
+                vc = [[ComposeViewController alloc] init];
+            }
+            
+            UINavigationController * nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+            self.window.rootViewController = nvc;
+            [self.window makeKeyAndVisible];
+            
+        }];
     }
     else {
         vc = [[LoginViewController alloc] init];
+        UINavigationController * nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+        self.window.rootViewController = nvc;
+        [self.window makeKeyAndVisible];
         
     }
-    
-    [Bestie registerSubclass];
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    UINavigationController * nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-    self.window.rootViewController = nvc;
-    [self.window makeKeyAndVisible];
     
     return YES;
 }

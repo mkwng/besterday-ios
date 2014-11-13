@@ -10,6 +10,8 @@
 #import "Parse.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "ComposeViewController.h"
+#import "MenuViewController.h"
+#import "Bestie.h"
 
 
 @interface LoginViewController ()
@@ -58,6 +60,7 @@
             }
             
             // make a request for the user's real name
+            // TODO: if the user already exists, we don't need this
             FBRequest *request = [FBRequest requestForMe];
             [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                 if (!error) {
@@ -73,12 +76,30 @@
                 }
             }];
             
-            // TODO: present the main view controller
-            ComposeViewController * cvc = [[ComposeViewController alloc] init];
-            cvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            
-            [self presentViewController:cvc animated:YES completion:nil];
+            //TODO: put this somewhere common so it's not duplicated here and in the AppDelegate
+            // if the user hasn't posted a bestie for yesterday, show the compose view
+            [Bestie mostRecentBestieForUser:[PFUser currentUser] completion:^(Bestie *bestie) {
+                NSString * yesterdayString = [[[NSDate dateWithTimeIntervalSinceNow:-86400] description] substringToIndex:10];
+                NSString * bestieDateString = [[bestie.createDate description] substringToIndex:10];
+                
+                NSLog(@"%@ %@", yesterdayString, bestieDateString);
+                
+                UIViewController * vc;
+                if ([yesterdayString isEqualToString:bestieDateString])
+                {
+                    NSLog(@"Most recent bestie is yesterday -- showing main view");
+                    vc = [[MenuViewController alloc] init];
+                }
+                else
+                {
+                    NSLog(@"Most recent bestie is older than yesterday -- showing compose view");
+                    vc = [[ComposeViewController alloc] init];
+                }
 
+                vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+                [self presentViewController:vc animated:YES completion:nil];
+
+            }];
         }
     }];
 }

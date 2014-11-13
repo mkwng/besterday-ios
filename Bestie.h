@@ -13,6 +13,10 @@
 @property (nonatomic) NSString* text;
 @property (nonatomic) PFUser* user;
 
-+ (void) bestiesWithTarget: (id) target selector:(SEL)selector;
+// this is a hack so that we can backfill some past data
+@property (nonatomic) NSDate* createDate;
 
++ (void) bestiesForUserWithTarget: (PFUser*) user completion:(void (^)(NSArray *besties, NSError *error))completion;
++ (void) bestie: (NSString *)text;
++ (void) mostRecentBestieForUser: (PFUser*) user completion:(void (^)(Bestie *bestie))completion;
 @end
