@@ -9,6 +9,7 @@
 #import "UserProfileViewController.h"
 #import "UserHeaderView.h"
 #import "UserStatsView.h"
+#import "MenuViewController.h"
 
 @interface UserProfileViewController ()
 
@@ -23,6 +24,13 @@
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
 }
+- (void)setupNavigationBar {
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu)];
+}
+
+- (void)onMenu {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,13 +38,11 @@
     UserHeaderView *header = [[UserHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 250)];
     [header loadUser:[[MockUser alloc]initFromObject]];
     [self addView:header];
-    
-    
-    
-    
-    
-    self.navigationController.navigationBar.translucent = NO;
 
+    self.navigationController.navigationBar.translucent = NO;
+    [self setupNavigationBar];
+    self.view.backgroundColor = [UIColor orangeColor];
+    self.view.alpha = .9;
     
 }
 
