@@ -28,7 +28,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupNavigationBar];
     
     // Header
     [self.header loadUser:[[MockUser alloc]initFromObject]];
@@ -39,6 +38,7 @@
 
     self.view.backgroundColor = [UIColor orangeColor];
     self.view.alpha = .9;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -82,34 +82,6 @@
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 }
 
-- (void)onGrow{
-    [UIView animateWithDuration:2.0 animations:^{
-        CGRect frame = self.header.frame;
-        frame.size.height =500;
-        self.header.frame = frame;
-    }];
-    /*
-    self.header.userImageHeightConstraint.constant += 20;
-    self.header.userImageWidthConstraint.constant +=20;*/
-    
-    /*CGRect frame = self.header.frame;
-    frame.size.height -=self.header.statsContainerView.frame.size.height;
-    self.header.frame = frame;
-    CGRect statsFrame = self.header.statsContainerView.frame;
-    statsFrame.size.height = 0;
-    self.header.statsContainerView.frame = statsFrame;
-    [self.header.statsContainerView removeFromSuperview];
-    NSLog(@"%f", self.header.statsContainerView.frame.size.height);*/
-
-    
-//    [self.view setNeedsLayout];
-}
-
-- (void)onMenu {
-    NSLog(@"ALPHA: %f", self.view.alpha);
-    [self.navigationController pushViewController:[[MenuViewController alloc] init] animated:YES];
-}
-
 // allow tiles to touch each other horizontally
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
@@ -147,5 +119,32 @@
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
 }
 
+// DEBUG: just for testing; not wired up any more, but if you need it, make a button or something to trigger these
+- (void)onMenu {
+    NSLog(@"ALPHA: %f", self.view.alpha);
+    [self.navigationController pushViewController:[[MenuViewController alloc] init] animated:YES];
+}
 
+- (void)onGrow{
+    [UIView animateWithDuration:2.0 animations:^{
+        CGRect frame = self.header.frame;
+        frame.size.height =500;
+        self.header.frame = frame;
+    }];
+    /*
+     self.header.userImageHeightConstraint.constant += 20;
+     self.header.userImageWidthConstraint.constant +=20;*/
+    
+    /*CGRect frame = self.header.frame;
+     frame.size.height -=self.header.statsContainerView.frame.size.height;
+     self.header.frame = frame;
+     CGRect statsFrame = self.header.statsContainerView.frame;
+     statsFrame.size.height = 0;
+     self.header.statsContainerView.frame = statsFrame;
+     [self.header.statsContainerView removeFromSuperview];
+     NSLog(@"%f", self.header.statsContainerView.frame.size.height);*/
+    
+    
+    //    [self.view setNeedsLayout];
+}
 @end
