@@ -27,8 +27,6 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // center the text vertically as you type
-    [self.bestieTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
     
     self.view.backgroundColor = [UIColor colorWithRed:237/255.0f green:196/255.0f blue:86/255.0f alpha:1.0f];
     self.bestieTextView.textColor = [UIColor whiteColor];
@@ -53,6 +51,18 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     }];
     
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    // center the text vertically as you type
+    [self.bestieTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.bestieTextView removeObserver:self forKeyPath:@"contentSize"];
+}
+
 
 // center the text vertically as you type
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -93,7 +103,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     {
         [Bestie bestie:self.bestieTextView.text];
     }
-//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

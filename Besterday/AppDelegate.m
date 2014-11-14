@@ -40,38 +40,34 @@
         //TODO: put this somewhere common so it's not duplicated here and in the LoginViewController
         [Bestie mostRecentBestieForUser:[PFUser currentUser] completion:^(Bestie *bestie) {
 
-            // get a string representing yesterday
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"MMM d"];
-            NSString* yesterdayString = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:-86400]];
-
-            UIViewController * vc;
-            NSLog(@"%@ %@", yesterdayString, bestie.createDate);
-            
-            if ([yesterdayString isEqualToString:bestie.createDate])
-            {
-                NSLog(@"AD: Most recent bestie is yesterday -- showing main view");
-                vc = [[MenuViewController alloc] init];
-                vc = [[UINavigationController alloc] initWithRootViewController:vc];
-
-                // Raylene -- for testing
-                // vc = [[FeedViewController alloc] init];
-            }
-            else
-            {
-                NSLog(@"Most recent bestie is older than yesterday -- showing compose view");
-                vc = [[ComposeViewController alloc] init];
-            }
-            
-            
             // this gets called twice because mostRecentBestie uses a cache policy that calls the completion block twice,
             // and will crash if we don't have the if check.
             if (!self.window.rootViewController)
             {
-                self.window.rootViewController = vc;
-            }
-            [self.window makeKeyAndVisible];
+                // get a string representing yesterday
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"MMM d"];
+                NSString* yesterdayString = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:-86400]];
+                
+                UIViewController * vc;
+                if ([yesterdayString isEqualToString:bestie.createDate])
+                {
+                    NSLog(@"AD: Most recent bestie is yesterday -- showing main view");
+                    vc = [[MenuViewController alloc] init];
+                    vc = [[UINavigationController alloc] initWithRootViewController:vc];
+                    
+                    // Raylene -- for testing
+                    // vc = [[FeedViewController alloc] init];
+                }
+                else
+                {
+                    NSLog(@"Most recent bestie is older than yesterday -- showing compose view");
+                    vc = [[ComposeViewController alloc] init];
+                }
             
+                self.window.rootViewController = vc;
+                [self.window makeKeyAndVisible];
+            }            
         }];
     }
     else {
