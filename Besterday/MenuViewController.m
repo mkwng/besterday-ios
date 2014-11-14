@@ -13,10 +13,9 @@
 #import "UserProfileViewController.h"
 
 int const kProfileItemIndex = 0;
-int const kTodayItemIndex = 1;
-int const kCalendarItemIndex = 2;
-int const kComposeItemIndex = 3;
-int const kFeedItemIndex = 4;
+int const kCalendarItemIndex = 1;
+int const kComposeItemIndex = 2;
+int const kFeedItemIndex = 3;
 
 @interface MenuViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -48,10 +47,9 @@ int const kFeedItemIndex = 4;
     self.menuItemConfig =
     @[
       @{@"name" : @"Profile", @"img":@"home"},
-      @{@"name" : @"Today", @"img": @"home"},
       @{@"name" : @"Calendar", @"img": @"home"},
       @{@"name" : @"Compose", @"img": @"home"},
-      @{@"name" : @"Feed", @"img": @"home"},
+      @{@"name" : @"(DEBUG) Feed", @"img": @"home"},
       ];
 }
 
@@ -91,20 +89,17 @@ int const kFeedItemIndex = 4;
         NSLog(@"***creating profile view***");
         vc = [[UserProfileViewController alloc] init];
         //return;
-    } else if (indexPath.row == kTodayItemIndex) {
-        return;
     } else if (indexPath.row == kCalendarItemIndex) {
         return;
     } else if (indexPath.row == kComposeItemIndex) {
         vc = [[ComposeViewController alloc] init];
-        [self presentViewController:vc animated:YES completion:nil];
-        return;
-
     } else if (indexPath.row == kFeedItemIndex) {
         vc = [[FeedViewController alloc] init];
     }
     
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+        NSLog(@"Menu presentVC completed");
+    }];
 }
 
 @end

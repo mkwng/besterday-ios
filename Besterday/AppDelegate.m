@@ -10,7 +10,7 @@
 #import "Parse.h"
 #import "LoginViewController.h"
 #import "ComposeViewController.h"
-#import "MenuViewController.h"
+#import "UserProfileViewController.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "Bestie.h"
 #import "FeedViewController.h" // for testing
@@ -53,24 +53,20 @@
                 if ([yesterdayString isEqualToString:bestie.createDate])
                 {
                     NSLog(@"AD: Most recent bestie is yesterday -- showing main view");
-                    vc = [[MenuViewController alloc] init];
-                    vc = [[UINavigationController alloc] initWithRootViewController:vc];
-                    
+                    vc = [[UserProfileViewController alloc] init];
+
                     // Raylene -- for testing
                     // vc = [[FeedViewController alloc] init];
-                }
-                else
-                {
+                } else {
                     NSLog(@"Most recent bestie is older than yesterday -- showing compose view");
                     vc = [[ComposeViewController alloc] init];
                 }
-            
+                vc = [[UINavigationController alloc] initWithRootViewController:vc];
                 self.window.rootViewController = vc;
                 [self.window makeKeyAndVisible];
             }            
         }];
-    }
-    else {
+    } else {
         vc = [[LoginViewController alloc] init];
         UINavigationController * nvc = [[UINavigationController alloc] initWithRootViewController:vc];
         self.window.rootViewController = nvc;

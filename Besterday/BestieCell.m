@@ -7,6 +7,7 @@
 //
 
 #import "BestieCell.h"
+#import "ComposeViewController.h"
 
 @interface BestieCell()
 
@@ -19,14 +20,23 @@
 
 @synthesize bestie = _bestie;
 - (void)setBestie:(Bestie *)bestie {
-    NSLog(@"BestieCell setBestie: %@", bestie);
+    // NSLog(@"BestieCell setBestie: %@", bestie);
     _bestie = bestie;
     self.bestieTextLabel.text = bestie.text;
     // TODO: fill out image when we have 'em
     // self.bestieImageView =
+    
+    UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapGesture:)];
+    [self addGestureRecognizer:tgr];
 }
+
 - (void)awakeFromNib {
     // Initialization code
 }
 
+- (IBAction)onTapGesture:(id)sender {
+    NSLog(@"Tapped cell!");
+    UINavigationController *vc = [[UINavigationController alloc] initWithRootViewController:[[ComposeViewController alloc] init]];
+    [self.parentVC presentViewController:vc animated:YES completion:nil];
+}
 @end

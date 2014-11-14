@@ -28,6 +28,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupNavigationBar];
     
     self.view.backgroundColor = [UIColor colorWithRed:237/255.0f green:196/255.0f blue:86/255.0f alpha:1.0f];
     self.bestieTextView.textColor = [UIColor whiteColor];
@@ -56,10 +57,14 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     UIView * calendarView = objects[0];
     
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    calendarView.center = CGPointMake(window.center.x, 60);
+    calendarView.center = CGPointMake(window.center.x, 120);
     [self.view addSubview:calendarView];
 
     [self reloadData];
+}
+
+- (void)setupNavigationBar {
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu)];
 }
 
 - (void) reloadData
@@ -108,7 +113,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 - (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     // if we're composing, remove the help text
-    if (!self.bestie && [self.bestieTextView.text isEqualToString: kInitialText])
+    if (!self.bestie && [self.bestieTextView.text isEqualToString: (NSString *)kInitialText])
         self.bestieTextView.text = @"";
     
     return YES;
@@ -118,7 +123,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 {
     // if we're composing a new bestie and the text is empty, place the help text
     if (!self.bestie && [self.bestieTextView.text isEqualToString: @""])
-        self.bestieTextView.text = kInitialText;
+        self.bestieTextView.text = (NSString *)kInitialText;
 }
 
 

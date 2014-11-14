@@ -30,34 +30,27 @@
     }
 }
 
+- (void)setup {
+    UINib *nib = [UINib nibWithNibName:@"UserStatsView" bundle:nil];
+    [nib instantiateWithOwner:self options:nil];
+    [self addSubview:self.containerView];
+}
+
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     NSLog(@"===Init Stats view!===");
     if (self) {
-        
-        UINib *nib = [UINib nibWithNibName:@"UserStatsView" bundle:nil];
-        [nib instantiateWithOwner:self options:nil];
-        [self addSubview:self.containerView];
-        
+        [self setup];
     }
-    
     return self;
 }
-
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        [self setup];
     }
     return self;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

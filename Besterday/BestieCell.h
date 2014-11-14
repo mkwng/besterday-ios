@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) Bestie *bestie;
 
+// NOTE: is this set magically already somewhere?
+@property (nonatomic, strong) UIViewController *parentVC;
 @end

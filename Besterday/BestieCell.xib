@@ -22,7 +22,8 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <color key="backgroundColor" red="0.26139518649999999" green="0.79025253620000002" blue="0.82449494950000002" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.54136167728823237" green="0.96634311868686873" blue="0.70202062601469783" alpha="1" colorSpace="calibratedRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MDJ-EO-dO6" secondAttribute="trailing" constant="8" id="J96-kf-nNm"/>
                 <constraint firstItem="MDJ-EO-dO6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="MPw-rw-8VW"/>

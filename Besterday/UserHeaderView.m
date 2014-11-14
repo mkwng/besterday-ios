@@ -41,11 +41,11 @@
     
     [Bestie bestiesForUserWithTarget:self.PFuser completion:^(NSArray *besties, NSError *error) {
         self.besties = [[NSMutableArray alloc] initWithArray:besties];
-        //NSLog(@"Besties have been loaded");
-        NSInteger count = 0;
-        for (Bestie *b in self.besties) {
-            NSLog(@"Bestie text %ld: %@", ++count, b.text);
-        }
+//        NSLog(@"Besties have been loaded");
+//        NSInteger count = 0;
+//        for (Bestie *b in self.besties) {
+//            NSLog(@"Bestie text %ld: %@", ++count, b.text);
+//        }
         [self setUpStats];
         [self loadViews];
     }];
@@ -91,33 +91,27 @@
     }
 }
 
+- (void)setup {
+    UINib *nib = [UINib nibWithNibName:@"UserHeaderView" bundle:nil];
+    [nib instantiateWithOwner:self options:nil];
+    [self addSubview:self.contentView];
+}
+
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     NSLog(@"Init header view!");
     if (self) {
-        
-        UINib *nib = [UINib nibWithNibName:@"UserHeaderView" bundle:nil];
-        [nib instantiateWithOwner:self options:nil];
-        [self addSubview:self.contentView];
-        
+        [self setup];
     }
-    
     return self;
 }
-
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        [self setup];
     }
     return self;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

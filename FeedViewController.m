@@ -25,9 +25,19 @@ int const kBestieCellSize = 120;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupNavigationBar];
+//    [self setupNavigationBar];
     [self setupCollectionView];
     [self loadBesties];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"Feed viewWillAppear");
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"Feed viewDidAppear");
+    [super viewDidAppear:animated];
 }
 
 - (void)setupNavigationBar {
@@ -63,7 +73,7 @@ int const kBestieCellSize = 120;
         if (error == nil) {
             self.besties = besties;
             [self.bestieCollectionView reloadData];
-            NSLog(@"Bestie Feed -- loaded %ld besties", besties.count);
+            NSLog(@"Feed View: Bestie Feed -- loaded %ld besties", besties.count);
         } else {
             NSLog(@"Error loading besties: %@", error);
         }
@@ -91,8 +101,8 @@ int const kBestieCellSize = 120;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     BestieCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BestieCell" forIndexPath:indexPath];
-    NSLog(@"Index path: %@, %ld", indexPath, (long)indexPath.row);
     cell.bestie = self.besties[indexPath.row];
+    cell.parentVC = self;//.parentViewController;
     return cell;
 }
 
