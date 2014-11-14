@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserProfileViewController">
@@ -16,12 +16,15 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0WZ-tf-rvR" customClass="UserHeaderView">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="215"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0WZ-tf-rvR" customClass="UserHeaderView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="909-vc-gBe">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="909-vc-gBe">
                     <rect key="frame" x="0.0" y="216" width="320" height="352"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="352" id="Qby-tU-pt2"/>
+                    </constraints>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="OBw-dK-uzx">
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -33,11 +36,20 @@
             <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="909-vc-gBe" secondAttribute="trailing" id="0CG-to-LDC"/>
+                <constraint firstItem="909-vc-gBe" firstAttribute="top" secondItem="0WZ-tf-rvR" secondAttribute="bottom" id="74C-PR-wIQ"/>
                 <constraint firstAttribute="bottom" secondItem="909-vc-gBe" secondAttribute="bottom" id="TQR-hJ-tB7"/>
-                <constraint firstItem="909-vc-gBe" firstAttribute="top" secondItem="0WZ-tf-rvR" secondAttribute="bottom" id="dpX-db-PSc"/>
+                <constraint firstItem="0WZ-tf-rvR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VAE-bg-24u"/>
+                <constraint firstAttribute="trailing" secondItem="0WZ-tf-rvR" secondAttribute="trailing" id="dPp-VE-xEZ"/>
+                <constraint firstItem="909-vc-gBe" firstAttribute="top" secondItem="0WZ-tf-rvR" secondAttribute="bottom" constant="-1" id="dpX-db-PSc"/>
                 <constraint firstItem="909-vc-gBe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="sC6-qd-yhp"/>
+                <constraint firstItem="0WZ-tf-rvR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vbU-4y-k9D"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="dpX-db-PSc"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="229" y="343"/>
         </view>
     </objects>
