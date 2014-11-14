@@ -10,6 +10,7 @@
 #import "Bestie.h"
 #import <Parse/Parse.h>
 #import "UserStatsView.h"
+#import "UIImageView+AfNetworking.h"
 
 @interface UserHeaderView()
 
@@ -80,9 +81,16 @@
 
 - (void) loadViews {
     if (self.user) {
-        self.userImageView.image = self.user.getPicture;
+        
+        [self.userImageView setImageWithURL: [NSURL URLWithString:(self.PFuser[@"profileImageUrl"])]];
         self.userNameLabel.text = self.PFuser.username;
-        self.userTagline.text = self.user.getTagline;
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MMMM d"];
+        NSString* tagline = [NSString stringWithFormat:@"Besties since %@", [formatter stringFromDate:self.PFuser.createdAt]];
+
+
+        self.userTagline.text = tagline;
         self.userImageView.layer.cornerRadius = self.userImageView.frame.size.width/2;
         self.userImageView.clipsToBounds = YES;
         [self.userImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];

@@ -31,10 +31,6 @@
     return self.name;
 }
 
-- (UIImage *)getPicture{
-    return self.picture;
-}
-
 - (NSString *)getTagline {
     return self.tagline;
 }

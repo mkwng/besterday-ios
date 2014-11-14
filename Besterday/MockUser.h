@@ -13,7 +13,6 @@
 - (id)initFromObject;
 
 - (NSString *)getName;
-- (UIImage *)getPicture;
 - (NSString *)getTagline;
 
 @end

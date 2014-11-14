@@ -32,11 +32,15 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.bestieTextLabel.textColor = [UIColor whiteColor];
 }
 
 -(void) setColor:(BestieCellColor)color {
+    self.bestieTextLabel.textColor = [UIColor whiteColor];
     switch (color) {
+        case BestieCellColorWhite:
+            self.backgroundColor = [UIColor colorWithRed:227/255.0f green:223/255.0f blue:223/255.0f alpha:1.0f];
+            self.bestieTextLabel.textColor = [UIColor blackColor];
+            break;
         case BestieCellColorBlack:
             self.backgroundColor = [UIColor colorWithRed:66/255.0f green:61/255.0f blue:63/255.0f alpha:1.0f];
             break;
@@ -45,11 +49,6 @@
             break;
         case BestieCellColorOrange:
             self.backgroundColor = [UIColor colorWithRed:228/255.0f green:137/255.0f blue:87/255.0f alpha:1.0f];
-            break;
-        case BestieCellColorWhite:
-            self.backgroundColor = [UIColor colorWithRed:227/255.0f green:223/255.0f blue:223/255.0f alpha:1.0f];
-            self.bestieTextLabel.textColor = [UIColor blackColor];
-
             break;
     }
 }

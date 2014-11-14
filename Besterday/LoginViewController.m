@@ -68,11 +68,11 @@
                     NSDictionary *userData = (NSDictionary *)result;
                     
                     user.username = userData[@"name"];
-                    [user saveInBackground];
-
-//                    NSString *facebookID = userData[@"id"];
-//                    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
+                    NSString *facebookID = userData[@"id"];
+                    NSString *profileImageUrl = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID];
                     
+                    user[@"profileImageUrl"] = profileImageUrl;
+                    [user saveInBackground];
                 }
             }];
             
