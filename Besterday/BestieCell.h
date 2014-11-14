@@ -15,4 +15,13 @@
 
 // NOTE: is this set magically already somewhere?
 @property (nonatomic, strong) UIViewController *parentVC;
+
+typedef enum BestieCellColor : NSUInteger {
+    BestieCellColorGreen,
+    BestieCellColorOrange,
+    BestieCellColorBlack,
+    BestieCellColorWhite,
+} BestieCellColor;
+
+-(void) setColor:(BestieCellColor)color;
 @end

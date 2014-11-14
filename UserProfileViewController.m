@@ -13,8 +13,6 @@
 #import <Parse/Parse.h>
 #import "BestieCell.h"
 
-int const kBestieCellSize = 120;
-
 @interface UserProfileViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UserHeaderView *header;
@@ -112,8 +110,22 @@ int const kBestieCellSize = 120;
     [self.navigationController pushViewController:[[MenuViewController alloc] init] animated:YES];
 }
 
+// allow tiles to touch each other horizontally
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0.0;
+}
+
+// allow tiles to touch each other vertically
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0.0;
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    CGSize returnSize = CGSizeMake(kBestieCellSize, kBestieCellSize);
+
+    // make squares equal to half the width of the frame
+    CGSize returnSize = CGSizeMake(collectionView.frame.size.width/2, collectionView.frame.size.width/2);
     return returnSize;
 }
 
@@ -125,7 +137,9 @@ int const kBestieCellSize = 120;
     BestieCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BestieCell" forIndexPath:indexPath];
     cell.bestie = self.besties[indexPath.row];
     
-    cell.parentVC = self;//.parentViewController;
+    // alternate colors
+    [cell setColor: indexPath.row % 4];
+    cell.parentVC = self;
     return cell;
 }
 
