@@ -9,7 +9,6 @@
 #import "MenuViewController.h"
 #import "MenuItemCell.h"
 #import "ComposeViewController.h"
-#import "FeedViewController.h"
 #import "UserProfileViewController.h"
 
 int const kProfileItemIndex = 0;
@@ -49,7 +48,6 @@ int const kFeedItemIndex = 3;
       @{@"name" : @"Profile", @"img":@"home"},
       @{@"name" : @"Calendar", @"img": @"home"},
       @{@"name" : @"Compose", @"img": @"home"},
-      @{@"name" : @"(DEBUG) Feed", @"img": @"home"},
       ];
 }
 
@@ -93,8 +91,6 @@ int const kFeedItemIndex = 3;
         return;
     } else if (indexPath.row == kComposeItemIndex) {
         vc = [[ComposeViewController alloc] init];
-    } else if (indexPath.row == kFeedItemIndex) {
-        vc = [[FeedViewController alloc] init];
     }
     
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{

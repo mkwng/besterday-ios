@@ -11,7 +11,7 @@
 #import <Parse/Parse.h>
 #import "Bestie.h"
 
-@interface ComposeViewController ()<UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
+@interface ComposeViewController ()<UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *bestieTextView;
 
 // TODO: remove these, they're just for testing
@@ -28,29 +28,13 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupNavigationBar];
     
     self.view.backgroundColor = [UIColor colorWithRed:237/255.0f green:196/255.0f blue:86/255.0f alpha:1.0f];
     self.bestieTextView.textColor = [UIColor whiteColor];
     
     self.bestieTextView.delegate = self;
     
-    // TODO: remove; for testing only
-    self.testTableView.dataSource = self;
-    self.testTableView.delegate = self;
-    [Bestie bestiesForUserWithTarget:[PFUser currentUser] completion:^(NSArray *besties, NSError *error) {
-        if (!error) {
-            self.besties = besties;
-            [self.testTableView reloadData];
-            
-        } else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];
-    
     // add the calendar page subview
-    // TODO: why doesn't this look right for iphone 6?
     UINib *nib = [UINib nibWithNibName:@"CalendarView" bundle:nil];
     NSArray * objects = [nib instantiateWithOwner:self options:nil];
     
@@ -61,10 +45,6 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     [self.view addSubview:calendarView];
 
     [self reloadData];
-}
-
-- (void)setupNavigationBar {
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu)];
 }
 
 - (void) reloadData
@@ -143,35 +123,5 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-
-// TODO: remove these, they're just for testing
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-   return @"DEBUG - for testing only";
-}
-    
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.besties.count;
-}
-
-- (UITableViewCell *) tableView: (UITableView *) tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell * cell = [[UITableViewCell alloc] init];
-    
-    Bestie *bestie = self.besties[indexPath.row];
-    
-    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    cell.textLabel.numberOfLines = 0;
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", bestie.text, bestie.createDate];
-    
-    return cell;
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    self.bestie = self.besties[indexPath.row];
-    
-    [self reloadData];
-}
-
 
 @end

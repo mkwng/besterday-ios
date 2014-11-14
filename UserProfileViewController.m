@@ -10,14 +10,20 @@
 #import "UserHeaderView.h"
 #import "UserStatsView.h"
 #import "MenuViewController.h"
-#import "FeedViewController.h"
+#import <Parse/Parse.h>
+#import "BestieCell.h"
 
-@interface UserProfileViewController ()
-@property (nonatomic, strong) UserHeaderView *header;
+int const kBestieCellSize = 120;
+
+@interface UserProfileViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UserHeaderView *header;
 
 // Bestie feed
-@property (nonatomic, strong) FeedViewController *feedVC;
-@property (nonatomic, strong) UIView *feedView;
+@property NSArray *besties;
+@property (weak, nonatomic) IBOutlet UICollectionView *bestieCollectionView;
+@property (nonatomic, strong) BestieCell *prototypeCell;
+
 @end
 
 @implementation UserProfileViewController
@@ -27,16 +33,11 @@
     [self setupNavigationBar];
     
     // Header
-    self.header = [[UserHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 215)];
     [self.header loadUser:[[MockUser alloc]initFromObject]];
-    [self addView:self.header];
     
     // Feed
-    self.feedVC = [[FeedViewController alloc] init];
-    self.feedView = self.feedVC.view;
-    self.feedView.frame = CGRectMake(0, self.header.frame.origin.y + self.header.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.header.frame.origin.y);
-    NSLog(@"FRAMES: %@, %@", NSStringFromCGRect(self.header.frame), NSStringFromCGRect(self.feedView.frame));
-    [self addView:self.feedView];
+    [self setupCollectionView];
+    [self loadBesties];
 
     self.view.backgroundColor = [UIColor orangeColor];
     self.view.alpha = .9;
@@ -53,6 +54,28 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Grow" style:UIBarButtonItemStylePlain target:self action:@selector(onGrow)];
 }
+
+- (void)setupCollectionView {
+    self.bestieCollectionView.delegate = self;
+    self.bestieCollectionView.dataSource = self;
+    
+    UINib *bestieCellNib = [UINib nibWithNibName:@"BestieCell" bundle:nil];
+    [self.bestieCollectionView registerNib:bestieCellNib forCellWithReuseIdentifier:@"BestieCell"];
+}
+
+- (void)loadBesties {
+    PFUser *user = [PFUser currentUser];
+    [Bestie bestiesForUserWithTarget:user completion:^(NSArray *besties, NSError *error) {
+        if (error == nil) {
+            self.besties = besties;
+            [self.bestieCollectionView reloadData];
+            NSLog(@"Feed View: Bestie Feed -- loaded %ld besties", besties.count);
+        } else {
+            NSLog(@"Error loading besties: %@", error);
+        }
+    }];
+}
+
 
 - (void) addView:(UIView *)view {
     [self.view addSubview:view];
@@ -86,7 +109,29 @@
 
 - (void)onMenu {
     NSLog(@"ALPHA: %f", self.view.alpha);
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController pushViewController:[[MenuViewController alloc] init] animated:YES];
 }
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    CGSize returnSize = CGSizeMake(kBestieCellSize, kBestieCellSize);
+    return returnSize;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.besties.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    BestieCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BestieCell" forIndexPath:indexPath];
+    cell.bestie = self.besties[indexPath.row];
+    
+    cell.parentVC = self;//.parentViewController;
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+}
+
 
 @end

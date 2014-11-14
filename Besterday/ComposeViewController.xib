@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ComposeViewController">
             <connections>
                 <outlet property="bestieTextView" destination="7ST-gb-HQJ" id="q92-se-c8A"/>
-                <outlet property="testTableView" destination="LJH-0L-NGZ" id="hlr-lO-PNH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -31,13 +30,6 @@
                         </mask>
                     </variation>
                 </textView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LJH-0L-NGZ">
-                    <rect key="frame" x="0.0" y="388" width="320" height="180"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="180" id="8Se-NT-kST"/>
-                    </constraints>
-                </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcG-cE-NLw">
                     <rect key="frame" x="142" y="371" width="37" height="30"/>
                     <constraints>
@@ -59,12 +51,9 @@
                 <constraint firstAttribute="centerX" secondItem="7ST-gb-HQJ" secondAttribute="centerX" id="OUv-q6-hO6"/>
                 <constraint firstAttribute="centerX" secondItem="wcG-cE-NLw" secondAttribute="centerX" id="YQh-2R-pdF"/>
                 <constraint firstAttribute="centerY" secondItem="7ST-gb-HQJ" secondAttribute="centerY" constant="11" id="b9K-Zc-2HV"/>
-                <constraint firstItem="LJH-0L-NGZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bTB-Gc-xOa"/>
                 <constraint firstItem="7ST-gb-HQJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="rPi-yd-wGI"/>
                 <constraint firstItem="wcG-cE-NLw" firstAttribute="top" secondItem="7ST-gb-HQJ" secondAttribute="bottom" constant="8" id="vUp-Ws-T2c"/>
                 <constraint firstItem="wcG-cE-NLw" firstAttribute="top" secondItem="7ST-gb-HQJ" secondAttribute="bottom" constant="8" id="yBH-3X-LYF"/>
-                <constraint firstAttribute="bottom" secondItem="LJH-0L-NGZ" secondAttribute="bottom" id="zK0-E5-fhk"/>
-                <constraint firstAttribute="trailing" secondItem="LJH-0L-NGZ" secondAttribute="trailing" id="zvf-E5-KNx"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <variation key="default">

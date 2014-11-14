@@ -21,8 +21,6 @@
 		2CDC7C421A11E8420086B747 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CDC7C401A11E8420086B747 /* LoginViewController.xib */; };
 		AF11FADA1A141C41006BCFBF /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF11FAD71A141C41006BCFBF /* MenuViewController.xib */; };
 		AF11FADB1A141C41006BCFBF /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF11FAD81A141C41006BCFBF /* MenuViewController.m */; };
-		AF11FADF1A141D7E006BCFBF /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF11FADD1A141D7E006BCFBF /* FeedViewController.m */; };
-		AF11FAE01A141D7E006BCFBF /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF11FADE1A141D7E006BCFBF /* FeedViewController.xib */; };
 		AF11FAE41A14270A006BCFBF /* BestieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF11FAE21A14270A006BCFBF /* BestieCell.m */; };
 		AF11FAE51A14270A006BCFBF /* BestieCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF11FAE31A14270A006BCFBF /* BestieCell.xib */; };
 		AFB074051A14176F00E6254E /* MenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB074031A14176F00E6254E /* MenuItemCell.m */; };
@@ -71,9 +69,6 @@
 		AF11FAD71A141C41006BCFBF /* MenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MenuViewController.xib; path = Besterday/MenuViewController.xib; sourceTree = "<group>"; };
 		AF11FAD81A141C41006BCFBF /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuViewController.m; path = Besterday/MenuViewController.m; sourceTree = "<group>"; };
 		AF11FAD91A141C41006BCFBF /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuViewController.h; path = Besterday/MenuViewController.h; sourceTree = "<group>"; };
-		AF11FADC1A141D7E006BCFBF /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
-		AF11FADD1A141D7E006BCFBF /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
-		AF11FADE1A141D7E006BCFBF /* FeedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedViewController.xib; sourceTree = "<group>"; };
 		AF11FAE11A14270A006BCFBF /* BestieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BestieCell.h; sourceTree = "<group>"; };
 		AF11FAE21A14270A006BCFBF /* BestieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BestieCell.m; sourceTree = "<group>"; };
 		AF11FAE31A14270A006BCFBF /* BestieCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BestieCell.xib; sourceTree = "<group>"; };
@@ -197,9 +192,6 @@
 				AF11FAD71A141C41006BCFBF /* MenuViewController.xib */,
 				AF11FAD81A141C41006BCFBF /* MenuViewController.m */,
 				AF11FAD91A141C41006BCFBF /* MenuViewController.h */,
-				AF11FADC1A141D7E006BCFBF /* FeedViewController.h */,
-				AF11FADD1A141D7E006BCFBF /* FeedViewController.m */,
-				AF11FADE1A141D7E006BCFBF /* FeedViewController.xib */,
 				DDD656E81A1493E300D62FD2 /* UserProfileViewController.h */,
 				DDD656E91A1493E300D62FD2 /* UserProfileViewController.m */,
 				DDD656EA1A1493E300D62FD2 /* UserProfileViewController.xib */,
@@ -330,7 +322,6 @@
 				DDD656C91A147ED300D62FD2 /* UserHeaderView.xib in Resources */,
 				2CDC7C421A11E8420086B747 /* LoginViewController.xib in Resources */,
 				AFB074061A14176F00E6254E /* MenuItemCell.xib in Resources */,
-				AF11FAE01A141D7E006BCFBF /* FeedViewController.xib in Resources */,
 				2C9046701A158282002A9B0B /* CalendarView.xib in Resources */,
 				AF11FAE51A14270A006BCFBF /* BestieCell.xib in Resources */,
 				DDD656F51A14AE3D00D62FD2 /* UserStatsView.xib in Resources */,
@@ -393,7 +384,6 @@
 				2CBCF85B1A11CC8C00DD207E /* AppDelegate.m in Sources */,
 				2CBCF8581A11CC8C00DD207E /* main.m in Sources */,
 				DDD656EF1A14ACCF00D62FD2 /* UserStatsView.m in Sources */,
-				AF11FADF1A141D7E006BCFBF /* FeedViewController.m in Sources */,
 				AF11FADB1A141C41006BCFBF /* MenuViewController.m in Sources */,
 				AFB074051A14176F00E6254E /* MenuItemCell.m in Sources */,
 				2CBCF85E1A11CC8C00DD207E /* Besterday.xcdatamodeld in Sources */,

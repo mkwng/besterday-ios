@@ -13,7 +13,6 @@
 #import "UserProfileViewController.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "Bestie.h"
-#import "FeedViewController.h" // for testing
 
 @interface AppDelegate ()
 
@@ -55,8 +54,6 @@
                     NSLog(@"AD: Most recent bestie is yesterday -- showing main view");
                     vc = [[UserProfileViewController alloc] init];
 
-                    // Raylene -- for testing
-                    // vc = [[FeedViewController alloc] init];
                 } else {
                     NSLog(@"Most recent bestie is older than yesterday -- showing compose view");
                     vc = [[ComposeViewController alloc] init];
