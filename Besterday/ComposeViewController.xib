@@ -35,9 +35,6 @@
                         <constraint firstAttribute="height" constant="133" id="8Se-NT-kST"/>
                     </constraints>
                 </tableView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DateBackground" translatesAutoresizingMaskIntoConstraints="NO" id="hOB-iB-BJr">
-                    <rect key="frame" x="135" y="44" width="50" height="50"/>
-                </imageView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="What was the best thing that happened to you yesterday?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7ST-gb-HQJ">
                     <rect key="frame" x="20" y="124" width="280" height="231"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -56,12 +53,9 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="hOB-iB-BJr" secondAttribute="centerX" id="1tO-mV-NMv"/>
                 <constraint firstAttribute="trailing" secondItem="7ST-gb-HQJ" secondAttribute="trailing" constant="40" id="DHf-5K-V6P"/>
                 <constraint firstAttribute="trailing" secondItem="7ST-gb-HQJ" secondAttribute="trailing" constant="20" id="Dqt-cW-4CE"/>
                 <constraint firstItem="7ST-gb-HQJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="F8Z-oQ-yB0"/>
-                <constraint firstItem="hOB-iB-BJr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="GNa-aX-AoH"/>
-                <constraint firstItem="7ST-gb-HQJ" firstAttribute="top" secondItem="hOB-iB-BJr" secondAttribute="bottom" constant="17" id="HW5-UK-cdU"/>
                 <constraint firstAttribute="centerX" secondItem="7ST-gb-HQJ" secondAttribute="centerX" id="OUv-q6-hO6"/>
                 <constraint firstAttribute="centerX" secondItem="wcG-cE-NLw" secondAttribute="centerX" id="YQh-2R-pdF"/>
                 <constraint firstAttribute="centerY" secondItem="7ST-gb-HQJ" secondAttribute="centerY" id="b9K-Zc-2HV"/>
@@ -77,14 +71,10 @@
                 <mask key="constraints">
                     <exclude reference="DHf-5K-V6P"/>
                     <exclude reference="F8Z-oQ-yB0"/>
-                    <exclude reference="HW5-UK-cdU"/>
                     <exclude reference="OUv-q6-hO6"/>
                     <exclude reference="yBH-3X-LYF"/>
                 </mask>
             </variation>
         </view>
     </objects>
-    <resources>
-        <image name="DateBackground" width="50" height="50"/>
-    </resources>
 </document>

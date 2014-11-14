@@ -38,6 +38,22 @@
     
     return [formatter stringFromDate:date];
 }
+- (NSString*) createMonth
+{
+    NSDate * date = (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM"];
+    
+    return [formatter stringFromDate:date];
+}
+- (NSString*) createDay
+{
+    NSDate * date = (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"d"];
+    
+    return [formatter stringFromDate:date];
+}
 
 #pragma mark Bestie creation methods
 

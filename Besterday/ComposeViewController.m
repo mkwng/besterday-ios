@@ -17,6 +17,8 @@
 // TODO: remove these, they're just for testing
 @property (weak, nonatomic) IBOutlet UITableView *testTableView;
 @property NSArray* besties;
+@property (weak, nonatomic) IBOutlet UILabel *monthLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dayLabel;
 
 @end
 
@@ -26,13 +28,9 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     
     self.view.backgroundColor = [UIColor colorWithRed:237/255.0f green:196/255.0f blue:86/255.0f alpha:1.0f];
     self.bestieTextView.textColor = [UIColor whiteColor];
-    
-    if (self.bestie)
-        self.bestieTextView.text = self.bestie.text;
     
     self.bestieTextView.delegate = self;
     
@@ -49,6 +47,40 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+    
+    // add the calendar page subview
+    // TODO: why doesn't this look right for iphone 6?
+    UINib *nib = [UINib nibWithNibName:@"CalendarView" bundle:nil];
+    NSArray * objects = [nib instantiateWithOwner:self options:nil];
+    
+    UIView * calendarView = objects[0];
+    
+    calendarView.center = CGPointMake(self.view.center.x, 60);
+    [self.view addSubview:calendarView];
+
+    [self reloadData];
+}
+
+- (void) reloadData
+{
+    if (self.bestie)
+    {
+        self.bestieTextView.text = self.bestie.text;
+    
+        self.monthLabel.text = [self.bestie createMonth];
+        self.dayLabel.text = [self.bestie createDay];
+    }
+    else
+    {
+        NSDate * yesterday = [NSDate dateWithTimeIntervalSinceNow:-86400];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+
+        [formatter setDateFormat:@"MMM"];
+        self.monthLabel.text = [formatter stringFromDate:yesterday];
+
+        [formatter setDateFormat:@"d"];
+        self.dayLabel.text = [formatter stringFromDate:yesterday];
+    }
     
 }
 
@@ -130,11 +162,9 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ComposeViewController *vc = [[ComposeViewController alloc] init];
+    self.bestie = self.besties[indexPath.row];
     
-    vc.bestie = self.besties[indexPath.row];
-    [self presentViewController:vc animated:YES completion:nil];
-
+    [self reloadData];
 }
 
 

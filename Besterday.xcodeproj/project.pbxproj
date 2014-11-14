@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		275ED73418D26B52B680988B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9785072D89B3CE1D530B21D7 /* libPods.a */; };
 		2C9046681A1438AF002A9B0B /* Bestie.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9046671A1438AF002A9B0B /* Bestie.m */; };
+		2C9046701A158282002A9B0B /* CalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C90466F1A158282002A9B0B /* CalendarView.xib */; };
 		2CBCF8581A11CC8C00DD207E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBCF8571A11CC8C00DD207E /* main.m */; };
 		2CBCF85B1A11CC8C00DD207E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBCF85A1A11CC8C00DD207E /* AppDelegate.m */; };
 		2CBCF85E1A11CC8C00DD207E /* Besterday.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2CBCF85C1A11CC8C00DD207E /* Besterday.xcdatamodeld */; };
@@ -48,6 +49,7 @@
 /* Begin PBXFileReference section */
 		2C9046661A1438AF002A9B0B /* Bestie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bestie.h; sourceTree = "<group>"; };
 		2C9046671A1438AF002A9B0B /* Bestie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bestie.m; sourceTree = "<group>"; };
+		2C90466F1A158282002A9B0B /* CalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView.xib; sourceTree = "<group>"; };
 		2CBCF8521A11CC8C00DD207E /* Besterday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Besterday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBCF8561A11CC8C00DD207E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CBCF8571A11CC8C00DD207E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				AFB074021A14176F00E6254E /* MenuItemCell.h */,
 				AFB074031A14176F00E6254E /* MenuItemCell.m */,
 				AFB074041A14176F00E6254E /* MenuItemCell.xib */,
+				2C90466F1A158282002A9B0B /* CalendarView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				2CDC7C421A11E8420086B747 /* LoginViewController.xib in Resources */,
 				AFB074061A14176F00E6254E /* MenuItemCell.xib in Resources */,
 				AF11FAE01A141D7E006BCFBF /* FeedViewController.xib in Resources */,
+				2C9046701A158282002A9B0B /* CalendarView.xib in Resources */,
 				AF11FAE51A14270A006BCFBF /* BestieCell.xib in Resources */,
 				DDD656F51A14AE3D00D62FD2 /* UserStatsView.xib in Resources */,
 				DDD656EC1A1493E300D62FD2 /* UserProfileViewController.xib in Resources */,

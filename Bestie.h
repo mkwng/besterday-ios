@@ -16,6 +16,9 @@
 // returns a date in the format "Nov 9"
 @property (readonly, nonatomic) NSString* createDate;
 
+@property (readonly, nonatomic) NSString* createMonth;
+@property (readonly, nonatomic) NSString* createDay;
+
 // Bestie creation
 + (void) bestie: (NSString *)text;
 + (void) bestie: (NSString *)text date:(NSDate *)date;
