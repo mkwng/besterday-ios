@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 
 
+
 - (void)loadUser:(MockUser *)user;
 
 @end

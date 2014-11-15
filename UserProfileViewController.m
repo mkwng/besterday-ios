@@ -13,7 +13,7 @@
 #import <Parse/Parse.h>
 #import "BestieCell.h"
 
-@interface UserProfileViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface UserProfileViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UserHeaderView *header;
 
@@ -21,10 +21,43 @@
 @property NSArray *besties;
 @property (weak, nonatomic) IBOutlet UICollectionView *bestieCollectionView;
 @property (nonatomic, strong) BestieCell *prototypeCell;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerHeightConstraint;
 
 @end
 
 @implementation UserProfileViewController
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat contentOffset = scrollView.contentOffset.y;
+    NSLog(@"Constraint %f", self.headerHeightConstraint.constant);
+    if (contentOffset < 0) {
+        self.headerHeightConstraint.constant = 220;
+        CALayer *layer = self.header.layer;
+        CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+        rotationAndPerspectiveTransform.m34 = 1.0/-500;
+        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, (-contentOffset/220)* M_PI_2, 1, 0, 0);
+        layer.transform = rotationAndPerspectiveTransform;
+        CALayer *bestieLayer = self.prototypeCell.layer;
+        CATransform3D rotationAndPerspectiveTransform2 = CATransform3DIdentity;
+        rotationAndPerspectiveTransform2.m34 = 1.0/-500;
+        rotationAndPerspectiveTransform2 = CATransform3DRotate(rotationAndPerspectiveTransform2, (-contentOffset/220)* M_PI_2, 1, 0, 0);
+        bestieLayer.transform = rotationAndPerspectiveTransform2;
+        
+    }
+    else  if (contentOffset > 0) {
+        if (self.headerHeightConstraint.constant <= 220) {
+            self.headerHeightConstraint.constant = 220 - contentOffset;
+            
+            CALayer *layer = self.header.layer;
+            CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+            rotationAndPerspectiveTransform.m34 = 1.0/-500;
+            rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, (-contentOffset/220)* M_PI_2, 1, 0, 0);
+            layer.transform = rotationAndPerspectiveTransform;
+        }
+        
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,9 +67,10 @@
     
     // Feed
     [self setupCollectionView];
+    NSLog(@"View controller loading");
     [self loadBesties];
 
-    self.view.backgroundColor = [UIColor orangeColor];
+    self.view.backgroundColor = [UIColor blackColor];
     self.view.alpha = .9;
 
 }
@@ -67,17 +101,20 @@
         if (error == nil) {
             self.besties = besties;
             [self.bestieCollectionView reloadData];
-            NSLog(@"Feed View: Bestie Feed -- loaded %ld besties", besties.count);
+            //NSLog(@"Feed View: Bestie Feed -- loaded %ld besties", besties.count);
         } else {
             NSLog(@"Error loading besties: %@", error);
         }
     }];
 }
+- (IBAction)onLongPress:(UILongPressGestureRecognizer *)sender {
+    NSLog(@"Long press triggered");
+    [self onMenu];
+}
 
 
 - (void) addView:(UIView *)view {
     [self.view addSubview:view];
-    [self.view setNeedsLayout];
     view.translatesAutoresizingMaskIntoConstraints = YES;
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 }
@@ -112,6 +149,19 @@
     // alternate colors
     [cell setColor: indexPath.row % 4];
     cell.parentVC = self;
+    
+    CGRect frame = cell.frame;
+    if (indexPath.row % 2 == 1) {
+        cell.frame = CGRectMake(0, 0, 0, 0);
+    }
+    else {
+        cell.frame = CGRectMake(self.bestieCollectionView.frame.size.width, 0, 0, 0);
+    }
+    [UIView animateWithDuration:.5 animations:^(void){
+        cell.frame = frame;
+    }];
+    
+    return cell;
     return cell;
 }
 
@@ -122,7 +172,7 @@
 // DEBUG: just for testing; not wired up any more, but if you need it, make a button or something to trigger these
 - (void)onMenu {
     NSLog(@"ALPHA: %f", self.view.alpha);
-    [self.navigationController pushViewController:[[MenuViewController alloc] init] animated:YES];
+    [self presentViewController:[[MenuViewController alloc] init] animated:YES completion:nil];
 }
 
 - (void)onGrow{

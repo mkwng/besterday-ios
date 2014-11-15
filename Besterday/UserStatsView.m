@@ -21,7 +21,7 @@
 
 -(void)layoutSubviews {
     [super layoutSubviews];
-    [self.containerView setFrame:self.frame];
+    [self.containerView setFrame:self.bounds];
 }
 
 - (void) loadViews {
@@ -31,14 +31,17 @@
 }
 
 - (void)setup {
+    NSLog(@"===Init Stats view!===");
     UINib *nib = [UINib nibWithNibName:@"UserStatsView" bundle:nil];
     [nib instantiateWithOwner:self options:nil];
     [self addSubview:self.containerView];
+    self.imageAsset.image = [UIImage imageNamed:@"stats"];
+    self.value.text = @"92";
 }
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    NSLog(@"===Init Stats view!===");
+    
     if (self) {
         [self setup];
     }

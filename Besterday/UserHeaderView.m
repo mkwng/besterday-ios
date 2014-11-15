@@ -24,9 +24,7 @@
 @property (nonatomic, strong) PFUser *PFuser;
 
 @property (nonatomic, strong) NSMutableArray *besties;
-@property (weak, nonatomic) IBOutlet UIView *stat1;
-@property (weak, nonatomic) IBOutlet UIView *stat2;
-@property (weak, nonatomic) IBOutlet UIView *stat3;
+
 
 
 
@@ -67,7 +65,7 @@
 
 
 - (void)setUpStats {
-    UserStatsView *stat1 = [[UserStatsView alloc] initWithFrame:self.stat1.bounds];
+/*    UserStatsView *stat1 = [[UserStatsView alloc] initWithFrame:self.stat1.bounds];
     stat1.value.text = @"42%";
     UserStatsView *stat2 = [[UserStatsView alloc] initWithFrame:self.stat2.bounds];
     stat2.value.text = [NSString stringWithFormat:@"%ld", self.besties.count];
@@ -75,7 +73,7 @@
     stat3.value.text = [NSString stringWithFormat:@"%ld", self.besties.count-1];
     [self addStat: stat1 container:self.stat1];
     [self addStat: stat2 container:self.stat2];
-    [self addStat: stat3 container:self.stat3];
+    [self addStat: stat3 container:self.stat3];*/
 
 }
 

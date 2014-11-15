@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserStatsView">
             <connections>
-                <outlet property="containerView" destination="knB-IE-Qfx" id="xkQ-dl-Bvl"/>
+                <outlet property="containerView" destination="knB-IE-Qfx" id="7Ql-1T-HBF"/>
                 <outlet property="imageAsset" destination="Ykj-GI-sr9" id="0vu-FU-aJ8"/>
                 <outlet property="value" destination="fgl-wX-15x" id="6kH-dp-xQw"/>
             </connections>
@@ -49,7 +49,7 @@
                     <exclude reference="j0H-aM-pQY"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="253" y="244"/>
+            <point key="canvasLocation" x="96" y="275"/>
         </view>
     </objects>
     <resources>
