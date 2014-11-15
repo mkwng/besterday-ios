@@ -6,7 +6,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserHeaderView">
             <connections>
+                <outlet property="bestieCountStat" destination="EyI-ZK-XWv" id="me1-AG-NIU"/>
+                <outlet property="completionStat" destination="JMc-P0-Rxd" id="xy7-XK-fzq"/>
                 <outlet property="contentView" destination="Blc-hB-ICA" id="WNl-3N-I2p"/>
+                <outlet property="longestStreakStat" destination="QNW-lj-zsX" id="6Qb-Pe-AC1"/>
                 <outlet property="statsContainerView" destination="PzP-sn-HmZ" id="CXo-zf-vOX"/>
                 <outlet property="userImageHeightConstraint" destination="VUp-LS-5zL" id="dqz-lu-eNc"/>
                 <outlet property="userImageView" destination="FpA-y3-9WS" id="XI1-cI-dXi"/>
@@ -21,30 +24,30 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Larry wei" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXV-FW-rtl">
-                    <rect key="frame" x="8" y="93" width="311" height="17.5"/>
+                    <rect key="frame" x="8" y="98" width="311" height="17.5"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="is having a great day!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rue-GI-PEF">
-                    <rect key="frame" x="8" y="112" width="311" height="16.5"/>
+                    <rect key="frame" x="8" y="117" width="311" height="16.5"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="14"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PzP-sn-HmZ">
-                    <rect key="frame" x="0.0" y="144" width="327" height="70"/>
+                    <rect key="frame" x="0.0" y="149" width="327" height="65"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMc-P0-Rxd" customClass="UserStatsView">
+                            <rect key="frame" x="0.0" y="0.0" width="107.5" height="65"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EyI-ZK-XWv" customClass="UserStatsView">
-                            <rect key="frame" x="109" y="0.0" width="108" height="70"/>
+                            <rect key="frame" x="109.5" y="0.0" width="108" height="65"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNW-lj-zsX" customClass="UserStatsView">
-                            <rect key="frame" x="219" y="0.0" width="108" height="70"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMc-P0-Rxd" customClass="UserStatsView">
-                            <rect key="frame" x="0.0" y="0.0" width="108" height="70"/>
+                            <rect key="frame" x="219.5" y="0.0" width="107.5" height="65"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                     </subviews>
@@ -108,7 +111,7 @@
                     </variation>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FpA-y3-9WS">
-                    <rect key="frame" x="128" y="15" width="70" height="70"/>
+                    <rect key="frame" x="128" y="20" width="70" height="70"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="RBx-q1-eA2"/>
                         <constraint firstAttribute="height" constant="70" id="VUp-LS-5zL"/>
@@ -136,7 +139,7 @@
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rue-GI-PEF" secondAttribute="bottom" constant="8" id="rSt-fj-FKK"/>
                 <constraint firstItem="aXV-FW-rtl" firstAttribute="top" secondItem="FpA-y3-9WS" secondAttribute="bottom" constant="8" id="sHR-kR-fRe"/>
                 <constraint firstAttribute="trailing" secondItem="PzP-sn-HmZ" secondAttribute="trailing" id="tdo-ou-tia"/>
-                <constraint firstItem="FpA-y3-9WS" firstAttribute="top" secondItem="Blc-hB-ICA" secondAttribute="top" constant="15" id="xZB-Yc-HDv"/>
+                <constraint firstItem="FpA-y3-9WS" firstAttribute="top" secondItem="Blc-hB-ICA" secondAttribute="top" constant="20" id="xZB-Yc-HDv"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">

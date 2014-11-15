@@ -8,25 +8,32 @@
             <connections>
                 <outlet property="containerView" destination="knB-IE-Qfx" id="7Ql-1T-HBF"/>
                 <outlet property="imageAsset" destination="Ykj-GI-sr9" id="0vu-FU-aJ8"/>
+                <outlet property="nameLabel" destination="nlR-cx-6zA" id="CjY-Jt-5tq"/>
                 <outlet property="value" destination="fgl-wX-15x" id="6kH-dp-xQw"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="knB-IE-Qfx">
-            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+            <rect key="frame" x="0.0" y="0.0" width="100" height="85"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stats" translatesAutoresizingMaskIntoConstraints="NO" id="Ykj-GI-sr9">
-                    <rect key="frame" x="23" y="25" width="25" height="50"/>
+                    <rect key="frame" x="23" y="22" width="25" height="25"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="DrJ-2L-EsG"/>
+                        <constraint firstAttribute="height" constant="25" id="DrJ-2L-EsG"/>
                         <constraint firstAttribute="width" constant="25" id="VpJ-Ac-geA"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="92" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgl-wX-15x">
-                    <rect key="frame" x="49" y="42" width="44" height="18"/>
+                    <rect key="frame" x="49" y="26" width="44" height="17.5"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CURRENT STREAK" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlR-cx-6zA">
+                    <rect key="frame" x="8" y="55" width="84" height="11.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -34,25 +41,31 @@
             <constraints>
                 <constraint firstItem="Ykj-GI-sr9" firstAttribute="top" relation="greaterThanOrEqual" secondItem="knB-IE-Qfx" secondAttribute="top" constant="8" id="7ys-4x-CzK"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Ykj-GI-sr9" secondAttribute="bottom" constant="8" id="AYN-XL-Xhh"/>
+                <constraint firstItem="nlR-cx-6zA" firstAttribute="top" secondItem="fgl-wX-15x" secondAttribute="bottom" constant="11.5" id="Hty-b4-0j0"/>
                 <constraint firstItem="fgl-wX-15x" firstAttribute="leading" secondItem="Ykj-GI-sr9" secondAttribute="trailing" constant="1" id="IxI-AV-A2f"/>
+                <constraint firstAttribute="bottom" secondItem="nlR-cx-6zA" secondAttribute="bottom" constant="18.5" id="OgZ-Ku-7jA"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fgl-wX-15x" secondAttribute="bottom" constant="8" id="Pxt-6Q-xme"/>
                 <constraint firstItem="Ykj-GI-sr9" firstAttribute="centerY" secondItem="fgl-wX-15x" secondAttribute="centerY" id="UnF-x5-vWu"/>
                 <constraint firstAttribute="trailing" secondItem="Ykj-GI-sr9" secondAttribute="trailing" constant="52" id="Zmr-vU-5Jd"/>
+                <constraint firstAttribute="centerX" secondItem="nlR-cx-6zA" secondAttribute="centerX" id="cNZ-qA-FRI"/>
                 <constraint firstItem="fgl-wX-15x" firstAttribute="top" secondItem="knB-IE-Qfx" secondAttribute="top" constant="38" id="j0H-aM-pQY"/>
                 <constraint firstAttribute="trailing" secondItem="fgl-wX-15x" secondAttribute="trailing" constant="7" id="jHQ-Ib-Lc0"/>
-                <constraint firstAttribute="centerY" secondItem="Ykj-GI-sr9" secondAttribute="centerY" id="qfF-Yz-SMM"/>
+                <constraint firstItem="nlR-cx-6zA" firstAttribute="leading" secondItem="knB-IE-Qfx" secondAttribute="leading" constant="8" id="kci-Ig-l7h"/>
+                <constraint firstAttribute="trailing" secondItem="nlR-cx-6zA" secondAttribute="trailing" constant="8" id="oAe-Wc-N8N"/>
+                <constraint firstAttribute="centerY" secondItem="Ykj-GI-sr9" secondAttribute="centerY" constant="8" id="qfF-Yz-SMM"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="AYN-XL-Xhh"/>
                     <exclude reference="Pxt-6Q-xme"/>
                     <exclude reference="j0H-aM-pQY"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="96" y="275"/>
+            <point key="canvasLocation" x="96" y="282.5"/>
         </view>
     </objects>
     <resources>
-        <image name="stats" width="16" height="16"/>
+        <image name="stats" width="64" height="64"/>
     </resources>
 </document>

@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *bestieCollectionView;
 @property (nonatomic, strong) BestieCell *prototypeCell;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerHeightConstraint;
+@property (nonatomic, assign) CGFloat headerHeightConstant;
 
 @end
 
@@ -32,27 +33,28 @@
     CGFloat contentOffset = scrollView.contentOffset.y;
     NSLog(@"Constraint %f", self.headerHeightConstraint.constant);
     if (contentOffset < 0) {
-        self.headerHeightConstraint.constant = 220;
+        self.headerHeightConstraint.constant = self.headerHeightConstant;
         CALayer *layer = self.header.layer;
         CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
         rotationAndPerspectiveTransform.m34 = 1.0/-500;
-        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, (-contentOffset/220)* M_PI_2, 1, 0, 0);
+        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, (-contentOffset/self.headerHeightConstant)* M_PI_2, 1, 0, 0);
         layer.transform = rotationAndPerspectiveTransform;
-        CALayer *bestieLayer = self.prototypeCell.layer;
+        
+        /*CALayer *bestieLayer = self.bestieCollectionView.layer;
         CATransform3D rotationAndPerspectiveTransform2 = CATransform3DIdentity;
         rotationAndPerspectiveTransform2.m34 = 1.0/-500;
-        rotationAndPerspectiveTransform2 = CATransform3DRotate(rotationAndPerspectiveTransform2, (-contentOffset/220)* M_PI_2, 1, 0, 0);
-        bestieLayer.transform = rotationAndPerspectiveTransform2;
+        rotationAndPerspectiveTransform2 = CATransform3DRotate(rotationAndPerspectiveTransform2, (-contentOffset/self.headerHeightConstant)* M_PI_2, 1, 0, 0);
+        bestieLayer.transform = rotationAndPerspectiveTransform2;*/
         
     }
     else  if (contentOffset > 0) {
-        if (self.headerHeightConstraint.constant <= 220) {
-            self.headerHeightConstraint.constant = 220 - contentOffset;
+        if (self.headerHeightConstraint.constant <= self.headerHeightConstant) {
+            self.headerHeightConstraint.constant = self.headerHeightConstant - contentOffset;
             
             CALayer *layer = self.header.layer;
             CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
             rotationAndPerspectiveTransform.m34 = 1.0/-500;
-            rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, (-contentOffset/220)* M_PI_2, 1, 0, 0);
+            rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, (-contentOffset/self.headerHeightConstant)* M_PI_2, 1, 0, 0);
             layer.transform = rotationAndPerspectiveTransform;
         }
         
@@ -61,13 +63,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.headerHeightConstant = 240;
     
     // Header
     [self.header loadUser:[[MockUser alloc]initFromObject]];
     
     // Feed
     [self setupCollectionView];
-    NSLog(@"View controller loading");
     [self loadBesties];
 
     self.view.backgroundColor = [UIColor blackColor];
@@ -101,7 +103,7 @@
         if (error == nil) {
             self.besties = besties;
             [self.bestieCollectionView reloadData];
-            //NSLog(@"Feed View: Bestie Feed -- loaded %ld besties", besties.count);
+            NSLog(@"Feed View: Bestie Feed -- loaded %ld besties", besties.count);
         } else {
             NSLog(@"Error loading besties: %@", error);
         }
@@ -115,6 +117,7 @@
 
 - (void) addView:(UIView *)view {
     [self.view addSubview:view];
+    [self.view setNeedsLayout];
     view.translatesAutoresizingMaskIntoConstraints = YES;
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 }
@@ -151,17 +154,26 @@
     cell.parentVC = self;
     
     CGRect frame = cell.frame;
-    if (indexPath.row % 2 == 1) {
-        cell.frame = CGRectMake(0, 0, 0, 0);
+    CGPoint translation = [collectionView.panGestureRecognizer translationInView:collectionView.superview];
+    if (translation.y > 0) {
+        if (indexPath.row % 2 == 0) {
+            cell.frame = CGRectMake(0, 0, 0, 0);
+        }
+        else {
+            cell.frame = CGRectMake(self.bestieCollectionView.frame.size.width, 0, 0, 0);
+        }
+    } else {
+        if (indexPath.row % 2 == 0) {
+            cell.frame = CGRectMake(0, self.bestieCollectionView.frame.size.height, 0, 0);
+        }
+        else {
+            cell.frame = CGRectMake(self.bestieCollectionView.frame.size.width, self.bestieCollectionView.frame.size.height, 0, 0);
+        }
     }
-    else {
-        cell.frame = CGRectMake(self.bestieCollectionView.frame.size.width, 0, 0, 0);
-    }
-    [UIView animateWithDuration:.5 animations:^(void){
+    
+    [UIView animateWithDuration:0.2 animations:^(void){
         cell.frame = frame;
     }];
-    
-    return cell;
     return cell;
 }
 
@@ -181,18 +193,7 @@
         frame.size.height =500;
         self.header.frame = frame;
     }];
-    /*
-     self.header.userImageHeightConstraint.constant += 20;
-     self.header.userImageWidthConstraint.constant +=20;*/
-    
-    /*CGRect frame = self.header.frame;
-     frame.size.height -=self.header.statsContainerView.frame.size.height;
-     self.header.frame = frame;
-     CGRect statsFrame = self.header.statsContainerView.frame;
-     statsFrame.size.height = 0;
-     self.header.statsContainerView.frame = statsFrame;
-     [self.header.statsContainerView removeFromSuperview];
-     NSLog(@"%f", self.header.statsContainerView.frame.size.height);*/
+
     
     
     //    [self.view setNeedsLayout];

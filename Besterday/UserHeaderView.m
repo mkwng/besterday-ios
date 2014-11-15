@@ -24,13 +24,24 @@
 @property (nonatomic, strong) PFUser *PFuser;
 
 @property (nonatomic, strong) NSMutableArray *besties;
-
+@property (nonatomic, assign) NSInteger longestStreak;
+@property (weak, nonatomic) IBOutlet UserStatsView *completionStat;
+@property (weak, nonatomic) IBOutlet UserStatsView *bestieCountStat;
+@property (weak, nonatomic) IBOutlet UserStatsView *longestStreakStat;
 
 
 
 @end
 
 @implementation UserHeaderView
+
+- (NSInteger)getCompletionPercentage {
+    NSInteger currentStreak = 0;
+    NSLocale* currentLocale = [NSLocale currentLocale];
+    //NSDate *dateToday = [[NSDate date] descriptionWithLocale:currentLocale];
+    //NSDate time
+    return currentStreak;
+}
 
 - (void)loadUser:(MockUser *) user{
     self.user = user;
@@ -40,17 +51,54 @@
     
     [Bestie bestiesForUserWithTarget:self.PFuser completion:^(NSArray *besties, NSError *error) {
         self.besties = [[NSMutableArray alloc] initWithArray:besties];
-//        NSLog(@"Besties have been loaded");
-//        NSInteger count = 0;
-//        for (Bestie *b in self.besties) {
-//            NSLog(@"Bestie text %ld: %@", ++count, b.text);
-//        }
-        [self setUpStats];
+        
+        [self loadStats];
         [self loadViews];
     }];
 }
 
--(void)layoutSubviews {
+- (void)loadStats{
+    //name the labels
+    self.longestStreakStat.nameLabel.text = @"LONGEST STREAK";
+    self.completionStat.nameLabel.text = @"COMPLETION RATE";
+    self.bestieCountStat.nameLabel.text = @"BESTERDAYS";
+    
+    //images
+    self.longestStreakStat.imageAsset.image = [UIImage imageNamed:@"ribbon"];
+    self.completionStat.imageAsset.image = [UIImage imageNamed:@"stats"];
+    self.bestieCountStat.imageAsset.image = [UIImage imageNamed:@"star"];
+    
+    //longest streak
+    self.longestStreakStat.value.text = [NSString stringWithFormat:@"%ld",[self getLongestStreakOfBesties:self.besties]];
+    self.bestieCountStat.value.text = [NSString stringWithFormat:@"%ld", self.besties.count];
+}
+
+- (NSInteger)getLongestStreakOfBesties:(NSArray *)besties{
+    NSInteger longestStreak = 1;
+    NSInteger currentStreak = 1;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d"];
+    Bestie *bestie = besties[0];
+    NSString *dateForComparison = [formatter stringFromDate:bestie.createdAt];
+    NSString *dateToCompare = [formatter stringFromDate:[NSDate dateWithTimeInterval:-86400 sinceDate:bestie.createdAt]];
+    for (int i = 0; i < besties.count; i++) {
+        bestie = besties[i];
+        dateForComparison = [formatter stringFromDate:bestie.createdAt];
+        NSLog (@"Comparing date %@ to date %@", dateForComparison, dateToCompare);
+        if ([dateForComparison isEqualToString:dateToCompare]) {
+            NSLog(@"THEY ARE EQUAL LOL");
+            currentStreak++;
+        }
+        if (currentStreak > longestStreak) {
+            longestStreak = currentStreak;
+        }
+        dateToCompare = [formatter stringFromDate:[NSDate dateWithTimeInterval:-86400 sinceDate:bestie.createdAt]];
+    }
+    NSLog(@"Current streak is %ld", currentStreak);
+    return longestStreak;
+}
+
+- (void)layoutSubviews {
     [super layoutSubviews];
     [self.contentView setFrame:self.frame];
 }
@@ -64,18 +112,6 @@
 }
 
 
-- (void)setUpStats {
-/*    UserStatsView *stat1 = [[UserStatsView alloc] initWithFrame:self.stat1.bounds];
-    stat1.value.text = @"42%";
-    UserStatsView *stat2 = [[UserStatsView alloc] initWithFrame:self.stat2.bounds];
-    stat2.value.text = [NSString stringWithFormat:@"%ld", self.besties.count];
-    UserStatsView *stat3 = [[UserStatsView alloc] initWithFrame:self.stat3.bounds];
-    stat3.value.text = [NSString stringWithFormat:@"%ld", self.besties.count-1];
-    [self addStat: stat1 container:self.stat1];
-    [self addStat: stat2 container:self.stat2];
-    [self addStat: stat3 container:self.stat3];*/
-
-}
 
 - (void) loadViews {
     if (self.user) {

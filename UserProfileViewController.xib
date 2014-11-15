@@ -18,18 +18,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0WZ-tf-rvR" customClass="UserHeaderView">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="220"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="220" id="OKO-a0-LeP"/>
+                        <constraint firstAttribute="height" constant="240" id="OKO-a0-LeP"/>
                     </constraints>
                     <connections>
                         <outletCollection property="gestureRecognizers" destination="Egb-tJ-bm3" appends="YES" id="qlK-y9-Rpf"/>
                     </connections>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="909-vc-gBe">
-                    <rect key="frame" x="0.0" y="220" width="320" height="348"/>
+                    <rect key="frame" x="0.0" y="240" width="320" height="328"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="352" id="Qby-tU-pt2"/>
                     </constraints>
@@ -46,7 +46,7 @@
                     </variation>
                 </collectionView>
             </subviews>
-            <color key="backgroundColor" red="0.1166902405" green="0.11904761899999999" blue="0.1143328619" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="909-vc-gBe" secondAttribute="trailing" id="0CG-to-LDC"/>
                 <constraint firstItem="909-vc-gBe" firstAttribute="top" secondItem="0WZ-tf-rvR" secondAttribute="bottom" id="74C-PR-wIQ"/>
