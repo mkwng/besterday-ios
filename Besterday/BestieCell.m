@@ -56,8 +56,9 @@
 - (IBAction)onTapGesture:(id)sender {
     NSLog(@"Tapped cell!");
 
-    ComposeViewController * vc = [[ComposeViewController alloc] init];
+    ComposeViewController *vc = [[ComposeViewController alloc] init];
     vc.bestie = self.bestie;
-    [self.parentVC presentViewController:vc animated:YES completion:nil];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.parentVC presentViewController:nvc animated:YES completion:nil];
 }
 @end

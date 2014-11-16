@@ -28,6 +28,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupNavigationBar];
     
     self.view.backgroundColor = [UIColor colorWithRed:237/255.0f green:196/255.0f blue:86/255.0f alpha:1.0f];
     self.bestieTextView.textColor = [UIColor whiteColor];
@@ -45,6 +46,14 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     [self.view addSubview:calendarView];
 
     [self reloadData];
+}
+
+
+- (void)setupNavigationBar {
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Grow" style:UIBarButtonItemStylePlain target:self action:@selector(onGrow)];
 }
 
 - (void) reloadData

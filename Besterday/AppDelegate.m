@@ -58,7 +58,9 @@
                     NSLog(@"Most recent bestie is older than yesterday -- showing compose view");
                     vc = [[ComposeViewController alloc] init];
                 }
-                self.window.rootViewController = vc;
+                UINavigationController * nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+                self.window.rootViewController = nvc;
+//                self.window.rootViewController = vc;
                 [self.window makeKeyAndVisible];
             }            
         }];

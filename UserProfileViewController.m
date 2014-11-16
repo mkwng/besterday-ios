@@ -74,6 +74,8 @@
 
     self.view.backgroundColor = [UIColor blackColor];
     self.view.alpha = .9;
+    
+    [self setupNavigationBar];
 
 }
 
