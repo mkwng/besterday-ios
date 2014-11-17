@@ -11,5 +11,7 @@
 
 @interface ComposeViewController : UIViewController
 @property Bestie * bestie;
+@property UIColor* backgroundColor;
+@property UIColor* textColor;
 
 @end

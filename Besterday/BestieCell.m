@@ -58,6 +58,9 @@
 
     ComposeViewController *vc = [[ComposeViewController alloc] init];
     vc.bestie = self.bestie;
+    vc.backgroundColor = self.backgroundColor;
+    vc.textColor = self.bestieTextLabel.textColor;
+    
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.parentVC presentViewController:nvc animated:YES completion:nil];
 }

@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *bestieImageView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 
+@property BOOL displayingImageOnly;
 @end
 
 @implementation ComposeViewController
@@ -29,13 +30,28 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavigationBar];
-    
-    CGFloat alpha = 1.0f;
-    if (self.bestie.image)
-        alpha = 0.9f;
-    
-    self.containerView.backgroundColor = [UIColor colorWithRed:237/255.0f green:196/255.0f blue:86/255.0f alpha:alpha];
-    self.bestieTextView.textColor = [UIColor whiteColor];
+
+    // set default color scheme for composing new besties
+    if (!self.backgroundColor)
+    {
+        self.containerView.backgroundColor = [UIColor colorWithRed:237/255.0f green:196/255.0f blue:86/255.0f alpha:1.0f];
+        self.bestieTextView.textColor = [UIColor whiteColor];
+    }
+    else
+    {
+        // Make the background color slightly transparent if there is an image
+        CGFloat alpha = 1.0f;
+        if (self.bestie.image)
+            alpha = 0.9f;
+        
+        CGFloat h, s, b, a;
+        if ([self.backgroundColor getHue:&h saturation:&s brightness:&b alpha:&a])
+            self.backgroundColor = [UIColor colorWithHue:h saturation:s brightness:b alpha:alpha];
+        
+        // set the background and text colors
+        self.containerView.backgroundColor = self.backgroundColor;
+        self.bestieTextView.textColor = self.textColor;
+    }
     
     self.bestieTextView.delegate = self;
     
@@ -47,9 +63,23 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     calendarView.center = CGPointMake(window.center.x, 80);
-    [self.view addSubview:calendarView];
+    [self.containerView addSubview:calendarView];
 
+    self.displayingImageOnly = NO;
     [self reloadData];
+}
+- (IBAction)onTap:(UITapGestureRecognizer *)sender {
+    if (self.displayingImageOnly)
+    {
+        self.containerView.alpha = 1.0f;
+        self.displayingImageOnly = NO;
+    }
+    else
+    {
+        self.containerView.alpha = 0.0f;
+        self.displayingImageOnly = YES;
+    }
+
 }
 
 
