@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ComposeViewController">
             <connections>
+                <outlet property="bestieImageView" destination="O5W-NA-d9b" id="uis-23-7Yu"/>
                 <outlet property="bestieTextView" destination="7ST-gb-HQJ" id="q92-se-c8A"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -42,6 +43,18 @@
                         <action selector="onPost:" destination="-1" eventType="touchUpInside" id="z2Z-rL-832"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4o8-PR-dT4">
+                    <rect key="frame" x="137" y="428" width="46" height="30"/>
+                    <state key="normal" backgroundImage="AddPhotoIcon">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onPhoto:" destination="-1" eventType="touchUpInside" id="pJq-hg-arq"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O5W-NA-d9b">
+                    <rect key="frame" x="232" y="378" width="61" height="73"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -66,4 +79,7 @@
             </variation>
         </view>
     </objects>
+    <resources>
+        <image name="AddPhotoIcon" width="32" height="28"/>
+    </resources>
 </document>

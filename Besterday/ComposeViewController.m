@@ -19,6 +19,8 @@
 @property NSArray* besties;
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;
+@property UIImage* imageToAdd;
+@property (weak, nonatomic) IBOutlet UIImageView *bestieImageView;
 
 @end
 
@@ -64,6 +66,8 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     
         self.monthLabel.text = [self.bestie createMonth];
         self.dayLabel.text = [self.bestie createDay];
+        
+        self.bestieImageView.image = self.bestie.image;
     }
     else
     {
@@ -119,16 +123,25 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 - (void)onMenu {
     [self presentViewController:[[MenuViewController alloc] init] animated:YES completion:nil];
 }
+- (IBAction)onPhoto:(id)sender {
+    // TODO: get an image off the phone
+    UIImage *image = [UIImage imageNamed:@"CalendarImage"];
+    
+    self.imageToAdd = image;
+    
+    //TODO: add the image as a background view
+}
 
 - (IBAction)onPost:(id)sender {
     // distinguish between compose new and edit
     if (self.bestie)
     {
+        self.bestie.image = self.imageToAdd;
         self.bestie.text = self.bestieTextView.text;
     }
     else
     {
-        [Bestie bestie:self.bestieTextView.text];
+        [Bestie bestie:self.bestieTextView.text withImage:self.imageToAdd];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }

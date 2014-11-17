@@ -24,6 +24,21 @@
     return self[@"text"];
 }
 
+- (void) setImage:(UIImage *)image
+{
+    // TODO: clean this up
+    NSDate * date = (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
+
+    NSDate * hackDate = [date dateByAddingTimeInterval:86400];
+    [Bestie saveBestie:self text:self.text date:hackDate withImage:image completion:nil];
+}
+- (UIImage *) image
+{
+    PFFile *theImage = self[@"imageFile"];
+    NSData *imageData = [theImage getData];
+    return [UIImage imageWithData:imageData];
+}
+
 @synthesize user;
 - (PFUser*) user
 {
@@ -59,23 +74,61 @@
 
 + (void) bestie: (NSString *)text
 {
-    [Bestie bestie:text date:[NSDate date] completion:nil];
+    [Bestie bestie:text date:[NSDate date] withImage:nil completion:nil];
 }
 
 + (void) bestie: (NSString *)text date:(NSDate *)date {
-    [Bestie bestie:text date:date completion:nil];
+    [Bestie bestie:text date:date withImage: nil completion:nil];
 }
 
-+ (void) bestie: (NSString *)text date:(NSDate *)date completion:(void (^)(BOOL succeeded, NSError *error)) completion {
++ (void) bestie: (NSString *)text withImage: (UIImage*) image{
+    [Bestie bestie:text date:[NSDate date] withImage:image completion:nil];
+}
+
+
++ (void) bestie: (NSString *)text date:(NSDate *)date withImage:(UIImage*) image completion:(void (^)(BOOL succeeded, NSError *error)) completion {
     PFObject *bestie = [PFObject objectWithClassName:@"Bestie"];
+    
+    [Bestie saveBestie:bestie text:text date:date withImage:image completion:completion];
+}
+
++ (void) saveBestie:(Bestie *) bestie text:(NSString *)text date:(NSDate *)date withImage:(UIImage*) image completion:(void (^)(BOOL succeeded, NSError *error)) completion {
     bestie[@"text"] = text;
     bestie[@"user"] = [PFUser currentUser];
     
     // Hack for backfilling data
     bestie[@"createDate"] = [date dateByAddingTimeInterval:-86400];
     
-    [bestie saveInBackgroundWithBlock:completion];
+    if (image) {
+        // Resize image
+        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        
+        UIGraphicsBeginImageContext(window.frame.size);
+        [image drawInRect: window.bounds];
+        UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.05f);
+        
+        // upload the image
+        PFFile *imageFile = [PFFile fileWithName:@"BestieImage.jpg" data:imageData];
+        
+        [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                // Create a PFObject around a PFFile and associate it with the current user
+                [bestie setObject:imageFile forKey:@"imageFile"];
+                [bestie saveInBackgroundWithBlock:completion];
+            }
+            else{
+                // Log details of the failure
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }
+        } progressBlock:nil];
+    }
+    else
+        [bestie saveInBackgroundWithBlock:completion];
 }
+
 
 // fetches all the besties for the current user, and then calls selector, passing an array of besties.
 + (void) bestiesForUserWithTarget: (PFUser*) user completion:(void (^)(NSArray *besties, NSError *error))completion
@@ -96,5 +149,6 @@
         completion(besties[0]);
     }];
 }
+
 
 @end
