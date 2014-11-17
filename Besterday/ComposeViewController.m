@@ -11,7 +11,7 @@
 #import <Parse/Parse.h>
 #import "Bestie.h"
 
-@interface ComposeViewController ()<UITextViewDelegate>
+@interface ComposeViewController ()<UITextViewDelegate, UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *bestieTextView;
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -42,7 +42,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
         // Make the background color slightly transparent if there is an image
         CGFloat alpha = 1.0f;
         if (self.bestie.image)
-            alpha = 0.9f;
+            alpha = 0.7f;
         
         CGFloat h, s, b, a;
         if ([self.backgroundColor getHue:&h saturation:&s brightness:&b alpha:&a])
@@ -156,12 +156,22 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     [self presentViewController:[[MenuViewController alloc] init] animated:YES completion:nil];
 }
 - (IBAction)onPhoto:(id)sender {
-    // TODO: get an image off the phone
-    UIImage *image = [UIImage imageNamed:@"CalendarImage"];
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePickerController.delegate = self;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    // get the picked image
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+
+    self.bestieImageView.image = image;
     
     self.imageToAdd = image;
-    
-    //TODO: add the image as a background view
+
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)onPost:(id)sender {
