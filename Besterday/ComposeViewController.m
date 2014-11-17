@@ -14,13 +14,11 @@
 @interface ComposeViewController ()<UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *bestieTextView;
 
-// TODO: remove these, they're just for testing
-@property (weak, nonatomic) IBOutlet UITableView *testTableView;
-@property NSArray* besties;
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;
 @property UIImage* imageToAdd;
 @property (weak, nonatomic) IBOutlet UIImageView *bestieImageView;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 
 @end
 
@@ -32,7 +30,11 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     [super viewDidLoad];
     [self setupNavigationBar];
     
-    self.view.backgroundColor = [UIColor colorWithRed:237/255.0f green:196/255.0f blue:86/255.0f alpha:1.0f];
+    CGFloat alpha = 1.0f;
+    if (self.bestie.image)
+        alpha = 0.9f;
+    
+    self.containerView.backgroundColor = [UIColor colorWithRed:237/255.0f green:196/255.0f blue:86/255.0f alpha:alpha];
     self.bestieTextView.textColor = [UIColor whiteColor];
     
     self.bestieTextView.delegate = self;
