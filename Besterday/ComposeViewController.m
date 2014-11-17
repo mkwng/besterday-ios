@@ -44,7 +44,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     UIView * calendarView = objects[0];
     
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    calendarView.center = CGPointMake(window.center.x, 120);
+    calendarView.center = CGPointMake(window.center.x, 80);
     [self.view addSubview:calendarView];
 
     [self reloadData];

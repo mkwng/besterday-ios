@@ -31,20 +31,12 @@
                         </mask>
                     </variation>
                 </textView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcG-cE-NLw">
-                    <rect key="frame" x="142" y="371" width="37" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4o8-PR-dT4">
+                    <rect key="frame" x="280" y="8" width="32" height="28"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="Dzk-9e-OWO"/>
+                        <constraint firstAttribute="width" constant="32" id="EUS-kU-bWd"/>
+                        <constraint firstAttribute="height" constant="28" id="fgg-zk-e0S"/>
                     </constraints>
-                    <state key="normal" title="Done">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="onPost:" destination="-1" eventType="touchUpInside" id="z2Z-rL-832"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4o8-PR-dT4">
-                    <rect key="frame" x="137" y="428" width="46" height="30"/>
                     <state key="normal" backgroundImage="AddPhotoIcon">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -55,15 +47,32 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O5W-NA-d9b">
                     <rect key="frame" x="232" y="378" width="61" height="73"/>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcG-cE-NLw">
+                    <rect key="frame" x="142" y="498" width="37" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="Dzk-9e-OWO"/>
+                    </constraints>
+                    <state key="normal" title="Done">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onPost:" destination="-1" eventType="touchUpInside" id="z2Z-rL-832"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="centerX" secondItem="4o8-PR-dT4" secondAttribute="centerX" id="5gJ-UR-xeV"/>
                 <constraint firstAttribute="trailing" secondItem="7ST-gb-HQJ" secondAttribute="trailing" constant="40" id="DHf-5K-V6P"/>
                 <constraint firstAttribute="trailing" secondItem="7ST-gb-HQJ" secondAttribute="trailing" constant="20" id="Dqt-cW-4CE"/>
                 <constraint firstItem="7ST-gb-HQJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="F8Z-oQ-yB0"/>
+                <constraint firstAttribute="bottom" secondItem="wcG-cE-NLw" secondAttribute="bottom" constant="40" id="FZi-hn-Psz"/>
+                <constraint firstAttribute="trailing" secondItem="4o8-PR-dT4" secondAttribute="trailing" constant="8" id="Nt2-Qu-tcJ"/>
                 <constraint firstAttribute="centerX" secondItem="7ST-gb-HQJ" secondAttribute="centerX" id="OUv-q6-hO6"/>
+                <constraint firstItem="7ST-gb-HQJ" firstAttribute="top" secondItem="4o8-PR-dT4" secondAttribute="bottom" constant="25" id="ThJ-ki-J7h"/>
                 <constraint firstAttribute="centerX" secondItem="wcG-cE-NLw" secondAttribute="centerX" id="YQh-2R-pdF"/>
                 <constraint firstAttribute="centerY" secondItem="7ST-gb-HQJ" secondAttribute="centerY" constant="11" id="b9K-Zc-2HV"/>
+                <constraint firstItem="4o8-PR-dT4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="baX-Zz-xTg"/>
                 <constraint firstItem="7ST-gb-HQJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="rPi-yd-wGI"/>
                 <constraint firstItem="wcG-cE-NLw" firstAttribute="top" secondItem="7ST-gb-HQJ" secondAttribute="bottom" constant="8" id="vUp-Ws-T2c"/>
                 <constraint firstItem="wcG-cE-NLw" firstAttribute="top" secondItem="7ST-gb-HQJ" secondAttribute="bottom" constant="8" id="yBH-3X-LYF"/>
@@ -74,6 +83,9 @@
                     <exclude reference="DHf-5K-V6P"/>
                     <exclude reference="F8Z-oQ-yB0"/>
                     <exclude reference="OUv-q6-hO6"/>
+                    <exclude reference="ThJ-ki-J7h"/>
+                    <exclude reference="5gJ-UR-xeV"/>
+                    <exclude reference="vUp-Ws-T2c"/>
                     <exclude reference="yBH-3X-LYF"/>
                 </mask>
             </variation>
