@@ -79,25 +79,16 @@
 
 #pragma mark Bestie creation methods
 
-+ (void) bestie: (NSString *)text
-{
-    [Bestie bestie:text date:[NSDate date] withImage:nil completion:nil];
++ (void)createNewestBestie:(NSString *)text withImage: (UIImage*) image completion:(void (^)(BOOL succeeded, NSError *error)) completion {
+    [Bestie bestie:text date:[NSDate date] withImage:image completion:completion];
 }
 
-+ (void) bestie: (NSString *)text date:(NSDate *)date {
-    [Bestie bestie:text date:date withImage: nil completion:nil];
-}
-
-+ (void) bestie: (NSString *)text withImage: (UIImage*) image{
-    [Bestie bestie:text date:[NSDate date] withImage:image completion:nil];
-}
-
-+ (void) bestie: (NSString *)text date:(NSDate *)date withImage:(UIImage*) image completion:(void (^)(BOOL succeeded, NSError *error)) completion {
++ (void)bestie: (NSString *)text date:(NSDate *)date withImage:(UIImage*) image completion:(void (^)(BOOL succeeded, NSError *error)) completion {
     PFObject *bestie = [PFObject objectWithClassName:@"Bestie"];
     [Bestie saveBestie:(Bestie *)bestie text:text date:date withImage:image completion:completion];
 }
 
-+ (void) saveBestie:(Bestie *) bestie text:(NSString *)text date:(NSDate *)date withImage:(UIImage*) image completion:(void (^)(BOOL succeeded, NSError *error)) completion {
++ (void)saveBestie:(Bestie *) bestie text:(NSString *)text date:(NSDate *)date withImage:(UIImage*) image completion:(void (^)(BOOL succeeded, NSError *error)) completion {
     bestie[@"text"] = text;
     bestie[@"user"] = [PFUser currentUser];
     
@@ -114,7 +105,6 @@
         UIGraphicsEndImageContext();
         
         NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.5f);
-
         
         // upload the image
         PFFile *imageFile = [PFFile fileWithName:@"BestieImage.jpg" data:imageData];
@@ -130,11 +120,10 @@
                 NSLog(@"Error: %@ %@", error, [error userInfo]);
             }
         } progressBlock:nil];
-    }
-    else
+    } else {
         [bestie saveInBackgroundWithBlock:completion];
+    }
 }
-
 
 // fetches all the besties for the current user, and then calls selector, passing an array of besties.
 + (void) bestiesForUserWithTarget: (PFUser*) user completion:(void (^)(NSArray *besties, NSError *error))completion
@@ -148,6 +137,7 @@
     query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query findObjectsInBackgroundWithBlock:completion];
 }
+
 + (void) mostRecentBestieForUser: (PFUser*) user completion:(void (^)(Bestie *bestie))completion
 {
     [Bestie bestiesForUserWithTarget:user completion:^(NSArray *besties, NSError *error) {

@@ -21,10 +21,9 @@
 @property (readonly, nonatomic) NSString* createFullDate;
 
 // Bestie creation
-+ (void) bestie: (NSString *)text;
-+ (void) bestie: (NSString *)text withImage: (UIImage*) image;
-//+ (void) bestie: (NSString *)text date:(NSDate *)date;
-
++ (void)createNewestBestie:(NSString *)text withImage: (UIImage*) image completion:(void (^)(BOOL succeeded, NSError *error)) completion;
++ (void) saveBestie:(Bestie *) bestie text:(NSString *)text date:(NSDate *)date withImage:(UIImage*) image completion:(void (^)(BOOL succeeded, NSError *error)) completion;
+    
 // Bestie fetching
 + (void) bestiesForUserWithTarget: (PFUser*) user completion:(void (^)(NSArray *besties, NSError *error))completion;
 

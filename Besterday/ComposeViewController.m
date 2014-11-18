@@ -10,6 +10,7 @@
 #import "MenuViewController.h"
 #import <Parse/Parse.h>
 #import "Bestie.h"
+#import "UserProfileViewController.h"
 
 @interface ComposeViewController ()<UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *bestieTextView;
@@ -223,16 +224,24 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+// TODO: make the animation post-posting better. Also, reuse completion blocks?
 - (IBAction)onPost:(id)sender {
-    // distinguish between compose new and edit
+    [self.doneButton setEnabled:NO];
     if (self.bestie) {
         // Update the existing bestie with new data
-        self.bestie.image = self.imageToAdd;
-        self.bestie.text = self.bestieTextView.text;
+        [Bestie saveBestie:self.bestie text:self.bestieTextView.text date:self.bestie.createdAt withImage:self.imageToAdd completion:^(BOOL succeeded, NSError *error) {
+            NSLog(@"Bestie successfully saved/updated!");
+            UserProfileViewController *vc = [[UserProfileViewController alloc] init];
+            [self presentViewController:vc animated:YES completion:nil];
+        }];
     } else {
-        [Bestie bestie:self.bestieTextView.text withImage:self.imageToAdd];
+        // Create a new bestie
+        [Bestie createNewestBestie:self.bestieTextView.text withImage:self.imageToAdd completion:^(BOOL succeeded, NSError *error) {
+            NSLog(@"New Bestie successfully created");
+            UserProfileViewController *vc = [[UserProfileViewController alloc] init];
+            [self presentViewController:vc animated:YES completion:nil];
+        }];
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
