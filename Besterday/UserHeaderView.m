@@ -37,7 +37,7 @@
 
 - (NSInteger)getCompletionPercentage {
     NSInteger currentStreak = 0;
-    NSLocale* currentLocale = [NSLocale currentLocale];
+//    NSLocale* currentLocale = [NSLocale currentLocale];
     //NSDate *dateToday = [[NSDate date] descriptionWithLocale:currentLocale];
     //NSDate time
     return currentStreak;

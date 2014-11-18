@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *bestieImageView;
 @property (weak, nonatomic) IBOutlet UILabel *bestieTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bestieDateLabel;
 
 @end
 
@@ -23,6 +24,7 @@
     // NSLog(@"BestieCell setBestie: %@", bestie);
     _bestie = bestie;
     self.bestieTextLabel.text = bestie.text;
+    self.bestieDateLabel.text = [bestie createFullDate];
     // TODO: fill out image when we have 'em
     // self.bestieImageView =
     
@@ -35,11 +37,11 @@
 }
 
 -(void) setColor:(BestieCellColor)color {
-    self.bestieTextLabel.textColor = [UIColor whiteColor];
+    UIColor *textColor = [UIColor whiteColor];
     switch (color) {
         case BestieCellColorWhite:
             self.backgroundColor = [UIColor colorWithRed:227/255.0f green:223/255.0f blue:223/255.0f alpha:1.0f];
-            self.bestieTextLabel.textColor = [UIColor blackColor];
+            textColor = [UIColor blackColor];
             break;
         case BestieCellColorBlack:
             self.backgroundColor = [UIColor colorWithRed:66/255.0f green:61/255.0f blue:63/255.0f alpha:1.0f];
@@ -51,6 +53,9 @@
             self.backgroundColor = [UIColor colorWithRed:228/255.0f green:137/255.0f blue:87/255.0f alpha:1.0f];
             break;
     }
+    
+    self.bestieTextLabel.textColor = textColor;
+    self.bestieDateLabel.textColor = textColor;
 }
 
 - (IBAction)onTapGesture:(id)sender {

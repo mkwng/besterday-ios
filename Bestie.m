@@ -47,7 +47,7 @@
 
 - (NSString*) createDate
 {
-    NSDate * date = (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
+    NSDate *date = (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMM d"];
     
@@ -55,7 +55,7 @@
 }
 - (NSString*) createMonth
 {
-    NSDate * date = (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
+    NSDate *date = (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMM"];
     
@@ -63,11 +63,18 @@
 }
 - (NSString*) createDay
 {
-    NSDate * date = (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
+    NSDate *date = (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"d"];
     
     return [formatter stringFromDate:date];
+}
+- (NSString*) createFullDate
+{
+    NSDate *date = (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"EEEE, MMM d"];
+    return [[formatter stringFromDate:date] uppercaseString];
 }
 
 #pragma mark Bestie creation methods
@@ -85,11 +92,9 @@
     [Bestie bestie:text date:[NSDate date] withImage:image completion:nil];
 }
 
-
 + (void) bestie: (NSString *)text date:(NSDate *)date withImage:(UIImage*) image completion:(void (^)(BOOL succeeded, NSError *error)) completion {
     PFObject *bestie = [PFObject objectWithClassName:@"Bestie"];
-    
-    [Bestie saveBestie:bestie text:text date:date withImage:image completion:completion];
+    [Bestie saveBestie:(Bestie *)bestie text:text date:date withImage:image completion:completion];
 }
 
 + (void) saveBestie:(Bestie *) bestie text:(NSString *)text date:(NSDate *)date withImage:(UIImage*) image completion:(void (^)(BOOL succeeded, NSError *error)) completion {
@@ -150,6 +155,5 @@
         completion(besties[0]);
     }];
 }
-
 
 @end

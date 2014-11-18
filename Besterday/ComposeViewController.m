@@ -11,7 +11,7 @@
 #import <Parse/Parse.h>
 #import "Bestie.h"
 
-@interface ComposeViewController ()<UITextViewDelegate, UIImagePickerControllerDelegate>
+@interface ComposeViewController ()<UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *bestieTextView;
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;

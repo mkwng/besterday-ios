@@ -16,9 +16,9 @@
 
 // returns a date in the format "Nov 9"
 @property (readonly, nonatomic) NSString* createDate;
-
 @property (readonly, nonatomic) NSString* createMonth;
 @property (readonly, nonatomic) NSString* createDay;
+@property (readonly, nonatomic) NSString* createFullDate;
 
 // Bestie creation
 + (void) bestie: (NSString *)text;
@@ -29,4 +29,5 @@
 + (void) bestiesForUserWithTarget: (PFUser*) user completion:(void (^)(NSArray *besties, NSError *error))completion;
 
 + (void) mostRecentBestieForUser: (PFUser*) user completion:(void (^)(Bestie *bestie))completion;
+
 @end
