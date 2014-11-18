@@ -86,9 +86,9 @@
                 NSString* yesterdayString = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:-86400]];
                 
                 UIViewController * vc;
-                NSLog(@"%@ %@", yesterdayString, bestie.createDate);
+                NSLog(@"%@ %@", yesterdayString, bestie.formattedCreateDate);
                 
-                if ([yesterdayString isEqualToString:bestie.createDate])
+                if ([yesterdayString isEqualToString:bestie.formattedCreateDate])
                 {
                     NSLog(@"Most recent bestie is yesterday -- showing main view");
                     vc = [[MenuViewController alloc] init];

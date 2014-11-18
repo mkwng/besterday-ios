@@ -15,7 +15,8 @@
 @property UIImage* image;
 
 // returns a date in the format "Nov 9"
-@property (readonly, nonatomic) NSString* createDate;
+@property (readonly, nonatomic) NSString* formattedCreateDate;
+@property (readonly, nonatomic) NSDate * createDate;
 @property (readonly, nonatomic) NSString* createMonth;
 @property (readonly, nonatomic) NSString* createDay;
 @property (readonly, nonatomic) NSString* createFullDate;

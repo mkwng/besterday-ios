@@ -49,7 +49,7 @@
                 NSString* yesterdayString = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:-86400]];
                 
                 UIViewController * vc;
-                if ([yesterdayString isEqualToString:bestie.createDate])
+                if ([yesterdayString isEqualToString:bestie.formattedCreateDate])
                 {
                     NSLog(@"AD: Most recent bestie is yesterday -- showing main view");
                     vc = [[UserProfileViewController alloc] init];

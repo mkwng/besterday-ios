@@ -44,7 +44,12 @@
     return self[@"user"];
 }
 
-- (NSString*) createDate
+- (NSDate*) createDate
+{
+    return (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
+}
+
+- (NSString*) formattedCreateDate
 {
     NSDate *date = (self[@"createDate"]) ? self[@"createDate"] : self.createdAt;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

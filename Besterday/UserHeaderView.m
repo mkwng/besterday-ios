@@ -61,7 +61,7 @@
     //name the labels
     self.longestStreakStat.nameLabel.text = @"LONGEST STREAK";
     self.completionStat.nameLabel.text = @"COMPLETION RATE";
-    self.bestieCountStat.nameLabel.text = @"BESTERDAYS";
+    self.bestieCountStat.nameLabel.text = @"BESTIES";
     
     //images
     self.longestStreakStat.imageAsset.image = [UIImage imageNamed:@"ribbon"];
@@ -79,20 +79,25 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMM d"];
     Bestie *bestie = besties[0];
-    NSString *dateForComparison = [formatter stringFromDate:bestie.createdAt];
-    NSString *dateToCompare = [formatter stringFromDate:[NSDate dateWithTimeInterval:-86400 sinceDate:bestie.createdAt]];
-    for (int i = 0; i < besties.count; i++) {
+    
+    NSString *dateForComparison;
+    
+    // compare it to the day before that
+    NSString *dateToCompare = [formatter stringFromDate:[NSDate dateWithTimeInterval:-86400 sinceDate:bestie.createDate]];
+    for (int i = 1; i < besties.count; i++) {
         bestie = besties[i];
-        dateForComparison = [formatter stringFromDate:bestie.createdAt];
-        NSLog (@"Comparing date %@ to date %@", dateForComparison, dateToCompare);
+        dateForComparison = bestie.formattedCreateDate;
+//        NSLog (@"Comparing date %@ to date %@", dateForComparison, dateToCompare);
         if ([dateForComparison isEqualToString:dateToCompare]) {
-            NSLog(@"THEY ARE EQUAL LOL");
             currentStreak++;
         }
+        else
+            currentStreak = 0;
+        
         if (currentStreak > longestStreak) {
             longestStreak = currentStreak;
         }
-        dateToCompare = [formatter stringFromDate:[NSDate dateWithTimeInterval:-86400 sinceDate:bestie.createdAt]];
+        dateToCompare = [formatter stringFromDate:[NSDate dateWithTimeInterval:-86400 sinceDate:bestie.createDate]];
     }
     NSLog(@"Current streak is %ld", currentStreak);
     return longestStreak;
