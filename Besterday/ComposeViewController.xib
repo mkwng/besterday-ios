@@ -9,7 +9,7 @@
                 <outlet property="bestieImageView" destination="O5W-NA-d9b" id="uis-23-7Yu"/>
                 <outlet property="bestieTextView" destination="7ST-gb-HQJ" id="q92-se-c8A"/>
                 <outlet property="containerView" destination="5zA-P6-K05" id="2CZ-gk-HAn"/>
-                <outlet property="doneButton" destination="wcG-cE-NLw" id="YmP-qZ-Dr1"/>
+                <outlet property="doneButton" destination="wcG-cE-NLw" id="fVH-wc-sdF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -57,12 +57,14 @@
                             </variation>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcG-cE-NLw">
-                            <rect key="frame" x="142" y="477" width="37" height="30"/>
+                            <rect key="frame" x="125" y="477" width="70" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="BVj-7N-9SI"/>
                                 <constraint firstAttribute="height" constant="30" id="Dzk-9e-OWO"/>
+                                <constraint firstAttribute="width" constant="70" id="am0-Ib-r2W"/>
                             </constraints>
                             <state key="normal" title="Done">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>

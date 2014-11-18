@@ -10,7 +10,6 @@
 
 @implementation Bestie
 
-
 + (NSString *)parseClassName {
     return @"Bestie";
 }
@@ -96,15 +95,8 @@
     bestie[@"createDate"] = [date dateByAddingTimeInterval:-86400];
     
     if (image) {
-        // Resize image
-//        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-        
-        UIGraphicsBeginImageContext(CGSizeMake(640, 960));
-        [image drawInRect: CGRectMake(0, 0, 604, 960)];
-        UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.5f);
+        // If it's larger than the window, resize it
+        NSData *imageData = UIImageJPEGRepresentation([Bestie resizeImage:image], 0.5f);
         
         // upload the image
         PFFile *imageFile = [PFFile fileWithName:@"BestieImage.jpg" data:imageData];
@@ -144,6 +136,37 @@
         //TODO: handle errors
         completion(besties[0]);
     }];
+    
+}
+
++ (UIImage*) resizeImage: (UIImage *)image
+{
+    float actualHeight = image.size.height;
+    float actualWidth = image.size.width;
+    float imgRatio = actualWidth/actualHeight;
+    
+    CGRect frame = [UIScreen mainScreen].bounds;
+    float maxRatio = frame.size.width / frame.size.height;
+    
+    if(actualHeight > frame.size.height || actualWidth > frame.size.width){
+        if(imgRatio < maxRatio){
+            imgRatio = frame.size.height / actualHeight;
+            actualWidth = imgRatio * actualWidth;
+            actualHeight = frame.size.height;
+        }
+        else{
+            imgRatio = frame.size.width / actualWidth;
+            actualHeight = imgRatio * actualHeight;
+            actualWidth = frame.size.width;
+        }
+    }
+    CGRect rect = CGRectMake(0.0, 0.0, actualWidth, actualHeight);
+    UIGraphicsBeginImageContext(rect.size);
+    [image drawInRect:rect];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return img;
 }
 
 @end

@@ -20,11 +20,11 @@
 @property UIImage* imageToAdd;
 @property (weak, nonatomic) IBOutlet UIImageView *bestieImageView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property NSArray* besties;
 
 @property BOOL displayingImageOnly;
 @property BOOL swipedLeft;
-@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property UIPercentDrivenInteractiveTransition * interactiveTransition;
 
 @end
@@ -71,10 +71,16 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     [self.containerView addSubview:calendarView];
 
     self.displayingImageOnly = NO;
+    
+    self.doneButton.backgroundColor = [UIColor colorWithRed:103/255.0f green:176/255.0f blue:153/255.0f alpha:1.0f];
+    self.doneButton.layer.cornerRadius = 8;
+    self.doneButton.clipsToBounds = YES;
+
+    
     [self reloadData];
 }
 - (IBAction)onTap:(UITapGestureRecognizer *)sender {
-    if (self.bestie.image)
+    if (self.bestieImageView.image)
     {
         if (self.displayingImageOnly)
         {
@@ -131,11 +137,14 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
         self.monthLabel.text = [self.bestie createMonth];
         self.dayLabel.text = [self.bestie createDay];
         
-        self.bestieImageView.image = self.bestie.image;
+        if (self.imageToAdd)
+            self.bestieImageView.image = self.imageToAdd;
+        else
+            self.bestieImageView.image = self.bestie.image;
 
         // Make the background color slightly transparent if there is an image
         CGFloat alpha = 1.0f;
-        if (self.bestie.image)
+        if (self.bestieImageView.image)
             alpha = 0.7f;
         
         CGFloat h, s, b, a;
@@ -247,7 +256,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 {
     ComposeViewController *vc = [[ComposeViewController alloc] init];
     vc.bestie = bestie;
-    vc.backgroundColor = (self.backgroundColor + 1) % 4;
+    vc.backgroundColor = color;
     
     vc.modalPresentationStyle = UIModalPresentationCustom;
     vc.transitioningDelegate = self;
@@ -276,6 +285,8 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     self.imageToAdd = image;
 
     [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    [self reloadData];
 }
 
 // TODO: make the animation post-posting better. Also, reuse completion blocks?
@@ -339,7 +350,10 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     return self.interactiveTransition;
 }
 
-
+- (BOOL) prefersStatusBarHidden
+{
+    return YES;
+}
 
 
 @end

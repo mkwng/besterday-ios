@@ -197,4 +197,9 @@
     }];
     //    [self.view setNeedsLayout];
 }
+- (BOOL) prefersStatusBarHidden
+{
+    return YES;
+}
+
 @end
