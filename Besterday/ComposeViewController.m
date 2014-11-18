@@ -22,6 +22,8 @@
 @property NSArray* besties;
 
 @property BOOL displayingImageOnly;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
+
 @end
 
 @implementation ComposeViewController
@@ -131,8 +133,9 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
         [formatter setDateFormat:@"d"];
         self.dayLabel.text = [formatter stringFromDate:yesterday];
+        
+        self.bestieTextView.text = (NSString *)kInitialText;
     }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -155,20 +158,21 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     txtview.contentOffset = (CGPoint){.x = 0, .y = -topoffset};
 }
 
-- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    // if we're composing, remove the help text
-    if (!self.bestie && [self.bestieTextView.text isEqualToString: (NSString *)kInitialText])
-        self.bestieTextView.text = @"";
-    
-    return YES;
+- (BOOL)stringIsWhitespaceOrEmpty:(NSString *)str {
+    NSString *probablyEmpty = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return [probablyEmpty isEqualToString:@""];
 }
 
-- (void)textViewDidChange:(UITextView *)textView;
-{
-    // if we're composing a new bestie and the text is empty, place the help text
-    if (!self.bestie && [self.bestieTextView.text isEqualToString: @""])
-        self.bestieTextView.text = (NSString *)kInitialText;
+- (void)textViewDidChange:(UITextView *)textView {
+    [self.doneButton setEnabled:![self stringIsWhitespaceOrEmpty:self.bestieTextView.text]];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    // if we're composing a new bestie, nuke the placeholder text as soon as you click in
+    if (!self.bestie && [self.bestieTextView.text isEqualToString:(NSString *)kInitialText]) {
+        self.bestieTextView.text = @"";
+        [self.doneButton setEnabled:NO];
+    }
 }
 
 - (IBAction)onPan:(UIPanGestureRecognizer *)sender
@@ -221,13 +225,11 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
 - (IBAction)onPost:(id)sender {
     // distinguish between compose new and edit
-    if (self.bestie)
-    {
+    if (self.bestie) {
+        // Update the existing bestie with new data
         self.bestie.image = self.imageToAdd;
         self.bestie.text = self.bestieTextView.text;
-    }
-    else
-    {
+    } else {
         [Bestie bestie:self.bestieTextView.text withImage:self.imageToAdd];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
