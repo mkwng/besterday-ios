@@ -50,6 +50,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
         
         // set the background and text colors
         self.containerView.backgroundColor = self.backgroundColor;
+        self.bestieImageView.backgroundColor = self.backgroundColor;
         self.bestieTextView.textColor = self.textColor;
     }
     
@@ -71,12 +72,20 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 - (IBAction)onTap:(UITapGestureRecognizer *)sender {
     if (self.displayingImageOnly)
     {
-        self.containerView.alpha = 1.0f;
+        [UIView animateWithDuration:1.0 animations:^{
+            self.containerView.alpha = 1.0f;
+            self.bestieImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+
+        } completion:nil];
+        
         self.displayingImageOnly = NO;
     }
     else
     {
-        self.containerView.alpha = 0.0f;
+        [UIView animateWithDuration:1.0 animations:^{
+            self.containerView.alpha = 0.0f;
+            self.bestieImageView.transform = CGAffineTransformMakeScale(1.1, 1.1);
+        } completion:nil];
         self.displayingImageOnly = YES;
     }
 
@@ -86,8 +95,6 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 - (void)setupNavigationBar {
     self.navigationController.navigationBar.translucent = NO;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu)];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Grow" style:UIBarButtonItemStylePlain target:self action:@selector(onGrow)];
 }
 
 - (void) reloadData
@@ -168,7 +175,6 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
 
     self.bestieImageView.image = image;
-    
     self.imageToAdd = image;
 
     [picker dismissViewControllerAnimated:YES completion:nil];

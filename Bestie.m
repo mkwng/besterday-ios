@@ -101,14 +101,15 @@
     
     if (image) {
         // Resize image
-        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+//        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
         
-        UIGraphicsBeginImageContext(window.frame.size);
-        [image drawInRect: window.bounds];
+        UIGraphicsBeginImageContext(CGSizeMake(640, 960));
+        [image drawInRect: CGRectMake(0, 0, 604, 960)];
         UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
-        NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.05f);
+        NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.5f);
+
         
         // upload the image
         PFFile *imageFile = [PFFile fileWithName:@"BestieImage.jpg" data:imageData];
