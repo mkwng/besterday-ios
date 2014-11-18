@@ -53,18 +53,6 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     }
     else
     {
-        // Make the background color slightly transparent if there is an image
-        CGFloat alpha = 1.0f;
-        if (self.bestie.image)
-            alpha = 0.7f;
-        
-        CGFloat h, s, b, a;
-        if ([self.backgroundColor getHue:&h saturation:&s brightness:&b alpha:&a])
-            self.backgroundColor = [UIColor colorWithHue:h saturation:s brightness:b alpha:alpha];
-        
-        // set the background and text colors
-        self.containerView.backgroundColor = self.backgroundColor;
-        self.bestieImageView.backgroundColor = self.backgroundColor;
         self.bestieTextView.textColor = self.textColor;
     }
     
@@ -115,6 +103,25 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
 - (void) reloadData
 {
+    UIColor *textColor = [UIColor whiteColor];
+    switch (self.backgroundColor) {
+        case BestieCellColorWhite:
+            self.containerView.backgroundColor = [UIColor colorWithRed:227/255.0f green:223/255.0f blue:223/255.0f alpha:1.0f];
+            textColor = [UIColor blackColor];
+            break;
+        case BestieCellColorBlack:
+            self.containerView.backgroundColor = [UIColor colorWithRed:66/255.0f green:61/255.0f blue:63/255.0f alpha:1.0f];
+            break;
+        case BestieCellColorGreen:
+            self.containerView.backgroundColor = [UIColor colorWithRed:107/255.0f green:186/255.0f blue:159/255.0f alpha:1.0f];
+            break;
+        case BestieCellColorOrange:
+            self.containerView.backgroundColor = [UIColor colorWithRed:228/255.0f green:137/255.0f blue:87/255.0f alpha:1.0f];
+            break;
+    }
+    
+    self.bestieTextView.textColor = textColor;
+    
     if (self.bestie)
     {
         self.bestieTextView.text = self.bestie.text;
@@ -123,6 +130,17 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
         self.dayLabel.text = [self.bestie createDay];
         
         self.bestieImageView.image = self.bestie.image;
+
+        // Make the background color slightly transparent if there is an image
+        CGFloat alpha = 1.0f;
+        if (self.bestie.image)
+            alpha = 0.7f;
+        
+        CGFloat h, s, b, a;
+        if ([self.containerView.backgroundColor getHue:&h saturation:&s brightness:&b alpha:&a])
+            self.containerView.backgroundColor = [UIColor colorWithHue:h saturation:s brightness:b alpha:alpha];
+        
+        self.bestieImageView.backgroundColor = self.containerView.backgroundColor;
     }
     else
     {
@@ -189,17 +207,41 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
             {
                 if ([sender velocityInView:self.view].x > 0 && ii > 0)
                 {
-                    self.bestie = self.besties[ii-1];
+                    [self showNewBestie:self.besties[ii-1] withColor:(self.backgroundColor - 1) % 4];
                 }
                 else if ([sender velocityInView:self.view].x < 0 && ii < self.besties.count - 1)
                 {
-                    self.bestie = self.besties[ii+1];
+                    [self showNewBestie:self.besties[ii+1] withColor:(self.backgroundColor + 1) % 4];
+
                     break;
                 }
             }
         }
         [self reloadData];
     }
+}
+
+- (void) showNewBestie: (Bestie *) bestie withColor: (BestieCellColor) color
+{
+    ComposeViewController *vc = [[ComposeViewController alloc] init];
+    vc.bestie = bestie;
+    vc.backgroundColor = (self.backgroundColor + 1) % 4;
+    
+//    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+//    
+//    vc.view.frame = CGRectMake(-window.frame.size.width, 0, window.frame.size.width, window.frame.size.height);
+//    [self.view addSubview:vc.view];
+//    
+//    [UIView animateWithDuration:1.0 animations:^{
+//        vc.view.frame = window.frame;
+//        
+//    } completion:^(BOOL finished) {
+//        [self.bestieTextView removeObserver:self forKeyPath:@"contentSize"];
+//        [self dismissViewControllerAnimated:NO completion:nil];
+//    }];
+    
+    [self presentViewController:vc animated:YES completion:nil];
+
 }
 
 
@@ -243,5 +285,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
         }];
     }
 }
+
+
 
 @end

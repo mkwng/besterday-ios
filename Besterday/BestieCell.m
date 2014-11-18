@@ -36,7 +36,9 @@
     // Initialization code
 }
 
--(void) setColor:(BestieCellColor)color {
+-(void) setColor:(int)color {
+    _color = color;
+    
     UIColor *textColor = [UIColor whiteColor];
     switch (color) {
         case BestieCellColorWhite:
@@ -63,7 +65,7 @@
 
     ComposeViewController *vc = [[ComposeViewController alloc] init];
     vc.bestie = self.bestie;
-    vc.backgroundColor = self.backgroundColor;
+    vc.backgroundColor = self.color;
     vc.textColor = self.bestieTextLabel.textColor;
     
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];

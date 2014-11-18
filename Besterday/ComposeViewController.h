@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Bestie.h"
+#import "BestieCell.h"
 
 @interface ComposeViewController : UIViewController
 @property Bestie * bestie;
-@property UIColor* backgroundColor;
+@property (nonatomic)BestieCellColor backgroundColor;
 @property UIColor* textColor;
 
 @end
