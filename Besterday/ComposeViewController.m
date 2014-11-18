@@ -25,6 +25,7 @@
 @property BOOL displayingImageOnly;
 @property BOOL swipedLeft;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property UIPercentDrivenInteractiveTransition * interactiveTransition;
 
 @end
 
@@ -197,8 +198,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
 - (IBAction)onPan:(UIPanGestureRecognizer *)sender
 {
-    
-    if (sender.state == UIGestureRecognizerStateEnded)
+    if (sender.state == UIGestureRecognizerStateBegan)
     {
         // find the current bestie in the array
         for (int ii = 0; ii < self.besties.count; ii++) {
@@ -220,8 +220,27 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
                 }
             }
         }
-        [self reloadData];
     }
+    else if (sender.state == UIGestureRecognizerStateChanged)
+    {
+        float location = [sender locationInView:self.view].x / self.view.frame.size.width;
+        location = (self.swipedLeft) ? 1 - location : location;
+        
+        [self.interactiveTransition updateInteractiveTransition:location];
+    }
+    else if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        if ((self.swipedLeft && [sender velocityInView:self.view].x < 0) ||
+            (!self.swipedLeft && [sender velocityInView:self.view].x > 0))
+        {
+            [self.interactiveTransition finishInteractiveTransition];
+        }
+        else
+        {
+            [self.interactiveTransition cancelInteractiveTransition];
+        }
+    }
+
 }
 
 - (void) showNewBestie: (Bestie *) bestie withColor: (BestieCellColor) color
@@ -266,17 +285,16 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
         // Update the existing bestie with new data
         [Bestie saveBestie:self.bestie text:self.bestieTextView.text date:self.bestie.createdAt withImage:self.imageToAdd completion:^(BOOL succeeded, NSError *error) {
             NSLog(@"Bestie successfully saved/updated!");
-            UserProfileViewController *vc = [[UserProfileViewController alloc] init];
-            [self presentViewController:vc animated:YES completion:nil];
         }];
     } else {
         // Create a new bestie
         [Bestie createNewestBestie:self.bestieTextView.text withImage:self.imageToAdd completion:^(BOOL succeeded, NSError *error) {
             NSLog(@"New Bestie successfully created");
-            UserProfileViewController *vc = [[UserProfileViewController alloc] init];
-            [self presentViewController:vc animated:YES completion:nil];
         }];
     }
+    UserProfileViewController *vc = [[UserProfileViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:nil];
+
 }
 
 - (NSTimeInterval)transitionDuration:(id )transitionContext {
@@ -285,6 +303,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
 // This method can only  be a nop if the transition is interactive and not a percentDriven interactive transition.
 - (void)animateTransition:(id ) transitionContext {
+    UIView *containerView = [transitionContext containerView];
     ComposeViewController *toViewController = (ComposeViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
 
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
@@ -292,14 +311,15 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     CGFloat initialX = (self.swipedLeft) ? window.frame.size.width : -window.frame.size.width;
     
     toViewController.view.frame = CGRectMake(initialX, 0, window.frame.size.width, window.frame.size.height);
-    [window addSubview:toViewController.view];
+    [containerView addSubview:toViewController.view];
     
     [toViewController.view layoutSubviews];
     
     [UIView animateWithDuration:0.5 animations:^{
         toViewController.view.frame = window.frame;
     } completion:^(BOOL finished) {
-        [transitionContext completeTransition:YES];
+        BOOL completed = ![transitionContext transitionWasCancelled];
+        [transitionContext completeTransition:completed];
     }];
 }
 
@@ -310,6 +330,15 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 - (id )animationControllerForDismissedController:(UIViewController *)dismissed {
     return self;
 }
+
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator
+{
+    self.interactiveTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
+    self.interactiveTransition.completionSpeed = 0.99;
+    
+    return self.interactiveTransition;
+}
+
 
 
 

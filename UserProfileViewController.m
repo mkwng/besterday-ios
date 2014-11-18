@@ -73,7 +73,7 @@
     [self loadBesties];
 
     self.view.backgroundColor = [UIColor blackColor];
-    self.view.alpha = .9;
+    self.view.alpha = 1;
     
     [self setupNavigationBar];
 
