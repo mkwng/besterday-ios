@@ -19,6 +19,7 @@
 @property UIImage* imageToAdd;
 @property (weak, nonatomic) IBOutlet UIImageView *bestieImageView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property NSArray* besties;
 
 @property BOOL displayingImageOnly;
 @end
@@ -31,6 +32,16 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     [super viewDidLoad];
     [self setupNavigationBar];
 
+    // get the list of all besties so that we can browse them
+    PFUser *user = [PFUser currentUser];
+    [Bestie bestiesForUserWithTarget:user completion:^(NSArray *besties, NSError *error) {
+        if (error == nil) {
+            self.besties = besties;
+        } else {
+            NSLog(@"Error loading besties: %@", error);
+        }
+    }];
+    
     // set default color scheme for composing new besties
     if (!self.backgroundColor)
     {
@@ -70,25 +81,27 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     [self reloadData];
 }
 - (IBAction)onTap:(UITapGestureRecognizer *)sender {
-    if (self.displayingImageOnly)
+    if (self.bestie.image)
     {
-        [UIView animateWithDuration:1.0 animations:^{
-            self.containerView.alpha = 1.0f;
-            self.bestieImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
-
-        } completion:nil];
-        
-        self.displayingImageOnly = NO;
+        if (self.displayingImageOnly)
+        {
+            [UIView animateWithDuration:1.0 animations:^{
+                self.containerView.alpha = 1.0f;
+                self.bestieImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                
+            } completion:nil];
+            
+            self.displayingImageOnly = NO;
+        }
+        else
+        {
+            [UIView animateWithDuration:1.0 animations:^{
+                self.containerView.alpha = 0.0f;
+                self.bestieImageView.transform = CGAffineTransformMakeScale(1.1, 1.1);
+            } completion:nil];
+            self.displayingImageOnly = YES;
+        }
     }
-    else
-    {
-        [UIView animateWithDuration:1.0 animations:^{
-            self.containerView.alpha = 0.0f;
-            self.bestieImageView.transform = CGAffineTransformMakeScale(1.1, 1.1);
-        } completion:nil];
-        self.displayingImageOnly = YES;
-    }
-
 }
 
 
@@ -156,6 +169,32 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     // if we're composing a new bestie and the text is empty, place the help text
     if (!self.bestie && [self.bestieTextView.text isEqualToString: @""])
         self.bestieTextView.text = (NSString *)kInitialText;
+}
+
+- (IBAction)onPan:(UIPanGestureRecognizer *)sender
+{
+    
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        // find the current bestie in the array
+        for (int ii = 0; ii < self.besties.count; ii++) {
+            Bestie * bestie = (Bestie*) self.besties[ii];
+            
+            if ([bestie.objectId isEqualToString:self.bestie.objectId ])
+            {
+                if ([sender velocityInView:self.view].x > 0 && ii > 0)
+                {
+                    self.bestie = self.besties[ii-1];
+                }
+                else if ([sender velocityInView:self.view].x < 0 && ii < self.besties.count - 1)
+                {
+                    self.bestie = self.besties[ii+1];
+                    break;
+                }
+            }
+        }
+        [self reloadData];
+    }
 }
 
 

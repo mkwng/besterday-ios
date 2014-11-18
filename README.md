@@ -4,7 +4,7 @@ The best thing you did yesterday.
 
 ### Work log
 
-Wes: 16h40m
+Wes: 17h30m
 
 LW: 3h30m
 
