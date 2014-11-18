@@ -12,7 +12,7 @@
 #import "Bestie.h"
 #import "UserProfileViewController.h"
 
-@interface ComposeViewController ()<UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface ComposeViewController ()<UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 @property (weak, nonatomic) IBOutlet UITextView *bestieTextView;
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
@@ -23,6 +23,7 @@
 @property NSArray* besties;
 
 @property BOOL displayingImageOnly;
+@property BOOL swipedLeft;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 
 @end
@@ -207,10 +208,12 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
             {
                 if ([sender velocityInView:self.view].x > 0 && ii > 0)
                 {
+                    self.swipedLeft = NO;
                     [self showNewBestie:self.besties[ii-1] withColor:(self.backgroundColor - 1) % 4];
                 }
                 else if ([sender velocityInView:self.view].x < 0 && ii < self.besties.count - 1)
                 {
+                    self.swipedLeft = YES;
                     [self showNewBestie:self.besties[ii+1] withColor:(self.backgroundColor + 1) % 4];
 
                     break;
@@ -227,18 +230,8 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     vc.bestie = bestie;
     vc.backgroundColor = (self.backgroundColor + 1) % 4;
     
-//    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-//    
-//    vc.view.frame = CGRectMake(-window.frame.size.width, 0, window.frame.size.width, window.frame.size.height);
-//    [self.view addSubview:vc.view];
-//    
-//    [UIView animateWithDuration:1.0 animations:^{
-//        vc.view.frame = window.frame;
-//        
-//    } completion:^(BOOL finished) {
-//        [self.bestieTextView removeObserver:self forKeyPath:@"contentSize"];
-//        [self dismissViewControllerAnimated:NO completion:nil];
-//    }];
+    vc.modalPresentationStyle = UIModalPresentationCustom;
+    vc.transitioningDelegate = self;
     
     [self presentViewController:vc animated:YES completion:nil];
 
@@ -284,6 +277,38 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
             [self presentViewController:vc animated:YES completion:nil];
         }];
     }
+}
+
+- (NSTimeInterval)transitionDuration:(id )transitionContext {
+    return 0.5;
+}
+
+// This method can only  be a nop if the transition is interactive and not a percentDriven interactive transition.
+- (void)animateTransition:(id ) transitionContext {
+    ComposeViewController *toViewController = (ComposeViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    
+    CGFloat initialX = (self.swipedLeft) ? window.frame.size.width : -window.frame.size.width;
+    
+    toViewController.view.frame = CGRectMake(initialX, 0, window.frame.size.width, window.frame.size.height);
+    [window addSubview:toViewController.view];
+    
+    [toViewController.view layoutSubviews];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        toViewController.view.frame = window.frame;
+    } completion:^(BOOL finished) {
+        [transitionContext completeTransition:YES];
+    }];
+}
+
+- (id )animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    return self;
+}
+
+- (id )animationControllerForDismissedController:(UIViewController *)dismissed {
+    return self;
 }
 
 
