@@ -148,8 +148,10 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
         self.monthLabel.text = [self.bestie createMonth];
         self.dayLabel.text = [self.bestie createDay];
         
-        if (self.imageToAdd)
+        if (self.imageToAdd) {
             self.bestieImageView.image = self.imageToAdd;
+            self.bestieImageView.contentMode = UIViewContentModeScaleAspectFit;
+        }
         else
             self.bestieImageView.image = self.bestie.image;
 
