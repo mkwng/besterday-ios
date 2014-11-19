@@ -69,6 +69,7 @@
     self.bestieCountStat.imageAsset.image = [UIImage imageNamed:@"star"];
     
     //longest streak
+    self.completionStat.value.text = [NSString stringWithFormat:@"%2.0f", [self completionRate]];
     self.longestStreakStat.value.text = [NSString stringWithFormat:@"%ld",[self getLongestStreakOfBesties:self.besties]];
     self.bestieCountStat.value.text = [NSString stringWithFormat:@"%ld", self.besties.count];
 }
@@ -101,6 +102,32 @@
     }
     NSLog(@"Current streak is %ld", currentStreak);
     return longestStreak;
+}
+
+- (float)completionRate{
+    // number of besties divided by number of days since the first post
+    
+    
+    // get the first day the user posted
+    Bestie * firstBestie = [self.besties lastObject];
+    NSDate * firstDate = firstBestie.createDate;
+    
+    // get yesterday
+    NSDate * yesterday = [NSDate dateWithTimeIntervalSinceNow:-86400];
+    
+    
+    // get number of midnights between them
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+
+    NSInteger startDay=[gregorian ordinalityOfUnit:NSCalendarUnitDay
+                                       inUnit: NSCalendarUnitEra forDate:firstDate];
+    NSInteger endDay=[gregorian ordinalityOfUnit:NSCalendarUnitDay
+                                     inUnit: NSCalendarUnitEra forDate:yesterday];
+    NSInteger difference = endDay-startDay+1;
+
+    float percentage = 100.0f * self.besties.count / difference;
+
+    return percentage;
 }
 
 - (void)layoutSubviews {

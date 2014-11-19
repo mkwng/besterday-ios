@@ -31,7 +31,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat contentOffset = scrollView.contentOffset.y;
-    NSLog(@"Constraint %f", self.headerHeightConstraint.constant);
+//    NSLog(@"Constraint %f", self.headerHeightConstraint.constant);
     if (contentOffset < 0) {
         self.headerHeightConstraint.constant = self.headerHeightConstant;
         CALayer *layer = self.header.layer;
