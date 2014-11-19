@@ -74,8 +74,8 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     
     UIView * calendarView = objects[0];
     
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    calendarView.center = CGPointMake(window.center.x, 80);
+    CGRect frame = [[UIScreen mainScreen] bounds];
+    calendarView.center = CGPointMake(frame.size.width/2, 80);
     [self.containerView addSubview:calendarView];
 
     self.displayingImageOnly = NO;
