@@ -367,6 +367,8 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     
     if (self.isPresenting) {
         NSLog(@"I'm presenting");
+        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        toViewController.view.frame = window.frame;
         [containerView addSubview:toViewController.view];
         toViewController.view.alpha = 0;
         [UIView animateWithDuration:0.5 animations:^{
