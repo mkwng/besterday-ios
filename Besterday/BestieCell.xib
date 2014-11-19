@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
@@ -13,14 +13,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I built something awesome." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDJ-EO-dO6">
-                        <rect key="frame" x="24" y="34" width="72" height="51"/>
+                        <rect key="frame" x="24.5" y="34.5" width="71.5" height="50.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="bmm-tk-Phn"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="bmm-tk-Phn"/>
+                            </mask>
+                        </variation>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bxy-DE-XKv"/>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday, 11/17" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQU-Bl-cFK">
-                        <rect key="frame" x="25" y="6" width="70" height="12"/>
+                        <rect key="frame" x="25" y="6" width="69.5" height="12"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -32,6 +40,7 @@
             <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="vQU-Bl-cFK" secondAttribute="centerX" id="9bu-GQ-7N6"/>
+                <constraint firstItem="MDJ-EO-dO6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vQU-Bl-cFK" secondAttribute="bottom" id="GC3-2t-u6w"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MDJ-EO-dO6" secondAttribute="trailing" constant="8" id="J96-kf-nNm"/>
                 <constraint firstItem="vQU-Bl-cFK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="6" id="KDE-aD-DQl"/>
                 <constraint firstItem="MDJ-EO-dO6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="MPw-rw-8VW"/>

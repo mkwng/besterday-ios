@@ -28,6 +28,18 @@
     // TODO: fill out image when we have 'em
     // self.bestieImageView =
     
+    // make the text not push the date off the top of the screen
+    NSLayoutConstraint *height =[NSLayoutConstraint
+                                 constraintWithItem:self.bestieTextLabel
+                                 attribute:NSLayoutAttributeHeight
+                                 relatedBy:0
+                                 toItem:self
+                                 attribute:NSLayoutAttributeHeight
+                                 multiplier:1.0
+                                 constant:-50];
+    [self addConstraint:height];
+
+    
     UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapGesture:)];
     [self addGestureRecognizer:tgr];
 }
