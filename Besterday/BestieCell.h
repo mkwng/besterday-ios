@@ -8,16 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "Bestie.h"
+#import "UserProfileViewController.h"
 
 @interface BestieCell : UICollectionViewCell
 
 @property (nonatomic, strong) Bestie *bestie;
 
 // this should be a BestieCellColor, but the compiler doesn't like that
-@property int color;
+@property (nonatomic, assign) int color;
 
 // NOTE: is this set magically already somewhere?
-@property (nonatomic, strong) UIViewController *parentVC;
+@property (nonatomic, strong) UserProfileViewController *parentVC;
 
 typedef enum BestieCellColor : NSUInteger {
     BestieCellColorGreen,

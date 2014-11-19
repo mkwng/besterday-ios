@@ -13,9 +13,10 @@
 #import <Parse/Parse.h>
 #import "BestieCell.h"
 
-@interface UserProfileViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
+@interface UserProfileViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate,UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
 @property (weak, nonatomic) IBOutlet UserHeaderView *header;
+@property (nonatomic, assign) BOOL isPresenting;
 
 // Bestie feed
 @property NSArray *besties;
@@ -30,6 +31,9 @@
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // Always animate cells when scrolling
+    self.shouldAnimateCells = YES;
+    
     CGFloat contentOffset = scrollView.contentOffset.y;
     //NSLog(@"Constraint %f", self.headerHeightConstraint.constant);
     if (contentOffset < 0) {
@@ -68,6 +72,13 @@
     }
 }
 
+- (id)init {
+    self = [super init];
+    // Animations are enabled by default, but may be disabled by certain views
+    self.shouldAnimateCells = YES;
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.headerHeightConstant = 240;
@@ -94,8 +105,6 @@
 - (void)setupNavigationBar {
     self.navigationController.navigationBar.translucent = NO;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu)];
-    
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Grow" style:UIBarButtonItemStylePlain target:self action:@selector(onGrow)];
 }
 
 - (void)setupCollectionView {
@@ -118,11 +127,11 @@
         }
     }];
 }
+
 - (IBAction)onLongPress:(UILongPressGestureRecognizer *)sender {
     NSLog(@"Long press triggered");
     [self onMenu];
 }
-
 
 - (void) addView:(UIView *)view {
     [self.view addSubview:view];
@@ -179,14 +188,20 @@
             cell.frame = CGRectMake(self.bestieCollectionView.frame.size.width, self.bestieCollectionView.frame.size.height, 0, 0);
         }
     }
+    
     cell.alpha = 0.0;
     [UIView animateWithDuration:0.5 animations:^{
         cell.alpha = 1;
     }];
     
-    [UIView animateWithDuration:0.1 animations:^(void){
+    if (self.shouldAnimateCells) {
+        [UIView animateWithDuration:0.1 animations:^(void){
+            cell.frame = frame;
+        }];
+    } else {
         cell.frame = frame;
-    }];
+    }
+
     cell.layer.masksToBounds = NO;
     cell.layer.borderColor = [UIColor blackColor].CGColor;
     cell.layer.borderWidth = 0.5;
@@ -194,7 +209,6 @@
     cell.layer.shadowOffset = CGSizeMake(0, 5);
     cell.layer.shadowOpacity = .5;
     cell.layer.shadowRadius = 2.0;
-
     return cell;
 }
 
@@ -208,17 +222,51 @@
     [self presentViewController:[[MenuViewController alloc] init] animated:YES completion:nil];
 }
 
-- (void)onGrow{
-    [UIView animateWithDuration:2.0 animations:^{
-        CGRect frame = self.header.frame;
-        frame.size.height =500;
-        self.header.frame = frame;
-    }];
-    //    [self.view setNeedsLayout];
-}
-- (BOOL) prefersStatusBarHidden
-{
+- (BOOL) prefersStatusBarHidden {
     return YES;
+}
+
+#pragma mark - Transition delegate methods
+
+- (NSTimeInterval)transitionDuration:(id )transitionContext {
+    return 0.5;
+}
+
+- (void)animateTransition:(id) transitionContext {
+    UIView *containerView = [transitionContext containerView];
+    UIViewController *toViewController = (UserProfileViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    
+    if (self.isPresenting) {
+        NSLog(@"I'm presenting");
+        [containerView addSubview:toViewController.view];
+        toViewController.view.alpha = 0;
+        [UIView animateWithDuration:0.5 animations:^{
+            toViewController.view.alpha = 1;
+        } completion:^(BOOL finished) {
+            NSLog(@"Completion");
+            BOOL completed = ![transitionContext transitionWasCancelled];
+            [transitionContext completeTransition:completed];
+        }];
+    } else {
+        NSLog(@"I'm dismissing");
+        [UIView animateWithDuration:0.4 animations:^{
+            fromViewController.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+            [fromViewController.view removeFromSuperview];
+        }];
+    }
+}
+
+- (id)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    self.isPresenting = YES;
+    return self;
+}
+
+- (id)animationControllerForDismissedController:(UIViewController *)dismissed {
+    self.isPresenting = NO;
+    return self;
 }
 
 @end

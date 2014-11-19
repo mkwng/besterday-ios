@@ -13,19 +13,23 @@
 #import "UserProfileViewController.h"
 
 @interface ComposeViewController ()<UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
+
+@property (weak, nonatomic) IBOutlet UIImageView *bestieImageView;
 @property (weak, nonatomic) IBOutlet UITextView *bestieTextView;
 
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;
 @property UIImage* imageToAdd;
-@property (weak, nonatomic) IBOutlet UIImageView *bestieImageView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property NSArray* besties;
 
 @property BOOL displayingImageOnly;
 @property BOOL swipedLeft;
-@property UIPercentDrivenInteractiveTransition * interactiveTransition;
+@property UIPercentDrivenInteractiveTransition *interactiveTransition;
+
+@property (nonatomic, assign) BOOL isPostingTransition;
+@property (nonatomic, assign) BOOL isPresenting;
 
 @end
 
@@ -75,10 +79,10 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     self.doneButton.backgroundColor = [UIColor colorWithRed:103/255.0f green:176/255.0f blue:153/255.0f alpha:1.0f];
     self.doneButton.layer.cornerRadius = 8;
     self.doneButton.clipsToBounds = YES;
-
     
     [self reloadData];
 }
+
 - (IBAction)onTap:(UITapGestureRecognizer *)sender {
     if (self.bestieImageView.image)
     {
@@ -252,8 +256,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
 }
 
-- (void) showNewBestie: (Bestie *) bestie withColor: (BestieCellColor) color
-{
+- (void) showNewBestie: (Bestie *) bestie withColor: (BestieCellColor) color {
     ComposeViewController *vc = [[ComposeViewController alloc] init];
     vc.bestie = bestie;
     vc.backgroundColor = color;
@@ -262,13 +265,13 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     vc.transitioningDelegate = self;
     
     [self presentViewController:vc animated:YES completion:nil];
-
 }
 
 
 - (void)onMenu {
     [self presentViewController:[[MenuViewController alloc] init] animated:YES completion:nil];
 }
+
 - (IBAction)onPhoto:(id)sender {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -295,25 +298,48 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     if (self.bestie) {
         // Update the existing bestie with new data
         [Bestie saveBestie:self.bestie text:self.bestieTextView.text date:self.bestie.createdAt withImage:self.imageToAdd completion:^(BOOL succeeded, NSError *error) {
-            NSLog(@"Bestie successfully saved/updated!");
+            [self postingCompletion:succeeded error:error];
         }];
     } else {
         // Create a new bestie
         [Bestie createNewestBestie:self.bestieTextView.text withImage:self.imageToAdd completion:^(BOOL succeeded, NSError *error) {
-            NSLog(@"New Bestie successfully created");
+            [self postingCompletion:succeeded error:error];
         }];
     }
-    UserProfileViewController *vc = [[UserProfileViewController alloc] init];
-    [self presentViewController:vc animated:YES completion:nil];
-
 }
+
+-(void)postingCompletion:(BOOL)succeeded error:(NSError *)error {
+    if (error != nil) {
+        NSLog(@"Posting ERROR: %@", error);
+        return;
+    }
+    NSLog(@"Bestie successfully saved/updated!");
+    self.isPostingTransition = YES;
+    
+    UserProfileViewController *vc = [[UserProfileViewController alloc] init];
+    vc.shouldAnimateCells = NO;
+    vc.modalPresentationStyle = UIModalPresentationCustom;
+    vc.transitioningDelegate = self;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark - Transition delegate methods
 
 - (NSTimeInterval)transitionDuration:(id )transitionContext {
     return 0.5;
 }
 
 // This method can only  be a nop if the transition is interactive and not a percentDriven interactive transition.
-- (void)animateTransition:(id ) transitionContext {
+- (void)animateTransition:(id) transitionContext {
+    NSLog(@"animateTransition");
+    // Different custom transition for post-posting behavior
+    if (self.isPostingTransition) {
+        NSLog(@"animateTransition -- post-post");
+        [self animatePostingTransition:transitionContext];
+        return;
+    }
+    
+    // Animation transition for card-to-card swiping
     UIView *containerView = [transitionContext containerView];
     ComposeViewController *toViewController = (ComposeViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
 
@@ -334,24 +360,59 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     }];
 }
 
-- (id )animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+- (void)animatePostingTransition:(id) transitionContext {
+    UIView *containerView = [transitionContext containerView];
+    UserProfileViewController *toViewController = (UserProfileViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    
+    if (self.isPresenting) {
+        NSLog(@"I'm presenting");
+        [containerView addSubview:toViewController.view];
+        toViewController.view.alpha = 0;
+        [UIView animateWithDuration:0.5 animations:^{
+            toViewController.view.alpha = 1;
+        } completion:^(BOOL finished) {
+            NSLog(@"Completion");
+            BOOL completed = ![transitionContext transitionWasCancelled];
+            [transitionContext completeTransition:completed];
+        }];
+    } else {
+        NSLog(@"I'm dismissing");
+        [UIView animateWithDuration:0.4 animations:^{
+            fromViewController.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+            [fromViewController.view removeFromSuperview];
+        }];
+    }
+}
+
+- (id)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    NSLog(@"animationControllerForPresentedController");
+    if (self.isPostingTransition) {
+        self.isPresenting = YES;
+    }
     return self;
 }
 
-- (id )animationControllerForDismissedController:(UIViewController *)dismissed {
+- (id)animationControllerForDismissedController:(UIViewController *)dismissed {
+    NSLog(@"animationControllerForDismissedController");
+    if (self.isPostingTransition) {
+        self.isPresenting = NO;
+    }
     return self;
 }
 
-- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator
-{
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
+    if (self.isPostingTransition) {
+        return nil;
+    }
     self.interactiveTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
     self.interactiveTransition.completionSpeed = 0.99;
-    
     return self.interactiveTransition;
 }
 
-- (BOOL) prefersStatusBarHidden
-{
+- (BOOL)prefersStatusBarHidden {
     return YES;
 }
 

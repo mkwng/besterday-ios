@@ -36,7 +36,8 @@
     // Initialization code
 }
 
--(void) setColor:(int)color {
+@synthesize color = _color;
+-(void)setColor:(int)color {
     _color = color;
     
     UIColor *textColor = [UIColor whiteColor];
@@ -69,6 +70,9 @@
     vc.textColor = self.bestieTextLabel.textColor;
     
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    nvc.modalPresentationStyle = UIModalPresentationCustom;
+    nvc.transitioningDelegate = self.parentVC;
     [self.parentVC presentViewController:nvc animated:YES completion:nil];
 }
+
 @end
