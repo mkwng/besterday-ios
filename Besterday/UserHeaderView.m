@@ -84,17 +84,17 @@
     NSString *dateForComparison;
     
     // compare it to the day before that
-    NSString *dateToCompare = [formatter stringFromDate:[NSDate dateWithTimeInterval:-86400 sinceDate:bestie.createDate]];
+    NSString *dateToCompare = [formatter stringFromDate:[NSDate dateWithTimeInterval:-0 sinceDate:bestie.createDate]];
     for (int i = 1; i < besties.count; i++) {
         bestie = besties[i];
         dateForComparison = bestie.formattedCreateDate;
-//        NSLog (@"Comparing date %@ to date %@", dateForComparison, dateToCompare);
+        NSLog (@"%d. Comparing date of bestie %@ to date %@", i, dateForComparison, dateToCompare);
         if ([dateForComparison isEqualToString:dateToCompare]) {
             currentStreak++;
         }
-        else
-            currentStreak = 0;
-        
+        else {
+            currentStreak = 1;
+        }
         if (currentStreak > longestStreak) {
             longestStreak = currentStreak;
         }

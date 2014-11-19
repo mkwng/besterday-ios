@@ -31,7 +31,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat contentOffset = scrollView.contentOffset.y;
-//    NSLog(@"Constraint %f", self.headerHeightConstraint.constant);
+    //NSLog(@"Constraint %f", self.headerHeightConstraint.constant);
     if (contentOffset < 0) {
         self.headerHeightConstraint.constant = self.headerHeightConstant;
         CALayer *layer = self.header.layer;
@@ -39,6 +39,9 @@
         rotationAndPerspectiveTransform.m34 = 1.0/-500;
         rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, (-contentOffset/self.headerHeightConstant)* M_PI_2, 1, 0, 0);
         layer.transform = rotationAndPerspectiveTransform;
+        
+        self.header.alpha = 1 - (-contentOffset/self.headerHeightConstant);
+        //NSLog(@"ALPHA: %f", self.header.alpha);
         
         /*CALayer *bestieLayer = self.bestieCollectionView.layer;
         CATransform3D rotationAndPerspectiveTransform2 = CATransform3DIdentity;
@@ -49,6 +52,8 @@
     }
     else  if (contentOffset > 0) {
         if (self.headerHeightConstraint.constant <= self.headerHeightConstant) {
+            self.header.alpha = 1 - (contentOffset/self.headerHeightConstant);
+            //NSLog(@"ALPHA: %f", self.header.alpha);
             self.headerHeightConstraint.constant = self.headerHeightConstant - contentOffset;
             
             CALayer *layer = self.header.layer;
@@ -56,6 +61,8 @@
             rotationAndPerspectiveTransform.m34 = 1.0/-500;
             rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, (-contentOffset/self.headerHeightConstant)* M_PI_2, 1, 0, 0);
             layer.transform = rotationAndPerspectiveTransform;
+            
+            
         }
         
     }
@@ -172,10 +179,22 @@
             cell.frame = CGRectMake(self.bestieCollectionView.frame.size.width, self.bestieCollectionView.frame.size.height, 0, 0);
         }
     }
+    cell.alpha = 0.0;
+    [UIView animateWithDuration:0.5 animations:^{
+        cell.alpha = 1;
+    }];
     
-    [UIView animateWithDuration:0.2 animations:^(void){
+    [UIView animateWithDuration:0.1 animations:^(void){
         cell.frame = frame;
     }];
+    cell.layer.masksToBounds = NO;
+    cell.layer.borderColor = [UIColor blackColor].CGColor;
+    cell.layer.borderWidth = 0.5;
+    cell.layer.shadowColor = [UIColor blackColor].CGColor;
+    cell.layer.shadowOffset = CGSizeMake(0, 5);
+    cell.layer.shadowOpacity = .5;
+    cell.layer.shadowRadius = 2.0;
+
     return cell;
 }
 
@@ -185,7 +204,7 @@
 
 // DEBUG: just for testing; not wired up any more, but if you need it, make a button or something to trigger these
 - (void)onMenu {
-    NSLog(@"ALPHA: %f", self.view.alpha);
+    //NSLog(@"ALPHA: %f", self.view.alpha);
     [self presentViewController:[[MenuViewController alloc] init] animated:YES completion:nil];
 }
 
