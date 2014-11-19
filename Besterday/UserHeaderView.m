@@ -127,9 +127,11 @@
     NSInteger daysCompleted = 0;
     
     Bestie *mostRecentBestie = [self.besties firstObject];
-    NSDate *currentDate = mostRecentBestie.createdAt;
+    Bestie *lastBestie = [self.besties lastObject];
+    NSDate *currentDate = mostRecentBestie.createDate;
+    
     NSString *dateIterator = [formatter stringFromDate:[NSDate dateWithTimeInterval:-0 sinceDate:currentDate]];
-    NSString *dateJoined = [formatter stringFromDate:self.PFuser.createdAt];
+    NSString *dateJoined = [formatter stringFromDate:lastBestie.createDate];
     NSMutableDictionary *datesSinceJoined = [[NSMutableDictionary alloc]init];
     while (![dateIterator isEqual:dateJoined]) {
         //NSLog(@"Date: %@", dateIterator);
