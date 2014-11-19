@@ -88,6 +88,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 }
 
 - (IBAction)onTap:(UITapGestureRecognizer *)sender {
+    [self.bestieTextView resignFirstResponder];
     if (self.bestieImageView.image)
     {
         if (self.displayingImageOnly)
@@ -221,7 +222,10 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 - (IBAction)onPan:(UIPanGestureRecognizer *)sender
 {
     if (sender.state == UIGestureRecognizerStateBegan)
+    
     {
+        //dismiss keyboard
+        [self.bestieTextView resignFirstResponder];
         // find the current bestie in the array
         for (int ii = 0; ii < self.besties.count; ii++) {
             Bestie * bestie = (Bestie*) self.besties[ii];
