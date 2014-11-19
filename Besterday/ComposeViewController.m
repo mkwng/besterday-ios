@@ -31,6 +31,9 @@
 @property (nonatomic, assign) BOOL isPostingTransition;
 @property (nonatomic, assign) BOOL isPresenting;
 
+@property (nonatomic, strong) UIFont *placeholderFont;
+@property (nonatomic, strong) UIFont *standardFont;
+
 @end
 
 @implementation ComposeViewController
@@ -40,6 +43,9 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavigationBar];
+
+    self.standardFont = [UIFont systemFontOfSize:18.0];
+    self.placeholderFont = [UIFont italicSystemFontOfSize:18.0];
 
     // get the list of all besties so that we can browse them
     PFUser *user = [PFUser currentUser];
@@ -52,13 +58,11 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     }];
     
     // set default color scheme for composing new besties
-    if (!self.backgroundColor)
-    {
+    if (!self.backgroundColor) {
         self.containerView.backgroundColor = [UIColor colorWithRed:237/255.0f green:196/255.0f blue:86/255.0f alpha:1.0f];
+        self.textColor = [UIColor whiteColor];
         self.bestieTextView.textColor = [UIColor whiteColor];
-    }
-    else
-    {
+    } else {
         self.bestieTextView.textColor = self.textColor;
     }
     
@@ -132,10 +136,10 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
             break;
     }
     
+    self.textColor = textColor;
     self.bestieTextView.textColor = textColor;
     
-    if (self.bestie)
-    {
+    if (self.bestie) {
         self.bestieTextView.text = self.bestie.text;
     
         self.monthLabel.text = [self.bestie createMonth];
@@ -156,9 +160,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
             self.containerView.backgroundColor = [UIColor colorWithHue:h saturation:s brightness:b alpha:alpha];
         
         self.bestieImageView.backgroundColor = self.containerView.backgroundColor;
-    }
-    else
-    {
+    } else {
         NSDate * yesterday = [NSDate dateWithTimeIntervalSinceNow:-86400];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 
@@ -168,6 +170,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
         [formatter setDateFormat:@"d"];
         self.dayLabel.text = [formatter stringFromDate:yesterday];
         
+        self.bestieTextView.font = self.placeholderFont;
         self.bestieTextView.text = (NSString *)kInitialText;
     }
 }
@@ -197,16 +200,22 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
     return [probablyEmpty isEqualToString:@""];
 }
 
-- (void)textViewDidChange:(UITextView *)textView {
-    [self.doneButton setEnabled:![self stringIsWhitespaceOrEmpty:self.bestieTextView.text]];
+- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    // If we're composing, remove the help text and reset the text color
+    if (!self.bestie && [self.bestieTextView.text isEqualToString: (NSString *)kInitialText]) {
+        self.bestieTextView.font = self.standardFont;
+        self.bestieTextView.text = @"";
+    }
+    return YES;
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView {
-    // if we're composing a new bestie, nuke the placeholder text as soon as you click in
-    if (!self.bestie && [self.bestieTextView.text isEqualToString:(NSString *)kInitialText]) {
-        self.bestieTextView.text = @"";
-        [self.doneButton setEnabled:NO];
+- (void)textViewDidChange:(UITextView *)textView {
+    // If we're composing a new bestie and the text is empty, add the placeholder text back
+    if (!self.bestie && [self.bestieTextView.text isEqualToString: @""]) {
+        self.bestieTextView.font = self.placeholderFont;
+        self.bestieTextView.text = (NSString *)kInitialText;
     }
+    [self.doneButton setEnabled:![self stringIsWhitespaceOrEmpty:self.bestieTextView.text]];
 }
 
 - (IBAction)onPan:(UIPanGestureRecognizer *)sender
