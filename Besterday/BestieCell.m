@@ -69,10 +69,9 @@
     vc.backgroundColor = self.color;
     vc.textColor = self.bestieTextLabel.textColor;
     
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-    nvc.modalPresentationStyle = UIModalPresentationCustom;
-    nvc.transitioningDelegate = self.parentVC;
-    [self.parentVC presentViewController:nvc animated:YES completion:nil];
+    vc.modalPresentationStyle = UIModalPresentationCustom;
+    vc.transitioningDelegate = self.parentVC;
+    [self.parentVC presentViewController:vc animated:YES completion:nil];
 }
 
 @end

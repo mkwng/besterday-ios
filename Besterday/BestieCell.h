@@ -18,7 +18,7 @@
 @property (nonatomic, assign) int color;
 
 // NOTE: is this set magically already somewhere?
-@property (nonatomic, strong) UserProfileViewController *parentVC;
+@property (nonatomic, strong) UserProfileViewController<UIViewControllerTransitioningDelegate> *parentVC;
 
 typedef enum BestieCellColor : NSUInteger {
     BestieCellColorGreen,

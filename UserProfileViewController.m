@@ -93,7 +93,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     self.view.alpha = 1;
     
-    [self setupNavigationBar];
+    //[self setupNavigationBar];
 
 }
 
@@ -240,6 +240,8 @@
     
     if (self.isPresenting) {
         NSLog(@"I'm presenting");
+        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        toViewController.view.frame = window.frame;
         [containerView addSubview:toViewController.view];
         toViewController.view.alpha = 0;
         [UIView animateWithDuration:0.5 animations:^{

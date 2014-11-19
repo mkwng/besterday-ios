@@ -42,7 +42,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupNavigationBar];
+//    [self setupNavigationBar];
 
     self.standardFont = [UIFont systemFontOfSize:18.0];
     self.placeholderFont = [UIFont italicSystemFontOfSize:18.0];
@@ -201,7 +201,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 }
 
 - (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    // If we're composing, remove the help text and reset the text color
+    // If we're composing, remove the help text and reset the text style
     if (!self.bestie && [self.bestieTextView.text isEqualToString: (NSString *)kInitialText]) {
         self.bestieTextView.font = self.standardFont;
         self.bestieTextView.text = @"";
