@@ -62,7 +62,7 @@ There are also a few ways to browse your besties:
 
 ### Work log
 
-Wes: 22h55m
+Wes: 23h
 Larry: 21h
 Raylene: 16h
 
@@ -75,7 +75,8 @@ Developer notes are on [Quip](https://quip.com/8WIxAZrbzGQE).
 
 Credits
 ---------
+* [Parse](https://parse.com/docs/ios_guide#top/iOS)
+* [Facebook iOS SDK](https://developers.facebook.com/docs/ios/)
 * [AFNetworking](https://github.com/AFNetworking/AFNetworking)
 * [DateTools](https://github.com/MatthewYork/DateTools)
-* [BDBOAuth1Manager](https://github.com/bdbergeron/BDBOAuth1Manager)
 * [TTTAttributedLabel](https://github.com/mattt/TTTAttributedLabel)
