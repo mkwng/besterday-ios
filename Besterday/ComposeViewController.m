@@ -80,11 +80,22 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
     self.displayingImageOnly = NO;
     
-    self.doneButton.backgroundColor = [UIColor colorWithRed:103/255.0f green:176/255.0f blue:153/255.0f alpha:1.0f];
+    [self doneButtonSetEnabled:YES];
     self.doneButton.layer.cornerRadius = 8;
     self.doneButton.clipsToBounds = YES;
     
     [self reloadData];
+}
+
+- (void)doneButtonSetEnabled:(BOOL)enabled {
+    [self.doneButton setEnabled:enabled];
+    if (enabled) {
+        self.doneButton.backgroundColor = [UIColor colorWithRed:103/255.0f green:176/255.0f blue:153/255.0f alpha:1.0f];
+        self.doneButton.alpha = 1;
+    } else {
+        self.doneButton.backgroundColor = [UIColor colorWithRed:184/255.0f green:184/255.0f blue:184/255.0f alpha:1.0f];
+        self.doneButton.alpha = 0.5;
+    }
 }
 
 - (IBAction)onTap:(UITapGestureRecognizer *)sender {
@@ -220,7 +231,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
         self.bestieTextView.font = self.placeholderFont;
         self.bestieTextView.text = (NSString *)kInitialText;
     }
-    [self.doneButton setEnabled:![self stringIsWhitespaceOrEmpty:self.bestieTextView.text]];
+    [self doneButtonSetEnabled:![self stringIsWhitespaceOrEmpty:self.bestieTextView.text]];
 }
 
 - (IBAction)onPan:(UIPanGestureRecognizer *)sender
@@ -311,7 +322,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
 
 // TODO: make the animation post-posting better. Also, reuse completion blocks?
 - (IBAction)onPost:(id)sender {
-    [self.doneButton setEnabled:NO];
+    [self doneButtonSetEnabled:NO];
     if (self.bestie) {
         // Update the existing bestie with new data
         [Bestie saveBestie:self.bestie text:self.bestieTextView.text date:self.bestie.createdAt withImage:self.imageToAdd completion:^(BOOL succeeded, NSError *error) {
