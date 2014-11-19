@@ -24,6 +24,7 @@
 @property (nonatomic, strong) BestieCell *prototypeCell;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerHeightConstraint;
 @property (nonatomic, assign) CGFloat headerHeightConstant;
+@property (nonatomic, strong) NSIndexPath *indexPathSelected;
 
 @end
 
@@ -214,7 +215,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    self.indexPathSelected = indexPath;
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    
 }
 
 // DEBUG: just for testing; not wired up any more, but if you need it, make a button or something to trigger these
@@ -241,6 +244,19 @@
     if (self.isPresenting) {
         NSLog(@"I'm presenting");
         UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        /*BestieCell *tempBestie = [self.bestieCollectionView dequeueReusableCellWithReuseIdentifier:@"BestieCell" forIndexPath:self.indexPathSelected];
+
+        //tempBestie.bestie = self.besties[self.indexPathSelected.row];
+        UICollectionViewLayoutAttributes *attributes = [self.bestieCollectionView layoutAttributesForItemAtIndexPath:self.indexPathSelected];
+        
+        
+        // alternate colors
+        [tempBestie setColor: self.indexPathSelected.row % 3];
+        
+        tempBestie.frame = attributes.bounds;
+        [window addSubview:tempBestie.viewForBaselineLayout];*/
+        
+
         toViewController.view.frame = window.frame;
         [containerView addSubview:toViewController.view];
         toViewController.view.alpha = 0;

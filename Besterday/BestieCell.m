@@ -24,6 +24,7 @@
     // NSLog(@"BestieCell setBestie: %@", bestie);
     _bestie = bestie;
     self.bestieTextLabel.text = bestie.text;
+    self.bestieImageView.image = bestie.image;
     self.bestieDateLabel.text = [bestie createFullDate];
     // TODO: fill out image when we have 'em
     // self.bestieImageView =

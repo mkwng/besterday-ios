@@ -96,6 +96,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
             [UIView animateWithDuration:1.0 animations:^{
                 self.containerView.alpha = 1.0f;
                 self.bestieImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                self.bestieImageView.backgroundColor = self.containerView.backgroundColor;
                 
             } completion:nil];
             
@@ -106,6 +107,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
             [UIView animateWithDuration:1.0 animations:^{
                 self.containerView.alpha = 0.0f;
                 self.bestieImageView.transform = CGAffineTransformMakeScale(1.1, 1.1);
+                self.bestieImageView.backgroundColor = [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.8f];
             } completion:nil];
             self.displayingImageOnly = YES;
         }
@@ -154,7 +156,7 @@ const NSString * kInitialText = @"What was the best thing that happened to you y
         // Make the background color slightly transparent if there is an image
         CGFloat alpha = 1.0f;
         if (self.bestieImageView.image)
-            alpha = 0.7f;
+            alpha = 0.8f;
         
         CGFloat h, s, b, a;
         if ([self.containerView.backgroundColor getHue:&h saturation:&s brightness:&b alpha:&a])
