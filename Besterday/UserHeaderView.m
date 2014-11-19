@@ -51,7 +51,6 @@
     
     [Bestie bestiesForUserWithTarget:self.PFuser completion:^(NSArray *besties, NSError *error) {
         self.besties = [[NSMutableArray alloc] initWithArray:besties];
-        
         [self loadStats];
         [self loadViews];
     }];

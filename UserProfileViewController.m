@@ -121,6 +121,8 @@
         if (error == nil) {
             self.besties = besties;
             [self.bestieCollectionView reloadData];
+            // Don't reanimate the cells on further reloads of data
+            self.shouldAnimateCells = NO;
             NSLog(@"Feed View: Bestie Feed -- loaded %ld besties", besties.count);
         } else {
             NSLog(@"Error loading besties: %@", error);
@@ -188,13 +190,12 @@
             cell.frame = CGRectMake(self.bestieCollectionView.frame.size.width, self.bestieCollectionView.frame.size.height, 0, 0);
         }
     }
-    
-    cell.alpha = 0.0;
-    [UIView animateWithDuration:0.5 animations:^{
-        cell.alpha = 1;
-    }];
-    
+
     if (self.shouldAnimateCells) {
+        cell.alpha = 0.0;
+        [UIView animateWithDuration:0.5 animations:^{
+            cell.alpha = 1;
+        }];
         [UIView animateWithDuration:0.1 animations:^(void){
             cell.frame = frame;
         }];
