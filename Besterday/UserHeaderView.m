@@ -194,7 +194,7 @@
 - (void) loadViews {
     if (self.PFuser) {
         
-        [self.userImageView setImageWithURL: [NSURL URLWithString:(self.PFuser[@"profileImageUrl"])]];
+        [self.userImageView setImageWithURL: [NSURL URLWithString:@"https://graph.facebook.com/10101363470605773/picture?type=large&return_ssl_resources=1"]];
         self.userNameLabel.text = self.PFuser.username;
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

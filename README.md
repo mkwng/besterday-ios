@@ -23,7 +23,7 @@ Raylene: 16h
 Developer notes are on [Quip](https://quip.com/8WIxAZrbzGQE).
 
 ### Walkthrough
-![Video Walkthrough]()
+![Video Walkthrough](http://i.giphy.com/5xaOcLu9SZBxhDuTwis.gif)
 
 Credits
 ---------
