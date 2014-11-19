@@ -12,6 +12,7 @@
 #import "MenuViewController.h"
 #import <Parse/Parse.h>
 #import "BestieCell.h"
+#import "ComposeViewController.h"
 
 @interface UserProfileViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate,UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
@@ -237,8 +238,9 @@
 }
 
 - (void)animateTransition:(id) transitionContext {
+    NSLog(@"UserProfileViewController animateTransition");
     UIView *containerView = [transitionContext containerView];
-    UIViewController *toViewController = (UserProfileViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     
     if (self.isPresenting) {
@@ -256,12 +258,16 @@
         tempBestie.frame = attributes.bounds;
         [window addSubview:tempBestie.viewForBaselineLayout];*/
         
-
-        toViewController.view.frame = window.frame;
+        ComposeViewController *cvc = (ComposeViewController *)toViewController;
+        
         [containerView addSubview:toViewController.view];
         toViewController.view.alpha = 0;
+        toViewController.view.frame = cvc.animationStartFrame;
+        toViewController.view.center = cvc.animationStartCenter;
+        
         [UIView animateWithDuration:0.5 animations:^{
             toViewController.view.alpha = 1;
+            toViewController.view.frame = window.frame;
         } completion:^(BOOL finished) {
             NSLog(@"Completion");
             BOOL completed = ![transitionContext transitionWasCancelled];

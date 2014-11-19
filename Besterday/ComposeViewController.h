@@ -15,4 +15,7 @@
 @property (nonatomic)BestieCellColor backgroundColor;
 @property UIColor* textColor;
 
+@property (nonatomic, assign) CGRect animationStartFrame;
+@property (nonatomic, assign) CGPoint animationStartCenter;
+
 @end

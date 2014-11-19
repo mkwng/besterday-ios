@@ -77,7 +77,12 @@
 - (IBAction)onTapGesture:(id)sender {
     NSLog(@"Tapped cell!");
 
+    CGPoint location = [sender locationInView:self.parentVC.view];
+    
     ComposeViewController *vc = [[ComposeViewController alloc] init];
+    vc.animationStartFrame = self.bestieImageView.frame;
+    vc.animationStartCenter = location;//self.bestieImageView.center;
+    
     vc.bestie = self.bestie;
     vc.backgroundColor = self.color;
     vc.textColor = self.bestieTextLabel.textColor;
