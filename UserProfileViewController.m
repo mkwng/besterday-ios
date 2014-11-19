@@ -206,10 +206,10 @@
     cell.layer.masksToBounds = NO;
     cell.layer.borderColor = [UIColor blackColor].CGColor;
     cell.layer.borderWidth = 0.5;
-    cell.layer.shadowColor = [UIColor blackColor].CGColor;
+    /*cell.layer.shadowColor = [UIColor blackColor].CGColor;
     cell.layer.shadowOffset = CGSizeMake(0, 5);
     cell.layer.shadowOpacity = .5;
-    cell.layer.shadowRadius = 2.0;
+    cell.layer.shadowRadius = 2.0;*/
     return cell;
 }
 

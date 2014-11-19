@@ -16,6 +16,11 @@
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *backBar;
+@property (weak, nonatomic) IBOutlet UIView *progressBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *progressBarHeight;
+@property (weak, nonatomic) IBOutlet UIView *progressBar2;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *progressBar2Height;
 
 
 - (void)loadUser:(MockUser *)user;
